@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Logic Design 数制 数制是用一组固定符号和统一规则来表示数值的方法，通常包含基数和位权两个基本要素。其中基数是指使用数码的个数，例如：二进制的基数为2，十进制的基数为10。位权是指数制某位所表示的数值权重的大小，例如：十进制数123，1的位权是100，2的位权是10，3的位权是1。二进制数1011，从左至右1、0、1、1的位权依次是8、4、2、1。常用的数制有二、八、十、十六四种进">
+<meta property="og:type" content="website">
+<meta property="og:title" content="逻辑设计基础">
+<meta property="og:url" content="https://y006.github.io/2022/03/09/16-14-26/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="Logic Design 数制 数制是用一组固定符号和统一规则来表示数值的方法，通常包含基数和位权两个基本要素。其中基数是指使用数码的个数，例如：二进制的基数为2，十进制的基数为10。位权是指数制某位所表示的数值权重的大小，例如：十进制数123，1的位权是100，2的位权是10，3的位权是1。二进制数1011，从左至右1、0、1、1的位权依次是8、4、2、1。常用的数制有二、八、十、十六四种进">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-09T08:14:26.000Z">
+<meta property="article:modified_time" content="2022-03-22T13:17:40.718Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="Electrical Engineering">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/03/09/16-14-26/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/03/09/16-14-26/","path":"2022/03/09/16-14-26/","title":"逻辑设计基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>逻辑设计基础 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#logic-design"><span class="nav-number">1.</span> <span class="nav-text">Logic Design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%88%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">数制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%81%E5%88%B6"><span class="nav-number">1.0.2.</span> <span class="nav-text">码制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.0.3.</span> <span class="nav-text">数字系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0"><span class="nav-number">1.0.4.</span> <span class="nav-text">布尔代数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">数字电路概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%98%BB%E6%80%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">高阻态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E6%80%81%E9%97%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">三态门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">组合&#x2F;时序逻辑电路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpio"><span class="nav-number">1.1.4.</span> <span class="nav-text">GPIO</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/03/09/16-14-26/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          逻辑设计基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-09 16:14:26" itemprop="dateCreated datePublished" datetime="2022-03-09T16:14:26+08:00">2022-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-22 21:17:40" itemprop="dateModified" datetime="2022-03-22T21:17:40+08:00">2022-03-22</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/03/09/16-14-26/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/03/09/16-14-26/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="logic-design">Logic Design</h1>
+<h3 id="数制">数制</h3>
+<p>数制是用一组固定符号和统一规则来表示数值的方法，通常包含基数和位权两个基本要素。其中<strong>基数</strong>是指使用数码的个数，例如：二进制的基数为<code>2</code>，十进制的基数为<code>10</code>。<strong>位权</strong>是指数制某位所表示的数值权重的大小，例如：十进制数<code>123</code>，<code>1</code>的位权是<code>100</code>，<code>2</code>的位权是<code>10</code>，<code>3</code>的位权是<code>1</code>。二进制数<code>1011</code>，从左至右<code>1</code>、<code>0</code>、<code>1</code>、<code>1</code>的位权依次是<code>8</code>、<code>4</code>、<code>2</code>、<code>1</code>。常用的数制有<strong>二</strong>、<strong>八</strong>、<strong>十</strong>、<strong>十六</strong>四种进制，书写时可以在相应数值尾部添加字母<strong>B</strong>、<strong>O</strong>、<strong>D</strong>、<strong>H</strong>或者下标<strong>2</strong>、<strong>8</strong>、<strong>10</strong>、<strong>16</strong>进行标识，计算机<strong>传输和保存数据</strong>通常使用的是<strong>二进制</strong>。</p>
+<h3 id="码制">码制</h3>
+<p>码制是计算机存储、传输数据所使用的编码规则；其中原码、反码、补码是计算机设备保存数值类型数据的编码方式，ASCII 与 Unicode 属于保存字符类型数据的编码格式；而 BCD 编码、格雷码则主要用于设备之间的数据<strong>传输以及转换</strong>。</p>
+<blockquote>
+<p>BCD 码的优点在于格式转换容易，十进制数值表达精度较高；缺点是增加了电路进行算术运算的复杂度，并且存储效率较低。</p>
+</blockquote>
+<h3 id="数字系统">数字系统</h3>
+<p>数字系统设计大致分为三个方面</p>
+<ul>
+<li>系统设计
+<ul>
+<li>系统设计是将一个数字系统划分为多个子系统进行设计。</li>
+</ul></li>
+<li>逻辑设计
+<ul>
+<li>逻辑设计是将多个逻辑功能块互联实现特定功能</li>
+</ul></li>
+<li>电路设计</li>
+</ul>
+<p>数字系统的中许多子系统以开关电路的形式存在，开关电路具有一个或多个输入端，一个或多个输出端，输入输出端都取离散值的电路。开关电路一般使用门电路来描述，使用布尔代数进行分析。开关电路有两种——组合电路和时序电路。</p>
+<p>开关电路分类：</p>
+<ul>
+<li>组合电路
+<ul>
+<li>组合电路中输出值仅与当前输入值有关</li>
+<li>组合电路的基本构成是逻辑门，逻辑设计就是将逻辑门相互连接起来以便将电路的输入信号转化为预期的输出信号。</li>
+</ul></li>
+<li>时序电路
+<ul>
+<li>时序电路中输出值不仅与当前输入值有关，也与之前的输入值有关；可以认为时序电路具有记忆功能</li>
+<li>时序电路的基本存储元件（存储之前的值）是触发器，触发器与逻辑门一起组成时序电路——如计数器和寄存器。</li>
+</ul></li>
+</ul>
+<h3 id="布尔代数">布尔代数</h3>
+<p>逻辑设计课程中我们使用二值布尔代数来设计开关电路。我们使用布尔变量来表示电路的输入和输出，其中布尔变量代表逻辑电路中的两种不同状态——</p>
+<p>普通代数中的<strong>交换律</strong>和<strong>结合律</strong>同样可以在布尔代数中使用。</p>
+<p>布尔代数中的交换律表明开关的位置（出现次序）不会影响最终结果，结合律表明开关导通的次序不会影响最终结果。</p>
+<p>在布尔代数中，分配律有两种形式：</p>
+<ul>
+<li><p>一种是普通的分配律：<span class="math inline">\(X(Y+Z)=XY+XZ\)</span></p>
+<p>​ 与运算可以分配在或运算上</p>
+<p>​ 去和括号内相乘</p></li>
+<li><p>另一种被称作第二分配律：<span class="math inline">\(X+(YZ)=(X+Y)(X+Z)\)</span></p>
+<p>​ 或运算可以分配在与运算上</p>
+<p>​ 去和括号内相加</p></li>
+</ul>
+<p>很多布尔代数表达式可以使用一个更简单的表达式替换，每个布尔代数表达式</p>
+<h2 id="数字电路概念">数字电路概念</h2>
+<h3 id="高阻态">高阻态</h3>
+<p>高阻抗状态（<em>High impedance</em>）表示电路中的某个节点具有相对电路中其它点更高的阻抗，电路分析时通常将高阻态作为开路理解。即可以将其视为输出/输入电阻极大，极限状态可以认为是悬空（<em>断路</em>）的状态，高阻态通常使用字母<strong>Z</strong>表示。</p>
+<h3 id="三态门">三态门</h3>
+<p>数字电路中的三态逻辑（<em>Three-state logic</em>）是指其输出既可以是代表<code>0</code>和<code>1</code>的高低电平，也可以是其特有的高阻抗状态（<em>相当于隔断状态，电阻极大，类似于开路</em>）。</p>
+<p>具有高电平、低电平、高阻态三种状态的元器件称为三态器件，三态器件都通过一个控制使能端 B 来控制整个三态门电路的通断。当使能端高电平有效时，三态器件可以正常的<code>0</code>或<code>1</code>输出，当使能端低电平无效时，三态电路将会输出高阻态。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">输入端 A</th>
+<th style="text-align: left;">使能端 B</th>
+<th style="text-align: left;">输出端 C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;"><code>0</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;"><code>1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;"><code>Z</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="组合时序逻辑电路">组合/时序逻辑电路</h3>
+<ul>
+<li><strong>组合逻辑电路</strong>（<em>Combinational Logic Circuit</em>），其任一时刻的稳态输出仅与该时刻输入的变量取值有关，而与该时刻之前输入的变量取值无关。组合电路主要由各种逻辑门（<code>半加器</code>、<code>全加器</code>、<code>半减器</code>、<code>全减器</code>、<code>数据选择器</code>、<code>数据分配器</code>、<code>编码器</code>、<code>译码器</code>）组成，电路中没有记忆元件和反馈线。</li>
+<li><strong>时序逻辑电路</strong>（<em>Sequential Logic Circuit</em>）任意时刻的稳态输出不仅取决于当前输入，还与前一时刻输入的状态有关，换而言之，时序逻辑电路必须拥有特定的储存元件来保存前一次的输入状态。因此，时序逻辑电路除包含有组合逻辑电路以外，还必须含拥有存储信息能力的电路（<code>触发器</code>、<code>寄存器</code>、<code>计数器</code>）。</li>
+</ul>
+<h3 id="gpio">GPIO</h3>
+<p><strong>通用输入输出</strong>（<em>General-purpose input/output</em>），功能类似于 8051 单片机的 P0 到 P3 口，引脚输出的高低电平可由开发人员读写相应寄存器进行控制。该接口有时也称为<strong>总线扩展器</strong>，当开发板接口不够用时，可以通过转接板将其扩展为<code>I²C</code>、<code>SPI</code>等其它串行接口。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/03/09/16-14-26/" title="逻辑设计基础">https://y006.github.io/2022/03/09/16-14-26/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Electrical-Engineering/" rel="tag"># Electrical Engineering</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/05/16-32-26/" rel="prev" title="微机原理与接口技术">
+                  <i class="fa fa-chevron-left"></i> 微机原理与接口技术
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/15/15-32-05/" rel="next" title="记录">
+                  记录 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

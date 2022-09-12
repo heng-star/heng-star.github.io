@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="[TOC] 标准程序 数据标识标准  实验测量数据统一使用measure的首字母m做下标表示 标准数据使用standard的首字母s做下标表示 通过拟合方程计算得出的结果使用calculate的首字母c做下标表示  相对误差计算程序 12345678910%计算相对误差prompt &#x3D; &amp;#x27;请输入测量值Xm&#x3D;&amp;#x27;;Xm &#x3D; input(prompt);prompt">
+<meta property="og:type" content="website">
+<meta property="og:title" content="大学物理实验绘图">
+<meta property="og:url" content="https://y006.github.io/2022/02/25/06-07-35/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="[TOC] 标准程序 数据标识标准  实验测量数据统一使用measure的首字母m做下标表示 标准数据使用standard的首字母s做下标表示 通过拟合方程计算得出的结果使用calculate的首字母c做下标表示  相对误差计算程序 12345678910%计算相对误差prompt &#x3D; &amp;#x27;请输入测量值Xm&#x3D;&amp;#x27;;Xm &#x3D; input(prompt);prompt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://y006.github.io/2022/02/25/06-07-35/image-20211106173254618.png">
+<meta property="og:image" content="https://y006.github.io/2022/02/25/06-07-35/image-20211106173033589.png">
+<meta property="og:image" content="https://y006.github.io/2022/02/25/06-07-35/Users/qjy/Desktop/untitled.png">
+<meta property="article:published_time" content="2022-02-24T22:07:35.000Z">
+<meta property="article:modified_time" content="2022-02-25T16:01:37.024Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="备忘笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://y006.github.io/2022/02/25/06-07-35/image-20211106173254618.png">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/02/25/06-07-35/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/02/25/06-07-35/","path":"2022/02/25/06-07-35/","title":"大学物理实验绘图"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>大学物理实验绘图 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">标准程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E8%AF%86%E6%A0%87%E5%87%86"><span class="nav-number">1.1.</span> <span class="nav-text">数据标识标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E8%AF%AF%E5%B7%AE%E8%AE%A1%E7%AE%97%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">相对误差计算程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E7%82%B9%E4%BD%9C%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text">描点作图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">1.4.</span> <span class="nav-text">求平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">1.5.</span> <span class="nav-text">一元线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%9B%BE"><span class="nav-number">1.6.</span> <span class="nav-text">绘图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%87%BD%E6%95%B0%E6%97%8F%E5%9B%BE%E5%83%8F%E7%BB%98%E5%88%B6"><span class="nav-number">1.7.</span> <span class="nav-text">隐函数族图像绘制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">实验数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%B4%9F%E7%BB%84%E7%94%B5%E8%B7%AF%E5%85%83%E4%BB%B6%E4%BC%8F%E5%AE%89%E7%89%B9%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">非线性负组电路元件伏安特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A6%E7%BA%BF%E4%B8%8A%E6%B3%A2%E7%9A%84%E4%BC%A0%E6%92%AD%E8%A7%84%E5%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">弦线上波的传播规律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E6%BB%9E%E6%9B%B2%E7%BA%BF"><span class="nav-number">2.3.</span> <span class="nav-text">磁滞曲线</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/02/25/06-07-35/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          大学物理实验绘图
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-25 06:07:35" itemprop="dateCreated datePublished" datetime="2022-02-25T06:07:35+08:00">2022-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-26 00:01:37" itemprop="dateModified" datetime="2022-02-26T00:01:37+08:00">2022-02-26</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/02/25/06-07-35/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/25/06-07-35/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>[TOC]</p>
+<h2 id="标准程序">标准程序</h2>
+<h3 id="数据标识标准">数据标识标准</h3>
+<blockquote>
+<p>实验测量数据统一使用measure的首字母m做下标表示</p>
+<p>标准数据使用standard的首字母s做下标表示</p>
+<p>通过拟合方程计算得出的结果使用calculate的首字母c做下标表示</p>
+</blockquote>
+<h3 id="相对误差计算程序">相对误差计算程序</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%计算相对误差</span></span><br><span class="line">prompt = <span class="string">&#x27;请输入测量值Xm=&#x27;</span>;</span><br><span class="line">Xm = input(prompt);</span><br><span class="line">prompt = <span class="string">&#x27;请输入标准值Xs=&#x27;</span>;</span><br><span class="line">Xs = input(prompt);</span><br><span class="line"><span class="comment">%计算相对误差</span></span><br><span class="line">RelEor =<span class="built_in">abs</span>((Xm-Xs)/Xs)*<span class="number">100</span>;</span><br><span class="line">R=<span class="built_in">round</span>(RelEor,<span class="number">2</span>);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;计算得相对误差为:&#x27;</span>)</span><br><span class="line"><span class="built_in">disp</span>([num2str(R),<span class="string">&#x27;%&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="描点作图">描点作图</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Xm=[];</span><br><span class="line">Ym=[];</span><br><span class="line"><span class="built_in">plot</span>(Xm,Ym);</span><br></pre></td></tr></table></figure>
+<h3 id="求平均值">求平均值</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Xm=[];</span><br><span class="line">Ym=[];y</span><br><span class="line">Xm_mean=<span class="built_in">mean</span>(Xm,Ym);</span><br></pre></td></tr></table></figure>
+<h3 id="一元线性回归">一元线性回归</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%一元线性回归分析</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%写入数据:</span></span><br><span class="line">Xm=[<span class="number">-1.875</span>,<span class="number">-1.474</span>,<span class="number">-1.262</span>,<span class="number">-0.709</span>,<span class="number">-0.586</span>];</span><br><span class="line">Ym=[<span class="number">8.214</span>,<span class="number">7.408</span>,<span class="number">6.879</span>,<span class="number">5.490</span>,<span class="number">5.196</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">%进行回归分析</span></span><br><span class="line">[p,s]=polyfit(Xm,Ym,<span class="number">1</span>);<span class="comment">%p中存储有k和b的信息，s中存的信息我不知道</span></span><br><span class="line">Yc=p(<span class="number">1</span>)*Xm+p(<span class="number">2</span>);</span><br><span class="line">R2=<span class="number">1</span> - (sum((Yc- Ym).^<span class="number">2</span>) / sum((Ym - <span class="built_in">mean</span>(Ym)).^<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">%打印回归结果</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;打印回归分析结果:&#x27;</span>);</span><br><span class="line">fprintf(<span class="string">&#x27;y=%fx+%f\n&#x27;</span>,p(<span class="number">1</span>),p(<span class="number">2</span>));</span><br><span class="line">fprintf(<span class="string">&#x27;R^2=%f\n&#x27;</span>,R2);</span><br><span class="line"></span><br><span class="line"><span class="comment">%绘图</span></span><br><span class="line"><span class="built_in">plot</span>(Xm,Ym,<span class="string">&#x27;o&#x27;</span>);<span class="comment">%数据点图</span></span><br><span class="line">Xp=[<span class="built_in">min</span>(Xm):<span class="number">0.1</span>:<span class="built_in">max</span>(Xm)];</span><br><span class="line">Yp=p(<span class="number">1</span>)*Xp+p(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line"><span class="built_in">plot</span>(Xp,Yp);<span class="comment">%拟合曲线图</span></span><br><span class="line">grid on;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="绘图">绘图</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title(<span class="string">&quot;标题&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&quot;X轴&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&quot;Y轴&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="隐函数族图像绘制">隐函数族图像绘制</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">z</span> = <span class="title">z</span><span class="params">(x,y,k)</span></span></span><br><span class="line">z = <span class="number">0.5</span>*x^<span class="number">2</span>+<span class="number">3</span>*x*y+<span class="number">0.5</span>*y^<span class="number">2</span>-k;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%k限定着函数族的范围</span></span><br><span class="line">k = <span class="number">-10</span>;</span><br><span class="line"><span class="keyword">while</span> k &lt; <span class="number">10</span></span><br><span class="line">    k = k + <span class="number">1</span>;</span><br><span class="line">    ezplot(@(x,y)z(x,y,k));</span><br><span class="line">    <span class="built_in">hold</span> on;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="实验数据处理">实验数据处理</h2>
+<h3 id="非线性负组电路元件伏安特性">非线性负组电路元件伏安特性</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">clc</span><br><span class="line">Ym=[<span class="number">-0.002</span>,<span class="number">-0.011</span>,<span class="number">-0.031</span>,<span class="number">-0.046</span>,<span class="number">-0.072</span>,<span class="number">-0.140</span>,<span class="number">-0.618</span>,<span class="number">-0.731</span>,<span class="number">-0.894</span>,<span class="number">-1.148</span>,<span class="number">-1.582</span>,<span class="number">-1.672</span>,<span class="number">-1.688</span>,<span class="number">-1.748</span>,<span class="number">-1.901</span>,<span class="number">-2.068</span>,<span class="number">-2.250</span>,<span class="number">-2.677</span>,<span class="number">-2.926</span>,<span class="number">-3.206</span>,<span class="number">-3.888</span>,<span class="number">-4.311</span>,<span class="number">-4.806</span>,<span class="number">-6.106</span>,<span class="number">-6.276</span>,<span class="number">-6.493</span>,<span class="number">-6.618</span>,<span class="number">-6.803</span>,<span class="number">-7.195</span>,<span class="number">-8.105</span>,<span class="number">-8.656</span>,<span class="number">-9.267</span>,<span class="number">-9.962</span>,<span class="number">-10.353</span>,<span class="number">-10.766</span>,<span class="number">-11.214</span>,<span class="number">-11.214</span>,<span class="number">-11.533</span>,<span class="number">-11.645</span>,<span class="number">-11.893</span>,<span class="number">-12.094</span>,<span class="number">-12.146</span>,<span class="number">-12.273</span>,<span class="number">-12.352</span>,<span class="number">-12.457</span>];</span><br><span class="line">R=[<span class="number">300</span>,<span class="number">600</span>,<span class="number">900</span>,<span class="number">1000</span>,<span class="number">1100</span>,<span class="number">1200</span>,<span class="number">1300</span>,<span class="number">1305</span>,<span class="number">1310</span>,<span class="number">1315</span>,<span class="number">1320</span>,<span class="number">1325</span>,<span class="number">1330</span>,<span class="number">1350</span>,<span class="number">1400</span>,<span class="number">1450</span>,<span class="number">1500</span>,<span class="number">1600</span>,<span class="number">1650</span>,<span class="number">1700</span>,<span class="number">1800</span>,<span class="number">1850</span>,<span class="number">1900</span>,<span class="number">2000</span>,<span class="number">2010</span>,<span class="number">2020</span>,<span class="number">2030</span>,<span class="number">2040</span>,<span class="number">2060</span>,<span class="number">2100</span>,<span class="number">2120</span>,<span class="number">2140</span>,<span class="number">2160</span>,<span class="number">2170</span>,<span class="number">2180</span>,<span class="number">2190</span>,<span class="number">2200</span>,<span class="number">2700</span>,<span class="number">3000</span>,<span class="number">4000</span>,<span class="number">5000</span>,<span class="number">6000</span>,<span class="number">8000</span>,<span class="number">10000</span>,<span class="number">15000</span>];</span><br><span class="line">I=Ym./R;</span><br><span class="line">Xm=I;</span><br><span class="line"><span class="built_in">plot</span>(Xm,Ym);<span class="comment">%数据点图</span></span><br><span class="line">title(<span class="string">&quot;非线性负组电路元件伏安特性&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&quot;电流(A)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&quot;电压(V)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="弦线上波的传播规律">弦线上波的传播规律</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%固定张力和线密度</span></span><br><span class="line">f=[<span class="number">70</span> <span class="number">90</span> <span class="number">110</span> <span class="number">130</span> <span class="number">150</span> <span class="number">180</span>];</span><br><span class="line">lamt=[<span class="number">1.22</span> <span class="number">0.9122</span> <span class="number">0.74</span> <span class="number">0.6136</span> <span class="number">0.5264</span> <span class="number">0.449</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%一元线性回归分析</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%写入数据:</span></span><br><span class="line">Xm=<span class="built_in">log</span>(lamt);</span><br><span class="line">Ym=<span class="built_in">log</span>(f);</span><br><span class="line"></span><br><span class="line"><span class="comment">%进行回归分析</span></span><br><span class="line">[p,s]=polyfit(Xm,Ym,<span class="number">1</span>);<span class="comment">%p中存储有k和b的信息，s中存的信息我不知道</span></span><br><span class="line">Yc=p(<span class="number">1</span>)*Xm+p(<span class="number">2</span>);</span><br><span class="line">R2=<span class="number">1</span> - (sum((Yc- Ym).^<span class="number">2</span>) / sum((Ym - <span class="built_in">mean</span>(Ym)).^<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">%打印回归结果</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;打印回归分析结果:&#x27;</span>);</span><br><span class="line">fprintf(<span class="string">&#x27;y=%fx+%f\n&#x27;</span>,p(<span class="number">1</span>),p(<span class="number">2</span>));</span><br><span class="line">fprintf(<span class="string">&#x27;R^2=%f\n&#x27;</span>,R2);</span><br><span class="line"></span><br><span class="line"><span class="comment">%绘图</span></span><br><span class="line"><span class="built_in">plot</span>(Xm,Ym,<span class="string">&#x27;o&#x27;</span>);<span class="comment">%数据点图</span></span><br><span class="line">Xp=[<span class="built_in">min</span>(Xm):<span class="number">0.1</span>:<span class="built_in">max</span>(Xm)];</span><br><span class="line">Yp=p(<span class="number">1</span>)*Xp+p(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line"><span class="built_in">plot</span>(Xp,Yp);<span class="comment">%拟合曲线图</span></span><br><span class="line">grid on;</span><br><span class="line">title(<span class="string">&quot;log(波长)与log(频率)的拟合图像&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&quot;log(波长)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&quot;log(频率)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line"></span><br><span class="line">Xm</span><br><span class="line">Ym</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2022/02/25/06-07-35/image-20211106173254618.png" alt="image-20211106173254618" style="zoom:33%;"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">打印回归分析结果:</span><br><span class="line">y=<span class="number">-0.935900</span>x+<span class="number">4.421856</span></span><br><span class="line">R^<span class="number">2</span>=<span class="number">0.998356</span></span><br><span class="line"></span><br><span class="line">Xm =</span><br><span class="line"></span><br><span class="line">    <span class="number">0.1989</span>   <span class="number">-0.0919</span>   <span class="number">-0.3011</span>   <span class="number">-0.4884</span>   <span class="number">-0.6417</span>   <span class="number">-0.8007</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Ym =</span><br><span class="line"></span><br><span class="line">    <span class="number">4.2485</span>    <span class="number">4.4998</span>    <span class="number">4.7005</span>    <span class="number">4.8675</span>    <span class="number">5.0106</span>    <span class="number">5.1930</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%固定频率和线密度</span></span><br><span class="line">T=[<span class="number">2.45</span> <span class="number">7.34</span> <span class="number">12.23</span> <span class="number">17.12</span> <span class="number">22.02</span> <span class="number">26.91</span>];</span><br><span class="line">lamt=[<span class="number">0.449</span> <span class="number">0.6850</span> <span class="number">0.8934</span> <span class="number">1.032</span> <span class="number">1.148</span> <span class="number">1.2662</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%一元线性回归分析</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%写入数据:</span></span><br><span class="line">Xm=<span class="built_in">log</span>(T);</span><br><span class="line">Ym=<span class="built_in">log</span>(lamt);</span><br><span class="line"></span><br><span class="line"><span class="comment">%进行回归分析</span></span><br><span class="line">[p,s]=polyfit(Xm,Ym,<span class="number">1</span>);<span class="comment">%p中存储有k和b的信息，s中存的信息我不知道</span></span><br><span class="line">Yc=p(<span class="number">1</span>)*Xm+p(<span class="number">2</span>);</span><br><span class="line">R2=<span class="number">1</span> - (sum((Yc- Ym).^<span class="number">2</span>) / sum((Ym - <span class="built_in">mean</span>(Ym)).^<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">%打印回归结果</span></span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;打印回归分析结果:&#x27;</span>);</span><br><span class="line">fprintf(<span class="string">&#x27;y=%fx+%f\n&#x27;</span>,p(<span class="number">1</span>),p(<span class="number">2</span>));</span><br><span class="line">fprintf(<span class="string">&#x27;R^2=%f\n&#x27;</span>,R2);</span><br><span class="line"></span><br><span class="line"><span class="comment">%绘图</span></span><br><span class="line"><span class="built_in">plot</span>(Xm,Ym,<span class="string">&#x27;o&#x27;</span>);<span class="comment">%数据点图</span></span><br><span class="line">Xp=[<span class="built_in">min</span>(Xm):<span class="number">0.1</span>:<span class="built_in">max</span>(Xm)];</span><br><span class="line">Yp=p(<span class="number">1</span>)*Xp+p(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line"><span class="built_in">plot</span>(Xp,Yp);<span class="comment">%拟合曲线图</span></span><br><span class="line">grid on;</span><br><span class="line">title(<span class="string">&quot;log(波长)与log(周期)的拟合图像&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&quot;log(波长)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&quot;log(周期)&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line"></span><br><span class="line">Xm</span><br><span class="line">Ym</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/2022/02/25/06-07-35/image-20211106173033589.png" alt="image-20211106173033589" style="zoom: 33%;"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">打印回归分析结果:</span><br><span class="line">y=<span class="number">0.435631</span>x+<span class="number">-1.209052</span></span><br><span class="line">R^<span class="number">2</span>=<span class="number">0.997443</span></span><br><span class="line"></span><br><span class="line">Xm =</span><br><span class="line"></span><br><span class="line">    <span class="number">0.8961</span>    <span class="number">1.9933</span>    <span class="number">2.5039</span>    <span class="number">2.8402</span>    <span class="number">3.0920</span>    <span class="number">3.2925</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Ym =</span><br><span class="line"></span><br><span class="line">   <span class="number">-0.8007</span>   <span class="number">-0.3783</span>   <span class="number">-0.1127</span>    <span class="number">0.0315</span>    <span class="number">0.1380</span>    <span class="number">0.2360</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="磁滞曲线">磁滞曲线</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">0</span>:<span class="number">0.2</span>:<span class="number">3</span>;</span><br><span class="line">&gt;&gt; y1=[<span class="number">-1.4</span>,<span class="number">-1.2</span>,<span class="number">-1.1</span>,<span class="number">-1.0</span>,<span class="number">-0.9</span>,<span class="number">-0.8</span>,<span class="number">-0.6</span>,<span class="number">-0.3</span>,<span class="number">0</span>,<span class="number">0.4</span>,<span class="number">0.7</span>,<span class="number">1.1</span>,<span class="number">1.4</span>,<span class="number">1.8</span>,<span class="number">1.9</span>,<span class="number">2.0</span>];</span><br><span class="line">&gt;&gt; y2=[<span class="number">1.4</span> <span class="number">1.3</span> <span class="number">1.4</span> <span class="number">1.4</span> <span class="number">1.6</span> <span class="number">1.6</span> <span class="number">1.6</span> <span class="number">1.7</span> <span class="number">1.7</span> <span class="number">1.8</span> <span class="number">1.8</span> <span class="number">1.8</span> <span class="number">1.8</span> <span class="number">1.9</span> <span class="number">2.0</span> <span class="number">2.0</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">plot</span>(x,y1)</span><br><span class="line">&gt;&gt; <span class="built_in">hold</span> on</span><br><span class="line">&gt;&gt; <span class="built_in">plot</span>(x,y2)</span><br><span class="line">&gt;&gt; <span class="built_in">plot</span>(-x,-y2)</span><br><span class="line">&gt;&gt; <span class="built_in">hold</span> on</span><br><span class="line">&gt;&gt; <span class="built_in">plot</span>(-x,-y1)</span><br><span class="line"></span><br><span class="line">title(<span class="string">&quot;磁滞曲线&quot;</span>,<span class="string">&#x27;FontName&#x27;</span>,<span class="string">&#x27;SimHei&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/2022/02/25/06-07-35/Users\qjy\Desktop\untitled.png" alt="untitled"><figcaption aria-hidden="true">untitled</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/02/25/06-07-35/" title="大学物理实验绘图">https://y006.github.io/2022/02/25/06-07-35/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%87%E5%BF%98%E7%AC%94%E8%AE%B0/" rel="tag"># 备忘笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/25/05-07-35/" rel="prev" title="常微分方程笔记">
+                  <i class="fa fa-chevron-left"></i> 常微分方程笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/25/08-07-35/" rel="next" title="Matlab收集数据绘制箱型图">
+                  Matlab收集数据绘制箱型图 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

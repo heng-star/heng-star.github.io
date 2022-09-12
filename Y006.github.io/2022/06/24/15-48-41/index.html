@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="STM32G431-Nucleo-64开发板使用小记 STM32G431-Nucleo-64开发板 基本介绍 实物图片： 引脚示意图：  image-20220625140101348  特别提醒：如果要设置频率为170MHz（最大频率），需要修改输入为24MHz  点亮LED灯 软件选择 使用CubeMX与MAD-ARM  STMCubeMX： STMCubeMX是">
+<meta property="og:type" content="website">
+<meta property="og:title" content="STM32G431-Nucleo-64开发板使用小记">
+<meta property="og:url" content="https://y006.github.io/2022/06/24/15-48-41/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="STM32G431-Nucleo-64开发板使用小记 STM32G431-Nucleo-64开发板 基本介绍 实物图片： 引脚示意图：  image-20220625140101348  特别提醒：如果要设置频率为170MHz（最大频率），需要修改输入为24MHz  点亮LED灯 软件选择 使用CubeMX与MAD-ARM  STMCubeMX： STMCubeMX是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/en.nucleo-g431rb.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220625140101348.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702201055670.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624155754981.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624161212803.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624161504627.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624162039334.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624162854160.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624163308481.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624164703328.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624172922991.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624173238440.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624174456175.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702140416463.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624174830465.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624175021820.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624175042732.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624180243123.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624192415831.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624192555608.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624192653458.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220624193003158.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220625170231754.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220625162251778.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220625162220949.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627201123958.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627201706218.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220703135818223.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627202133564.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627201930878.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627202102623.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627202356953.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220703175857659.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627183433259.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627200134162.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627200249439.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627200731016.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220628140231418.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702160405595.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702160514425.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702160023733.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702160647623.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702161216790.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702161310298.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702161547708.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702162518916.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702162754097.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702213417565.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702213543120.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702214620179.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702214000568.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702214312012.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220702214859697.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220704151857006.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220627212005510.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220628171400275.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220628171454899.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220628181017627.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220628181229406.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTM0NDQxMg==,size_16,color_FFFFFF,t_70-16566001142753.png">
+<meta property="og:image" content="https://y006.github.io/2022/06/24/15-48-41/image-20220630224454477.png">
+<meta property="article:published_time" content="2022-06-24T07:48:41.000Z">
+<meta property="article:modified_time" content="2022-07-05T14:12:59.940Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="电子设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://y006.github.io/2022/06/24/15-48-41/en.nucleo-g431rb.jpg">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/06/24/15-48-41/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/06/24/15-48-41/","path":"2022/06/24/15-48-41/","title":"STM32G431-Nucleo-64开发板使用小记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>STM32G431-Nucleo-64开发板使用小记 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stm32g431-nucleo-64%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">STM32G431-Nucleo-64开发板使用小记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32g431-nucleo-64%E5%BC%80%E5%8F%91%E6%9D%BF"><span class="nav-number">1.1.</span> <span class="nav-text">STM32G431-Nucleo-64开发板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E4%BA%AEled%E7%81%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">点亮LED灯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">软件选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">实验流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">具体操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.3.</span> <span class="nav-text">开发板配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8cubemx%E4%B8%AD%E7%9A%84example"><span class="nav-number">1.1.4.</span> <span class="nav-text">学习使用CubeMX中的Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E9%94%AE%E6%8E%A7%E5%88%B6led%E7%81%AF"><span class="nav-number">1.1.5.</span> <span class="nav-text">按键控制LED灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="nav-number">1.1.6.</span> <span class="nav-text">串口通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%A8%A1%E5%BC%8F-printf%E5%87%BD%E6%95%B0%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">查询模式 &amp; printf()函数重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">中断方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dma"><span class="nav-number">1.1.6.3.</span> <span class="nav-text">DMA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B8-tft-lcd%E6%98%BE%E7%A4%BA"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.8寸 TFT LCD显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">1.1.8.</span> <span class="nav-text">定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gps%E6%A8%A1%E5%9D%97"><span class="nav-number">1.1.9.</span> <span class="nav-text">GPS模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E6%A4%8D-multibutton"><span class="nav-number">1.1.10.</span> <span class="nav-text">移植 MultiButton</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multibutton%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.10.1.</span> <span class="nav-text">MultiButton简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8stm32g431-nucleo-64%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.10.2.</span> <span class="nav-text">在STM32G431-Nucleo-64开发板中使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.10.3.</span> <span class="nav-text">编写测试代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E6%A4%8D-guilite"><span class="nav-number">1.1.11.</span> <span class="nav-text">移植 GuiLite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.11.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8stm32g431-nucleo-64%E5%BC%80%E5%8F%91%E6%9D%BF%E4%B8%AD%E4%BD%BF%E7%94%A8-1"><span class="nav-number">1.1.11.2.</span> <span class="nav-text">在STM32G431-Nucleo-64开发板中使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.1.11.3.</span> <span class="nav-text">编写测试代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hal%E5%BA%93%E5%B0%8F%E8%AE%B0"><span class="nav-number">1.2.</span> <span class="nav-text">HAL库小记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gpio%E5%8F%A3"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">GPIO口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%8A%E9%87%8D%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.0.1.1.</span> <span class="nav-text">初始化及重置函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gpio-%E5%8F%A3%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.0.1.2.</span> <span class="nav-text">GPIO 口操作相关函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gpio%E5%8F%A3%E6%9E%9A%E4%B8%BE%E5%B8%B8%E9%87%8F"><span class="nav-number">1.2.0.1.3.</span> <span class="nav-text">GPIO口枚举常量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gpio%E5%8F%A3%E5%90%8D%E7%A7%B0"><span class="nav-number">1.2.0.1.4.</span> <span class="nav-text">GPIO口名称</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1-1"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">串口通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B6%E5%8F%91%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.0.2.1.</span> <span class="nav-text">收发函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#printf-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.2.0.2.2.</span> <span class="nav-text">printf() 重定向</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">串口调试策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.0.3.1.</span> <span class="nav-text">日志打印文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0%E4%B8%AA%E6%80%A7%E5%8C%96%E6%96%87%E5%AD%97"><span class="nav-number">1.2.0.3.2.</span> <span class="nav-text">日志打印个性化文字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hal-%E9%80%9A%E7%94%A8%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">1.2.1.</span> <span class="nav-text">HAL 通用命名规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">中断处理程序与回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hal-%E5%85%A8%E5%B1%80%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">HAL 全局初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#io-%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">IO 操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E6%8E%A2%E7%A9%B6"><span class="nav-number">1.3.</span> <span class="nav-text">底层探究</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">新建工程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cubemx%E5%B0%8F%E8%AE%B0"><span class="nav-number">1.4.</span> <span class="nav-text">CubeMX小记</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/06/24/15-48-41/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STM32G431-Nucleo-64开发板使用小记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-24 15:48:41" itemprop="dateCreated datePublished" datetime="2022-06-24T15:48:41+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-05 22:12:59" itemprop="dateModified" datetime="2022-07-05T22:12:59+08:00">2022-07-05</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/06/24/15-48-41/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/06/24/15-48-41/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="stm32g431-nucleo-64开发板使用小记">STM32G431-Nucleo-64开发板使用小记</h1>
+<h2 id="stm32g431-nucleo-64开发板">STM32G431-Nucleo-64开发板</h2>
+<h3 id="基本介绍">基本介绍</h3>
+<p>实物图片：<img src="/2022/06/24/15-48-41/en.nucleo-g431rb.jpg" alt="en.nucleo-g431rb"></p>
+<p>引脚示意图：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220625140101348.png" alt="image-20220625140101348"><figcaption aria-hidden="true">image-20220625140101348</figcaption>
+</figure>
+<p>特别提醒：如果要设置频率为170MHz（最大频率），需要修改输入为24MHz</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702201055670.png" alt="image-20220702201055670" style="zoom:50%;"></p>
+<h3 id="点亮led灯">点亮LED灯</h3>
+<h4 id="软件选择">软件选择</h4>
+<p>使用CubeMX与MAD-ARM</p>
+<ul>
+<li><p>STMCubeMX：</p>
+<p>STMCubeMX是ST公司推出的一种自动创建单片机工程及初始化代码的工具。</p></li>
+<li><p>MDK-ARM：</p>
+<p>Keil公司开发的ARM开发工具MDK，是用来开发基于ARM核的系列微控制器的嵌入式应用程序。</p></li>
+</ul>
+<h4 id="实验流程">实验流程</h4>
+<p>使用 CubeMX 生成初始化代码 -&gt; 使用 MDK-ARM 编写主函数并编译 -&gt; 使用开发板自带的ST-LINK将编译好的程序烧录到开发板 -&gt; 搭建实物电路 -&gt; 开发板上电，观察现象。</p>
+<h4 id="具体操作">具体操作</h4>
+<p>打开CubeMX，可以看到如下界面。点击红色方框内的ACCESS TO MCU SELECTRO选择芯片型号。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624155754981.png" alt="image-20220624155754981"><figcaption aria-hidden="true">image-20220624155754981</figcaption>
+</figure>
+<p>输入芯片型号查找对应芯片，选择“STM32G431RBT6”芯片。具体操作如图所示，操作执行后点击Start Progect进入配置页面。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624161212803.png" alt="image-20220624161212803"><figcaption aria-hidden="true">image-20220624161212803</figcaption>
+</figure>
+<p>芯片配置页面如下：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624161504627.png" alt="image-20220624161504627"><figcaption aria-hidden="true">image-20220624161504627</figcaption>
+</figure>
+<p>配置包括 “Pinout &amp; Configuration”、“Clock Configuration”、“Project Manager” 和 “Tools”。</p>
+<p>首先配置 “Project Manager”，方式如下：其中 “Code Generator” 和 “Advanced Setings” 暂时用不到。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624162039334.png" alt="image-20220624162039334"><figcaption aria-hidden="true">image-20220624162039334</figcaption>
+</figure>
+<p>想要点亮LED灯，我们需要对GPIO引脚进行控制，因此返回 “Pinout &amp; Configuration” 配置选项卡，进行输入输出引脚配置。我们选择引脚 PC3 ，将其初始化为高电平，并将输出电平再高低之间进行切换，使用HEL函数延时，每隔1000ms进行一次变换。具体操作如图所示：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624162854160.png" alt="image-20220624162854160"><figcaption aria-hidden="true">image-20220624162854160</figcaption>
+</figure>
+<p>最后点击生成代码。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624163308481.png" alt="image-20220624163308481"><figcaption aria-hidden="true">image-20220624163308481</figcaption>
+</figure>
+<p>使用MDK-ARM打开工程，查看CubeMX生成的代码：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624164703328.png" alt="image-20220624164703328"><figcaption aria-hidden="true">image-20220624164703328</figcaption>
+</figure>
+<p>在主函数中插入我们要编写的LED闪烁代码：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624172922991.png" alt="image-20220624172922991"><figcaption aria-hidden="true">image-20220624172922991</figcaption>
+</figure>
+<p>代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);</span><br><span class="line">HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);</span><br><span class="line">HAL_Delay(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624173238440.png" alt="image-20220624173238440"><figcaption aria-hidden="true">image-20220624173238440</figcaption>
+</figure>
+<p>连接电路图，结果展示：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220624174456175.png" alt="image-20220624174456175" style="zoom:33%;"></p>
+<h3 id="开发板配置">开发板配置</h3>
+<p>开发板中的用户按键是高电平有效，默认状态下接PC13。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220702140416463.png" alt="image-20220702140416463"><figcaption aria-hidden="true">image-20220702140416463</figcaption>
+</figure>
+<p>ST Board 的默认配置中使用外部中断配置按键。</p>
+<p>如果使用GPIO口输入模式来实现按键行为，则需要配置为 Pull-down 模式</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624174830465.png" alt="image-20220624174830465"><figcaption aria-hidden="true">image-20220624174830465</figcaption>
+</figure>
+<p>基本工程配置：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624175021820.png" alt="image-20220624175021820"><figcaption aria-hidden="true">image-20220624175021820</figcaption>
+</figure>
+<p>直接生成工程：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624175042732.png" alt="image-20220624175042732"><figcaption aria-hidden="true">image-20220624175042732</figcaption>
+</figure>
+<p>可以看到，针对于这个开发板，默认芯片时钟配置如下：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624180243123.png" alt="image-20220624180243123"><figcaption aria-hidden="true">image-20220624180243123</figcaption>
+</figure>
+<h3 id="学习使用cubemx中的example">学习使用CubeMX中的Example</h3>
+<p>首先打开CubeMX进入工程选项界面，选择 “Example Selector” 。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624192415831.png" alt="image-20220624192415831"><figcaption aria-hidden="true">image-20220624192415831</figcaption>
+</figure>
+<p>续：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624192555608.png" alt="image-20220624192555608"><figcaption aria-hidden="true">image-20220624192555608</figcaption>
+</figure>
+<p>在生成选项中，选择生成目录，然后直接使用MDK-ARM打开即可：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220624192653458.png" alt="image-20220624192653458" style="zoom:30%;"></p>
+<p>打开文档中的readme.txt文件，阅读该例程的使用方法：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220624193003158.png" alt="image-20220624193003158"><figcaption aria-hidden="true">image-20220624193003158</figcaption>
+</figure>
+<p>阅读文档可知，PA08-PA11分别输出四种不同占空比的PWM波形。</p>
+<p>编译文件并烧录到开发板中，使用示波器测试PWM波形，得如下结果：</p>
+<p>如果对Example中的代码进行了修改并重新编译，可能烧录会出现报错，报错如下：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220625170231754.png" alt="image-20220625170231754" style="zoom: 25%;"></p>
+<p>该报错可阅读<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42108484/article/details/81272006">此文章</a>寻求解决方案。</p>
+<h3 id="按键控制led灯">按键控制LED灯</h3>
+<p>首先打开之前 Nucleo-G431RB 的 CubeMX 工程文档，打开其中的 “Nucleo-G431RB_TEST.ioc” 文件：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220625162251778.png" alt="image-20220625162251778"><figcaption aria-hidden="true">image-20220625162251778</figcaption>
+</figure>
+<p>将其中的 PC2 GPIO口配置为输入 IO 口，具体配置为输入模式、上拉输入。</p>
+<p>注意：选择 GPIO 口的输入配置要依据实际电路的连接方式。在我的电路连接中，我将按键的一端与开发板的 GND 相连，另一端与 PC2 相连。则此时应该选择上拉输入——IO 口没有外部信号输入时，STM32 检测到是高电平，有信号时（按键按下时），跟随信号电平（接地，变为低电平）。</p>
+<p>将 PC3 GPIO口配置为输出，默认输出为高电平（执行初始化函数 <code>MX_GPIO_Init()</code> 时会输出高电平）。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220625162220949.png" alt="image-20220625162220949"><figcaption aria-hidden="true">image-20220625162220949</figcaption>
+</figure>
+<p>生成代码，使用MDK-ARM打开生成好的工程文件，在工程文件中的 main.c 文件做如下修改：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private define ------------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN PD */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUTTON HAL_GPIO_ReadPin(Button_In_GPIO_Port, Button_In_Pin)</span></span><br><span class="line"><span class="comment">/* USER CODE END PD */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//省略……</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//省略……</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line">  <span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line">    HAL_GPIO_WritePin(User_White_LED_GPIO_Port, User_White_LED_Pin, GPIO_PIN_RESET);</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">      <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">        <span class="keyword">if</span>(BUTTON == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">          HAL_Delay(<span class="number">10</span>);</span><br><span class="line">          <span class="keyword">if</span>(BUTTON == <span class="number">0</span>)</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="keyword">while</span>(BUTTON == <span class="number">0</span>);</span><br><span class="line">            HAL_GPIO_TogglePin(User_White_LED_GPIO_Port, User_White_LED_Pin);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">/* USER CODE END 3 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改完成后，即可连接电路，检验效果。上述代码执行效果为：</p>
+<p>按下按键时可以检测到按键被按下，松手后执行任务（改变LED灯亮灭）。</p>
+<p>效果如图：</p>
+<h3 id="串口通信">串口通信</h3>
+<p>STM32中串口通信有三种方式：</p>
+<ul>
+<li><p>轮询</p>
+<ul>
+<li>轮询式串口通信：在主函数的 <code>while(1)</code> 中不停地调用串口通信函数进行通信。</li>
+<li>优点：实现逻辑简单</li>
+<li>缺点：查询方式下CPU的负担较重，浪费了处理器的能力，不能够很好的处理其他的事件</li>
+</ul></li>
+<li><p>中断</p>
+<ul>
+<li><p>中断式串口通信：在接收到信息或需要发送数据时产生中断，在中断服务程序中完成数据的接收与发送。</p></li>
+<li><p>优点：相比于轮询式，中断式对CPU利用率要高。</p></li>
+<li><blockquote>
+<p>缺点：</p>
+<p>复杂的系统中，比如移动机器人，处理器需要处理串行口通信，多个传感器数据的采集以及处理，实时轨迹的生成，运动轨迹插补以及位置闭环控制等等任务，牵扯到多个中断的优先级分配问题。为了保证数据发送与接收的可靠性，需要把UART的中断优先级设计较高，但是系统可能还有其他的需要更高优先级的中断，必须保证其定时的准确，这样就有可能造成串行通讯的中断不能及时响应，从而造成数据丢失。</p>
+</blockquote></li>
+</ul></li>
+<li><p>DMA</p>
+<ul>
+<li>DMA：Direct Memory Access （直接内存访问）。使用DMA进行串口通信时，CPU只需要数据传输开始和结束时做一点处理外，在传输过程中可以进行其他的工作。</li>
+<li>如果传输的数据量较大，或者传输速度超过115200时，建议选择DMA方式实现串口通信。</li>
+</ul></li>
+</ul>
+<p>串口通信函数：推荐使用C标准库中的 <code>printf()</code> 函数进行串口通信。想要在单片机使用 <code>printf()</code> 需要：</p>
+<ol type="1">
+<li>包含头文件 <code>#include &lt;stdio.h&gt;</code></li>
+<li>在 Options for Target... 选项卡的 Target 选项栏中的 Code Generation 区域勾选 Use MicroLIB</li>
+<li>进行串口重定向——即重新实现 <code>fputc()</code></li>
+</ol>
+<h4 id="查询模式-printf函数重定向">查询模式 &amp; printf()函数重定向</h4>
+<p>配置串口：注意在Nucleo-G431RB开发板上只能使用 PA2 和 PA3 引脚来实现开发板接usb线与电脑进行串口通信。其中 PA2 和 PA3 引脚可以选择 LPUART1 和 USART2 两种。这里我们选择 LPUART1 进行测试。串口调试的配置与串口测试软件保持一致即可。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220627201123958.png" alt="image-20220627201123958"><figcaption aria-hidden="true">image-20220627201123958</figcaption>
+</figure>
+<p>生成代码，打开工程，进行工程设置：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627201706218.png" alt="image-20220627201706218" style="zoom: 40%;"></p>
+<p>如果不设置使用 Use MicroLIB，也可以添加如下代码实现串口重定向：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220703135818223.png" alt="image-20220703135818223" style="zoom:50%;"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> import(__use_no_semihosting)</span></span><br><span class="line"><span class="comment">//标准库需要的支持函数</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">FILE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> handle;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">FILE __stdout;</span><br><span class="line"><span class="comment">//定义_sys_exit()以避免使用半主机模式</span></span><br><span class="line"><span class="type">void</span> _sys_exit(<span class="type">int</span> x)</span><br><span class="line">&#123;</span><br><span class="line">    x = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __GNUC__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int __io_putchar(int ch)<span class="comment">//如果使用GCC编译</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)<span class="comment">//keil中适用</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">PUTCHAR_PROTOTYPE</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">uint8_t</span> temp[<span class="number">1</span>] = &#123;ch&#125;;</span><br><span class="line">	HAL_UART_Transmit(&amp;hlpuart1, temp, <span class="number">1</span>, <span class="number">2</span>);<span class="comment">//hlpuart1需要根据你的配置修改</span></span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+<p>添加代码：</p>
+<ol type="1">
+<li><p>添加头文件：user_log.h文件见目录： “HAL库小记 -&gt; 串口调试策率 -&gt; 日志打印文件”</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627202133564.png" alt="image-20220627202133564" style="zoom: 33%;"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private includes ----------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user_log.h&quot;</span></span></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>重写 <code>fputc()</code> 函数：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627201930878.png" alt="image-20220627201930878" style="zoom: 33%;"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fputc</span><span class="params">(<span class="type">int</span> ch, FILE *f)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">uint8_t</span> temp[<span class="number">1</span>] = &#123;ch&#125;;</span><br><span class="line">	HAL_UART_Transmit(&amp;hlpuart1, temp, <span class="number">1</span>, <span class="number">2</span>);<span class="comment">//hlpuart1需要根据你的配置修改</span></span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>记录另一种写法，或许会更加规范（适用范围广）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __GNUC__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int __io_putchar(int ch)<span class="comment">//如果使用GCC编译</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)<span class="comment">//keil中适用</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">PUTCHAR_PROTOTYPE</span><br><span class="line">&#123;</span><br><span class="line">	HAL_UART_Transmit(&amp;huart2, (<span class="type">uint8_t</span>*) &amp;ch, <span class="number">1</span>, <span class="number">0xffff</span>);</span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//网上说现在还需要加上这个函数，但是我没使用过gcc编译所以没有验证过这部分代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//_write函數在syscalls.c中， 使用__weak定義， 所以可以直接在其他文件中定義_write函數</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __GNUC__</span></span><br><span class="line">__attribute__((weak)) <span class="type">int</span> _write(<span class="type">int</span> file, <span class="type">char</span> *ptr, <span class="type">int</span> len)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> DataIdx;</span><br><span class="line">	<span class="keyword">for</span> (DataIdx = <span class="number">0</span>; DataIdx &lt; len; DataIdx++)</span><br><span class="line">	&#123;</span><br><span class="line">		__io_putchar(*ptr++);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>添加测试代码：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627202102623.png" alt="image-20220627202102623" style="zoom: 33%;"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">user_main_info(<span class="string">&quot;init HAL&quot;</span>);</span><br><span class="line">user_main_info(<span class="string">&quot;Config System Clock&quot;</span>);</span><br><span class="line">user_main_info(<span class="string">&quot;GPIO init finished&quot;</span>);</span><br><span class="line">user_main_info(<span class="string">&quot;UART init finished&quot;</span>);</span><br><span class="line"> <span class="comment">/* USER CODE END 2 */</span></span><br><span class="line">   </span><br><span class="line"> <span class="comment">/* Infinite loop */</span></span><br><span class="line"> <span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line">user_printf(<span class="string">&quot;___  ___        _                   &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;|  \\/  |       | |                  &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| .  . | _   _ | |      ___    __ _ &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| |\\/| || | | || |     / _ \\  / _` |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| |  | || |_| || |____| (_) || (_| |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;\\_|  |_/ \\__, |\\_____/ \\___/  \\__, |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;          __/ |                __/ |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;         |___/                |___/ &quot;</span>);</span><br><span class="line"></span><br><span class="line">user_main_info(<span class="string">&quot;Enter while(1)&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>测试结果：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627202356953.png" alt="image-20220627202356953" style="zoom:50%;"></p>
+<h4 id="中断方式">中断方式</h4>
+<p>使用CubeMX配置串口，打开相应串口中断</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220703175857659.png" alt="image-20220703175857659"><figcaption aria-hidden="true">image-20220703175857659</figcaption>
+</figure>
+<p>打开工程，修改 uart.c 实现串口重定向：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> import(__use_no_semihosting)</span></span><br><span class="line"><span class="comment">//标准库需要的支持函数</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">FILE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> handle;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">FILE __stdout;</span><br><span class="line"><span class="comment">//定义_sys_exit()以避免使用半主机模式</span></span><br><span class="line"><span class="type">void</span> _sys_exit(<span class="type">int</span> x)</span><br><span class="line">&#123;</span><br><span class="line">    x = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __GNUC__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int __io_putchar(int ch)<span class="comment">//如果使用GCC编译</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)<span class="comment">//keil中适用</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">PUTCHAR_PROTOTYPE</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">uint8_t</span> temp[<span class="number">1</span>] = &#123;ch&#125;;</span><br><span class="line">	HAL_UART_Transmit(&amp;hlpuart1, temp, <span class="number">1</span>, <span class="number">2</span>);<span class="comment">//hlpuart1需要根据你的配置修改</span></span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+<p>打开 main.c，配置中断服务函数</p>
+<h4 id="dma">DMA</h4>
+<p><strong>DMA传输方式</strong></p>
+<p><strong>方法1</strong>：DMA_Mode_Normal，正常模式，</p>
+<p>当一次DMA数据传输完后，停止DMA传送 ，也就是只传输一次　</p>
+<p><strong>方法2</strong>：DMA_Mode_Circular ，循环传输模式</p>
+<p>当传输结束时，硬件自动会将传输数据量寄存器进行重装，进行下一轮的数据传输。也就是多次传输模式</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1MDg4OTMwMw==&amp;mid=2247496701&amp;idx=3&amp;sn=f5876279a224d3f4fb3eca76c7027e00&amp;chksm=e9f9e6c5de8e6fd3609e133873cf85c922fd9243579cf11cf14a658b248484579659288a0518&amp;scene=21#wechat_redirect">DMA原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/92379957">Map回调函数</a></p>
+<p>https://www.its203.com/article/qq_26575553/89374803#:~:text=%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8F1%E7%9A%84MCU%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E6%98%AFF2...F4%EF%BC%8C%E7%94%9A%E8%87%B3</p>
+<h3 id="寸-tft-lcd显示">1.8寸 TFT LCD显示</h3>
+<p>使用CubeMX配置引脚，其中 PA5 引脚连接VCC供电。</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220627183433259.png" alt="image-20220627183433259"><figcaption aria-hidden="true">image-20220627183433259</figcaption>
+</figure>
+<p>生成代码，然后对代码进行修改：</p>
+<ol type="1">
+<li><p>解压LCD_Driver.zip到CubeMX生成的MDK-ARM文件加中：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627200134162.png" alt="image-20220627200134162" style="zoom:50%;"></p></li>
+<li><p>打开工程，将解压的文件添加的你的工程中：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220627200249439.png" alt="image-20220627200249439" style="zoom:50%;"></p></li>
+<li><p>将头文件包含到main.c文件中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private includes ----------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lcd_init.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lcd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pic.h&quot;</span></span></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>打开lcd_init.h文件，修改其中的 “LCD端口定义” ，将端口定义与连线相匹配。</p></li>
+<li><p>注释掉主函数中的 <code>MX_GPIO_Init();</code> 并将复制下述代码进行测试：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LCD_Init();<span class="comment">//LCD初始化</span></span><br><span class="line">LCD_Fill(<span class="number">0</span>,<span class="number">0</span>,LCD_W,LCD_H,WHITE);</span><br><span class="line">LCD_ShowString(<span class="number">24</span>,<span class="number">30</span>,<span class="string">&quot;Hello,World!&quot;</span>,RED,WHITE,<span class="number">16</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220627200731016.png" alt="image-20220627200731016"><figcaption aria-hidden="true">image-20220627200731016</figcaption>
+</figure></li>
+</ol>
+<h3 id="定时器">定时器</h3>
+<p>使用STM32的定时器首先要理解STM32的时钟树，STM32中的时钟源是可配置的。有三种时钟源供选择：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220628140231418.png" alt="image-20220628140231418" style="zoom: 25%;"></p>
+<p>由一个三路选择器组成的系统时钟选择器，可以选择下面三种时钟源的一种作为系统时钟源：</p>
+<ul>
+<li>高速外部时钟HSE
+<ul>
+<li>优点：外部时钟产生的时钟频率较为精确</li>
+</ul></li>
+<li>高速内部时钟HSI
+<ul>
+<li>优点：功耗低，不需要额外的器件，起震快</li>
+<li>缺点：但是精度不能保证</li>
+</ul></li>
+<li>锁相环时钟PLLCLK
+<ul>
+<li>锁相环可以用来倍频，开发板上外接8M晶振，但是STM32主频却能跑72M，这离不开锁相环（PLL）的作用。</li>
+</ul></li>
+</ul>
+<p>定时器要实现计数必须有个时钟源，<strong>基本定时器时钟只能来自内部时钟，高级控制定时器和通用定时器还可以选择外部时钟源或者直接来自其他定时器等待模式</strong>。</p>
+<blockquote>
+<p>F407有三种时钟源可以用作系统时钟：内部高速时钟、外部高速时钟、PLL时钟。 一般我们希望芯片工作在最高频率168MHz，而无论是内部还是外部时钟都是达不到的，所以通常都是用PLL时钟作为系统时钟。 外部时钟通常都比内部时钟要稳定精确，所以一般还会用外部时钟作为PLL的输入。 F407还有一个低速时钟用来驱动RTC，以及满足低电压模式下的功能需求。</p>
+<p>通常系统总线AHB的频率设置为168MHz，高速外设总线APB2频率设置为84MHz，低速外设总线APB1频率设置为42MHz。 这些总线频率可以通过配置RCC_CFGR和RCC_PLLCFGR实现。</p>
+</blockquote>
+<h3 id="gps模块">GPS模块</h3>
+<p>GPS模块硬件可以将卫星传来的信号进行收集，然后我们可以通过串口通信的方式从GPS模块中读取卫星报文。读取后的报文我们可以将其缓存下来，然后进行译码。</p>
+<p>了解了 NMEA 格式有之后，我们就可以编写相应的解码程序了，而程序员 Tim(<a href="mailto:xtimor@gmail.com">xtimor@gmail.com</a>)提供了一个非常完善的 NMEA 解码库，在以下网址可以下载到：http://nmea.sourceforge.net/ ，直接使用该解码库，可以避免重复发明轮子的工作。</p>
+<h3 id="移植-multibutton">移植 <a target="_blank" rel="noopener" href="https://github.com/0x1abin/MultiButton">MultiButton</a></h3>
+<h4 id="multibutton简介">MultiButton简介</h4>
+<p>Github里面的嵌入式开源项目，一个小巧简单易用的事件驱动型按键驱动模块，可无限量扩展按键，能够实现下述按键事件：</p>
+<table>
+<thead>
+<tr class="header">
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PRESS_DOWN</td>
+<td>按键按下，每次按下都触发</td>
+</tr>
+<tr class="even">
+<td>PRESS_UP</td>
+<td>按键弹起，每次松开都触发</td>
+</tr>
+<tr class="odd">
+<td>PRESS_REPEAT</td>
+<td>重复按下触发，变量repeat计数连击次数</td>
+</tr>
+<tr class="even">
+<td>SINGLE_CLICK</td>
+<td>单击按键事件</td>
+</tr>
+<tr class="odd">
+<td>DOUBLE_CLICK</td>
+<td>双击按键事件</td>
+</tr>
+<tr class="even">
+<td>LONG_PRESS_START</td>
+<td>达到长按时间阈值时触发一次</td>
+</tr>
+<tr class="odd">
+<td>LONG_PRESS_HOLD</td>
+<td>长按期间一直触发</td>
+</tr>
+</tbody>
+</table>
+<h4 id="在stm32g431-nucleo-64开发板中使用">在STM32G431-Nucleo-64开发板中使用</h4>
+<p>首先使用CubeMX建立一个工程，初始化串口、测试LED和测试按键的GPIO口：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702160405595.png" alt="image-20220702160405595" style="zoom:67%;"></p>
+<p>生成代码，打开工程文件夹：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702160514425.png" alt="image-20220702160514425" style="zoom:50%;"></p>
+<p>然后在<a target="_blank" rel="noopener" href="https://github.com/0x1abin/MultiButton">此处</a>下载项目文件到本地：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702160023733.png" alt="image-20220702160023733" style="zoom:50%;"></p>
+<p>将红框内的源文件放入到工程文件夹的MDK-ARM文件夹中，这里我给源文件了一个单独的文件夹</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702160647623.png" alt="image-20220702160647623" style="zoom:50%;"></p>
+<p>同时我也移植了我们之前使用的 “user_log.h” 文件。</p>
+<p>打开工程，从工程外部添加文件：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702161216790.png" alt="image-20220702161216790" style="zoom: 50%;"></p>
+<p><img src="/2022/06/24/15-48-41/image-20220702161310298.png" alt="image-20220702161310298" style="zoom:50%;"></p>
+<p>源文件中的头文件，可以添加进来，也可以不添加，只要添加头文件的查找地址，然后在写代码时包含头文件即可：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220702161547708.png" alt="image-20220702161547708"><figcaption aria-hidden="true">image-20220702161547708</figcaption>
+</figure>
+<h4 id="编写测试代码">编写测试代码</h4>
+<ol type="1">
+<li><p>打开 uart.c 文件，添加串口重定向代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __GNUC__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int __io_putchar(int ch)<span class="comment">//如果使用GCC编译</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)<span class="comment">//keil中适用</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">PUTCHAR_PROTOTYPE</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">uint8_t</span> temp[<span class="number">1</span>] = &#123;ch&#125;;</span><br><span class="line">	HAL_UART_Transmit(&amp;hlpuart1, temp, <span class="number">1</span>, <span class="number">2</span>);<span class="comment">//hlpuart1需要根据你的配置修改</span></span><br><span class="line">	<span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>打开 main.c 文件</p>
+<ol type="1">
+<li><p>添加新的包含</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private includes ----------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;user_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;multi_button.h&quot;</span></span></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>添加新的变量声明——按键结构体声明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private variables ---------------------------------------------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN PV */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Button</span> <span class="title">button1</span>;</span></span><br><span class="line"><span class="comment">/* USER CODE END PV */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>回调函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private user code ---------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="type">uint8_t</span> <span class="title function_">read_button1_GPIO</span><span class="params">()</span> </span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">return</span> HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">button_callback</span><span class="params">(<span class="type">void</span> *button)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> btn_event_val; </span><br><span class="line">    btn_event_val = get_button_event((<span class="keyword">struct</span> Button *)button); </span><br><span class="line">    <span class="keyword">switch</span>(btn_event_val)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">case</span> PRESS_DOWN:</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;---&gt; key1 press down! &lt;---\r\n&quot;</span>); </span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> PRESS_UP: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;***&gt; key1 press up! &lt;***\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> PRESS_REPEAT: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;---&gt; key1 press repeat! &lt;---\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> SINGLE_CLICK: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;---&gt; key1 single click! &lt;---\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> DOUBLE_CLICK: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;***&gt; key1 double click! &lt;***\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> LONG_PRESS_START: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;---&gt; key1 long press start! &lt;---\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line">     <span class="keyword">case</span> LONG_PRESS_HOLD: </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;***&gt; key1 long press hold! &lt;***\r\n&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>; </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>进入 <code>main()</code> 函数，<code>while(1)</code> 之前：初始化对象 -&gt; 注册函数 -&gt; 启动函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Initialize all configured peripherals */</span></span><br><span class="line">  MX_GPIO_Init();</span><br><span class="line">  MX_LPUART1_UART_Init();</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;MultiButton Test...\r\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化按键对象</span></span><br><span class="line">	button_init(&amp;button1, read_button1_GPIO, <span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//注册函数</span></span><br><span class="line">	button_attach(&amp;button1, PRESS_DOWN,       button_callback);</span><br><span class="line">	button_attach(&amp;button1, PRESS_UP,         button_callback);</span><br><span class="line"><span class="comment">//	button_attach(&amp;button1, PRESS_REPEAT,     button_callback);</span></span><br><span class="line"><span class="comment">//	button_attach(&amp;button1, SINGLE_CLICK,     button_callback);</span></span><br><span class="line"><span class="comment">//	button_attach(&amp;button1, DOUBLE_CLICK,     button_callback);</span></span><br><span class="line"><span class="comment">//	button_attach(&amp;button1, LONG_PRESS_START, button_callback);</span></span><br><span class="line"><span class="comment">//	button_attach(&amp;button1, LONG_PRESS_HOLD,  button_callback);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//启动按键</span></span><br><span class="line">	button_start(&amp;button1);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>设置一个5ms间隔的定时器循环调用后台处理函数，可以在while(1)中使用滴答定时器：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//每隔5ms调用一次后台处理函数</span></span><br><span class="line">button_ticks();</span><br><span class="line">HAL_Delay(<span class="number">5</span>);</span><br><span class="line">  <span class="comment">/* USER CODE END WHILE */</span></span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><p>勾选使用 MicroLIB</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702162518916.png" alt="image-20220702162518916" style="zoom: 33%;"></p></li>
+<li><p>编译，烧录，打开串口助手，测试：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702162754097.png" alt="image-20220702162754097" style="zoom: 33%;"></p></li>
+</ol>
+<h3 id="移植-guilite">移植 <a target="_blank" rel="noopener" href="https://gitee.com/idea4good/GuiLite">GuiLite</a></h3>
+<h4 id="简介">简介</h4>
+<p>GuiLite是一个轻量的，可以运行在MPU平台的开源图形库。</p>
+<p>只要能点亮你的显示屏上一个像素点，就可以使用这个图形库绘制出复杂的图形。</p>
+<p>GuiLite还支持多个平台：</p>
+<ul>
+<li><p>支持的操作系统：iOS/macOS/WatchOS，Android，Linux（ARM/x86-64），Windows（包含VR），RTOS... 甚至<strong>无操作系统的单片机</strong></p></li>
+<li><p>支持的开发语言： C/C++, Swift, Java, Javascript, C#, Golang...</p></li>
+<li><p>支持的第3方库：Qt, MFC, Winforms, CoCoa...</p></li>
+</ul>
+<p>⚙️️最低硬件要求:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Processor</th>
+<th>Disk/ROM space</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>24 MHZ</td>
+<td>29 KB</td>
+<td>9 KB</td>
+</tr>
+</tbody>
+</table>
+<h4 id="在stm32g431-nucleo-64开发板中使用-1">在STM32G431-Nucleo-64开发板中使用</h4>
+<p>在TFT屏示例的基础上进行GUI测试：</p>
+<p>此处注意，可能会需要扩大默认的堆空间长度，具体操作如下：</p>
+<ol type="1">
+<li><p>CubeMX中修改堆的大小：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702213417565.png" alt="image-20220702213417565" style="zoom: 25%;"></p></li>
+<li><p>打开stm32的启动代码（汇编代码）即可看到修改成功：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702213543120.png" alt="image-20220702213543120" style="zoom: 25%;"></p></li>
+</ol>
+<p>移植过程：</p>
+<ol type="1">
+<li><p>点击<a target="_blank" rel="noopener" href="https://gitee.com/idea4good/GuiLite">此处</a>下载源代码，在<a target="_blank" rel="noopener" href="https://gitee.com/idea4good/GuiLiteSamples">此处</a>下载Example；我们需要Example进行测试。</p></li>
+<li><p>将Example中的实例代码放到自己的工程中，以Hello3DWave为例：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702214620179.png" alt="image-20220702214620179" style="zoom: 50%;"></p>
+<p>将这两个文件复制到自己的工程中，可以新建一个名为UIcode的文件夹存放。</p></li>
+<li><p>在自己的keil工程中的Target中新建一个Group：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702214000568.png" alt="image-20220702214000568" style="zoom:33%;"></p></li>
+<li><p>将例程代码添加到Group中：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702214312012.png" alt="image-20220702214312012" style="zoom:50%;"></p></li>
+<li><p>添加完成后即可编写代码，注意：检查自己的工程中是否勾选了Use MicroLIB，如果勾选了就要取消勾选，因为我们需要编译器去解析.cpp文件，不能使用C库</p>
+<p><img src="/2022/06/24/15-48-41/image-20220702214859697.png" alt="image-20220702214859697" style="zoom:50%;"></p>
+<h4 id="编写测试代码-1">编写测试代码</h4>
+<ol type="1">
+<li><p>在 main.c 中重新实现延时和绘制像素点：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="comment">//延时1ms函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_ms</span><span class="params">(<span class="type">int</span> ms)</span></span><br><span class="line">&#123;</span><br><span class="line">	HAL_Delay(ms);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//RGB888转RGB565</span></span><br><span class="line"><span class="comment">//Transfer GuiLite 32 bits color to your LCD color</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GL_RGB_32_to_16(rgb) (((((unsigned int)(rgb)) &amp; 0xFF) &gt;&gt; 3) | ((((unsigned int)(rgb)) &amp; 0xFC00) &gt;&gt; 5) | ((((unsigned int)(rgb)) &amp; 0xF80000) &gt;&gt; 8))</span></span><br><span class="line"><span class="comment">//Encapsulate your LCD driver:</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">gfx_draw_pixel</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">unsigned</span> <span class="type">int</span> rgb)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//LCD_Fast_DrawPoint(x, y, GL_RGB_32_to_16(rgb));</span></span><br><span class="line">  <span class="comment">//添加带颜色的画点函数</span></span><br><span class="line">  LCD_DrawPoint(x, y, GL_RGB_32_to_16(rgb));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//UI entry</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DISPLAY_DRIVER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="type">void</span> (*draw_pixel)(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">unsigned</span> <span class="type">int</span> rgb);</span><br><span class="line">	<span class="type">void</span> (*fill_rect)(<span class="type">int</span> x0, <span class="type">int</span> y0, <span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">unsigned</span> <span class="type">int</span> rgb);</span><br><span class="line">&#125; my_driver;</span><br><span class="line"></span><br><span class="line"><span class="comment">//extern function</span></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure></li>
+<li><p>上面代码中的倒数第二行 <code>//extern function</code> 中的函数声明要去 UIcode.cpp 的最后去找</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220704151857006.png" alt="image-20220704151857006"><figcaption aria-hidden="true">image-20220704151857006</figcaption>
+</figure></li>
+<li><p>将此函数声明复制到 <code>//extern function</code> 处，然后在 <code>while(1)</code> 前添加如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_driver.draw_pixel = gfx_draw_pixel;</span><br><span class="line">my_driver.fill_rect = <span class="literal">NULL</span>;<span class="comment">//gfx_fill_rect;</span></span><br><span class="line"><span class="comment">//function like: startHelloStar(NULL,128,160,2,&amp;my_driver);</span></span><br></pre></td></tr></table></figure></li>
+<li><p>编译然后烧录，不需要管警告信息。</p></li>
+</ol></li>
+</ol>
+<h2 id="hal库小记">HAL库小记</h2>
+<blockquote>
+<p><strong>硬件抽象层</strong>（HAL，Hardware Abstraction Layer）驱动程序提供了一组功能丰富，易于与应用上层交互的 API，它们涵盖了常见的外围设备，可以非常方便的向其它型号 STM32 微控制器移植。同时还实现了用户回调函数机制，允许并发调用 <code>USART1</code> 以及 <code>USART2</code> 等外设，并且支持<strong>轮询</strong>、<strong>中断</strong>、<strong>DMA</strong> 三种 API 编程模式。</p>
+<p><a target="_blank" rel="noopener" href="https://uinika.github.io/Embedded/STM32F401/?highlight=hal#arm-cortex-m4-%E6%A6%82%E8%A6%81">对于HAL库的介绍</a></p>
+</blockquote>
+<h4 id="gpio口">GPIO口</h4>
+<h5 id="初始化及重置函数">初始化及重置函数</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化引脚 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_Init</span><span class="params">(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init)</span>; </span><br><span class="line"><span class="comment">//重置引脚 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_DeInit</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint32_t</span> GPIO_Pin)</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="gpio-口操作相关函数">GPIO 口操作相关函数</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取电平状态 </span></span><br><span class="line">GPIO_PinState <span class="title function_">HAL_GPIO_ReadPin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span>; </span><br><span class="line"><span class="comment">//设置引脚状态 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_WritePin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint16_t</span> GPIO_Pin, GPIO_PinState PinState)</span>; </span><br><span class="line"><span class="comment">//转换引脚状态 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_TogglePin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span>; </span><br><span class="line"><span class="comment">//锁定引脚状态 </span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_GPIO_LockPin</span><span class="params">(GPIO_TypeDef *GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span>; </span><br></pre></td></tr></table></figure>
+<h5 id="gpio口枚举常量">GPIO口枚举常量</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  GPIO_PIN_RESET = <span class="number">0U</span>,</span><br><span class="line">  GPIO_PIN_SET</span><br><span class="line">&#125; GPIO_PinState;</span><br></pre></td></tr></table></figure>
+<h5 id="gpio口名称">GPIO口名称</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* IO口默认定义 -----------------------------------------------------------*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_PIN_0                 ((uint16_t)0x0001)  <span class="comment">/* Pin 0 selected    */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Private defines -----------------------------------------------------------*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> User_Label_Pin GPIO_PIN_3</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> User_Label_GPIO_Port GPIOA</span></span><br></pre></td></tr></table></figure>
+<p>GPIO的API</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数名称</th>
+<th style="text-align: left;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>HAL_GPIO_ReadPin()</code></td>
+<td style="text-align: left;">读取指定输入端口的引脚状态；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>HAL_GPIO_WritePin()</code></td>
+<td style="text-align: left;">设置或者清除指定的数据端口位；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>HAL_GPIO_TogglePin()</code></td>
+<td style="text-align: left;">切换指定的 GPIO 引脚状态；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>HAL_GPIO_LockPin()</code></td>
+<td style="text-align: left;">锁定 GPIO 引脚配置寄存器；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>HAL_GPIO_EXTI_IRQHandler()</code></td>
+<td style="text-align: left;">该函数用于处理 EXTI 中断请求；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>HAL_GPIO_EXTI_Callback()</code></td>
+<td style="text-align: left;">EXTI 线检测回调函数；</td>
+</tr>
+</tbody>
+</table>
+<h4 id="串口通信-1">串口通信</h4>
+<h5 id="收发函数">收发函数</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送数据</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData,</span></span><br><span class="line"><span class="params"><span class="type">uint16_t</span> Size, <span class="type">uint32_t</span> Timeout)</span>;</span><br><span class="line"><span class="comment">//接收数据</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData,</span></span><br><span class="line"><span class="params"><span class="type">uint16_t</span> Size, <span class="type">uint32_t</span> Timeout)</span>;</span><br><span class="line"><span class="comment">//发送中断</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *</span></span><br><span class="line"><span class="params">pData, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"><span class="comment">//接收中断</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData</span></span><br><span class="line"><span class="params">, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"><span class="comment">//使用DMA发送</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit_DMA</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *</span></span><br><span class="line"><span class="params">pData, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"><span class="comment">//使用DMA接收</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive_DMA</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *</span></span><br><span class="line"><span class="params">pData, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"><span class="comment">//DMA暂停</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_DMAPause</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line"><span class="comment">//DMA恢复</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_DMAResume</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line"><span class="comment">//DMA停止</span></span><br><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_DMAStop</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="printf-重定向"><code>printf()</code> 重定向</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在 USER CODE BEGIN 0 区域内添加：</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fputc</span><span class="params">(<span class="type">int</span> ch, FILE *f)</span>&#123;</span><br><span class="line">  <span class="type">uint8_t</span> temp[<span class="number">1</span>] = &#123;ch&#125;;</span><br><span class="line">  HAL_UART_Transmit(&amp;huart1, temp, <span class="number">1</span>, <span class="number">2</span>);<span class="comment">//huart1需要根据你的配置修改</span></span><br><span class="line">  <span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="串口调试策略">串口调试策略</h4>
+<h5 id="日志打印文件">日志打印文件</h5>
+<p>keil编译器要求文件的结尾必须要有一个空行，如果没有将给出一个警告</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  **************************************************************************************</span></span><br><span class="line"><span class="comment">  *  @file           : user_log.h</span></span><br><span class="line"><span class="comment">  *  @brief          : Print your Log information</span></span><br><span class="line"><span class="comment">  **************************************************************************************</span></span><br><span class="line"><span class="comment">  *  @useage</span></span><br><span class="line"><span class="comment">  * Include this header file in the program file that you want to print logs.</span></span><br><span class="line"><span class="comment">	* Using the function: </span></span><br><span class="line"><span class="comment">	* `user_printf()`</span></span><br><span class="line"><span class="comment">	* `user_main_info()`</span></span><br><span class="line"><span class="comment">	* `user_main_debug()`</span></span><br><span class="line"><span class="comment">	* `user_main_error()`  to print the log.</span></span><br><span class="line"><span class="comment">  * Define &quot;PRINT_USER_LOG&quot; if you want to print logs and annotations it if you don&#x27;t.</span></span><br><span class="line"><span class="comment">  **************************************************************************************</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __USER_LOG_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __USER_LOG_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PRINT_USER_LOG	<span class="comment">//define for print log</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> PRINT_USER_LOG</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_printf(format, ...) printf( format <span class="string">&quot;\r\n&quot;</span>, ##__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_info(format, ...) printf(<span class="string">&quot; [info] main.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>, ##__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_debug(format, ...) printf(<span class="string">&quot; [debug] main.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>, ##__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_error(format, ...) printf(<span class="string">&quot; [error] main.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>,##__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_info(format, ...) printf(<span class="string">&quot; [info] file.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>, ##__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_debug(format, ...) printf(<span class="string">&quot; [debug] file.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>, ##__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_error(format, ...) printf(<span class="string">&quot; [error] file.c :&quot;</span> format <span class="string">&quot;\r\n&quot;</span>,##__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_printf(format, ...)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_info(format, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_debug(format, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_main_error(format, ...)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_info(format, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_debug(format, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> user_file_error(format, ...)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>	<span class="comment">/* PRINT_USER_LOG */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">/* __USER_LOG_H */</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>添加文件时若出现报错，则需要手动增加头文件搜索路径：</p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220627212005510.png" alt="image-20220627212005510"><figcaption aria-hidden="true">image-20220627212005510</figcaption>
+</figure>
+<h5 id="日志打印个性化文字">日志打印个性化文字</h5>
+<p><a target="_blank" rel="noopener" href="http://patorjk.com/software/taag/#p=display&amp;f=Graffiti&amp;t=Type%20Something%20">Text to ASCII Art Generator (TAAG)</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">___  ___        _                   </span><br><span class="line">|  \/  |       | |                  </span><br><span class="line">| .  . | _   _ | |      ___    __ _ </span><br><span class="line">| |\/| || | | || |     / _ \  / _` |</span><br><span class="line">| |  | || |_| || |____| (_) || (_| |</span><br><span class="line">\_|  |_/ \__, |\_____/ \___/  \__, |</span><br><span class="line">          __/ |                __/ |</span><br><span class="line">         |___/                |___/ </span><br></pre></td></tr></table></figure>
+<p>代码：要在报错的符号前面加上一个反斜杠，因此代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user_printf(<span class="string">&quot;___  ___        _                   &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;|  \\/  |       | |                  &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| .  . | _   _ | |      ___    __ _ &quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| |\\/| || | | || |     / _ \\  / _` |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;| |  | || |_| || |____| (_) || (_| |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;\\_|  |_/ \\__, |\\_____/ \\___/  \\__, |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;          __/ |                __/ |&quot;</span>);</span><br><span class="line">user_printf(<span class="string">&quot;         |___/                |___/ &quot;</span>);</span><br></pre></td></tr></table></figure>
+<hr>
+<p>分割线内内容摘自<a target="_blank" rel="noopener" href="https://uinika.github.io/Embedded/STM32F401/?highlight=hal#arm-cortex-m4-%E6%A6%82%E8%A6%81">Uinlo</a>的个人博客：</p>
+<h3 id="hal-通用命名规则">HAL 通用命名规则</h3>
+<p>对于共有的系统外设，无需使用指针或者实例对象，这个规则适用于 <strong>GPIO</strong>、<strong>SYSTICK</strong>、<strong>NVIC</strong>、<strong>RCC</strong>、<strong>FLASH</strong> 外设，例如函数 <code>HAL_GPIO_Init()</code> 只需要 GPIO 的地址及其配置参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef HAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *Init) &#123;</span><br><span class="line">  /* GPIO 初始化体 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个外设驱动程序当中都定义有处理中断和特定时钟配置的<strong>宏</strong>，这些宏会被导出到外设驱动的<strong>头文件</strong>，以便于<strong>扩展文件</strong>使用，这些用于处理中断和特定时钟配置的宏如下所示：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">宏定义</th>
+<th style="text-align: left;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>__HAL_PPP_ENABLE_IT(__HANDLE__, __INTERRUPT__)</code></td>
+<td style="text-align: left;"><strong>使能</strong>一个特定的外设中断；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>__HAL_PPP_DISABLE_IT(__HANDLE__, __INTERRUPT__)</code></td>
+<td style="text-align: left;"><strong>失能</strong>一个特定的外设中断；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>__HAL_PPP_GET_IT (__HANDLE__, __ INTERRUPT __)</code></td>
+<td style="text-align: left;"><strong>获取</strong>一个指定外设的中断状态；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>__HAL_PPP_CLEAR_IT (__HANDLE__, __ INTERRUPT __)</code></td>
+<td style="text-align: left;"><strong>清除</strong>一个指定外设的中断状态；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>__HAL_PPP_GET_FLAG (__HANDLE__, __FLAG__)</code></td>
+<td style="text-align: left;"><strong>获取</strong>一个指定外设的标志位状态；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>__HAL_PPP_CLEAR_FLAG (__HANDLE__, __FLAG__)</code></td>
+<td style="text-align: left;"><strong>清除</strong>一个指定外设的标志位状态；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>__HAL_PPP_ENABLE(__HANDLE__)</code></td>
+<td style="text-align: left;"><strong>使能</strong>一个外设；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>__HAL_PPP_DISABLE(__HANDLE__)</code></td>
+<td style="text-align: left;"><strong>失能</strong>一个外设；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>__HAL_PPP_XXXX (__HANDLE__, __PARAM__)</code></td>
+<td style="text-align: left;">指定 PPP 外设驱动的<strong>宏</strong>；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>__HAL_PPP_GET_ IT_SOURCE (__HANDLE__, __INTERRUPT__)</code></td>
+<td style="text-align: left;">检查指定的<strong>中断源</strong>；</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意</strong>：<strong>NVIC</strong> 和 <strong>SYSTICK</strong> 是 ARM Cortex-M4 提供的两个核心功能，与之相关的 API 都位于 <code>stm32f4xx_hal_cortex.c</code> 源文件。</p>
+</blockquote>
+<p>当从寄存器读取<strong>状态标志位</strong>时，其结果由移位值组成，具体取决于读取值的数量与大小。这种情况下，返回的状态宽度为 <strong>32</strong> 位，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STATUS = XX | (YY &lt;&lt; 16)</span><br><span class="line">/* 或者 */</span><br><span class="line">STATUS = XX | (YY &lt;&lt; 8) | (YY &lt;&lt; 16) | (YY &lt;&lt; 24)</span><br></pre></td></tr></table></figure>
+<p>外设 PPP 的指针在调用 <code>HAL_PPP_Init()</code> 之前有效，初始化函数会在修改指针字段之前进行检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HAL_PPP_Init(PPP_HandleTypeDef)</span><br><span class="line">if (hppp == NULL) &#123;</span><br><span class="line">  return HAL_ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以使用<strong>条件式宏定义</strong>或者<strong>伪代码宏定义</strong>：</p>
+<ul>
+<li><p>条件式宏定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define ABS(x) (((x) &gt; 0) ? (x) : -(x))</span><br></pre></td></tr></table></figure></li>
+<li><p>伪代码宏定义（多指令宏）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define __HAL_LINKDMA(__HANDLE__, __PPP_DMA_FIELD_, __DMA_HANDLE_) \</span><br><span class="line">  do &#123;                                                             \</span><br><span class="line">    (__HANDLE__)-&gt;__PPP_DMA_FIELD_ = &amp;(__DMA_HANDLE_);             \</span><br><span class="line">    (__DMA_HANDLE_).Parent = (__HANDLE__);                         \</span><br><span class="line">  &#125; while (0)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="中断处理程序与回调函数">中断处理程序与回调函数</h4>
+<p>除了各种 API 函数之外，HAL 固件库外设驱动程序当中还包含有：</p>
+<ul>
+<li>用户回调函数；</li>
+<li>由 <code>stm32f4xx_it.c</code> 调用的 <code>HAL_PPP_IRQHandler()</code> 外设中断处理程序；</li>
+</ul>
+<p>回调函数被定义为带有 <code>weak</code> 属性的空函数，使用时必须在用户代码当中进行定义，HAL 固件库当中存在三种类型的用户回调函数：</p>
+<ul>
+<li>外围系统级初始化与反向初始化回调函数 <code>HAL_PPP_MspInit()</code> 和 <code>HAL_PPP_MspDeInit</code>；</li>
+<li>外理完成回调函数 <code>HAL_PPP_ProcessCpltCallback</code>；</li>
+<li>错误的回调函数 <code>HAL_PPP_ErrorCallback</code>；</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">回调函数</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>HAL_PPP_MspInit()</code> <code>HAL_PPP_MspDeInit()</code></td>
+<td style="text-align: left;">例如 <code>HAL_USART_MspInit()</code>，由 API 函数 <code>HAL_PPP_Init()</code> 进行调用，用于进行外设的系统级初始化（GPIO、时钟、DMA、中断）；</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>HAL_PPP_ProcessCpltCallback</code></td>
+<td style="text-align: left;">例如 <code>HAL_USART_TxCpltCallback</code>，当处理执行完成时，由外设或者 DMA 中断处理程序进行调用；</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>HAL_PPP_ErrorCallback</code></td>
+<td style="text-align: left;">例如 <code>HAL_USART_ErrorCallback</code>，当发生错误时，由外设或者 DMA 中断处理程序进行调用；</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hal-全局初始化">HAL 全局初始化</h4>
+<p><code>stm32f4xx_hal.c</code> 提供了一组 API 来初始化 HAL 核心实现：</p>
+<ul>
+<li><code>HAL_Init()</code>：该函数必须在应用程序启动时调用，用于初始化数据和指令，缓存预获取队列，设置 SysTick 定时器（基于 HSI 时钟）每间隔 <code>1ms</code> 产生一个最低优先级中断，将优先级分组设置为 <code>4</code> 位，调用 <code>HAL_MspInit()</code> 用户回调函数来执行系统级初始化（时钟、GPIO、DMA、中断）；</li>
+<li><code>HAL_DeInit()</code>：重置所有外设，调用用户回调函数 <code>HAL_MspDeInit()</code> 执行系统级反向初始化；</li>
+<li><code>HAL_GetTick()</code>：获取当前 <strong>SysTick</strong> 定时器的计数值（在 SysTick 中断内递增），用于外设驱动程序处理<strong>超时</strong>；</li>
+<li><code>HAL_Delay()</code>：通过 <strong>SysTick</strong> 定时器实现一个以毫秒为单位的延迟；</li>
+</ul>
+<h4 id="io-操作">IO 操作</h4>
+<p>带有内部数据处理（发送、接收、读/写）的 HAL 函数，通常具备<code>轮询（Polling）</code>、<code>中断（Interrupt）</code>、<code>DMA</code> 三种处理方式：</p>
+<hr>
+<h2 id="底层探究">底层探究</h2>
+<h3 id="新建工程">新建工程</h3>
+<p>使用windows系统的PowerShell生成Blank template文件的目录树：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\qjy\Desktop\Blank template&gt; <span class="built_in">tree</span> /F</span><br><span class="line">卷 Windows-SSD 的文件夹 <span class="built_in">PATH</span> 列表</span><br><span class="line">卷序列号为 F01E-<span class="number">6275</span></span><br><span class="line"><span class="function">C:.</span></span><br><span class="line"><span class="function">│  <span class="title">Blank_Template.uvoptx</span></span></span><br><span class="line"><span class="function">│  <span class="title">Blank_Template.uvprojx</span></span></span><br><span class="line"><span class="function">│</span></span><br><span class="line"><span class="function">├─<span class="title">DebugConfig</span></span></span><br><span class="line"><span class="function">│      <span class="title">Target_1_STM32G431RBTx.dbgconf</span></span></span><br><span class="line"><span class="function">│</span></span><br><span class="line"><span class="function">├─<span class="title">Listings</span></span></span><br><span class="line"><span class="function">└─<span class="title">Objects</span></span></span><br></pre></td></tr></table></figure>
+<p>添加 “startup_stm32g431xx.s” <del>和 “system_stm32g4xx.c” 两个文件</del>到 Blank template 文件夹目录下：</p>
+<p>新建两个文件，编写系统初始化函数和主函数，如图。然后编译。</p>
+<p><img src="/2022/06/24/15-48-41/image-20220628171400275.png" alt="image-20220628171400275" style="zoom:50%;"></p>
+<p>编译成功，包含一个警告，内容为：<code>void SystemInit(void)</code> 函数没有函数原型，此处可以忽略该警告。</p>
+<p>编译后的工程目录树如下：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\qjy\Desktop\Blank template&gt; <span class="built_in">tree</span> /F</span><br><span class="line">卷 Windows-SSD 的文件夹 <span class="built_in">PATH</span> 列表</span><br><span class="line">卷序列号为 F01E-<span class="number">6275</span></span><br><span class="line"><span class="function">C:.</span></span><br><span class="line"><span class="function">│  <span class="title">Blank_Template.uvguix.qjy</span></span></span><br><span class="line"><span class="function">│  <span class="title">Blank_Template.uvoptx</span></span></span><br><span class="line"><span class="function">│  <span class="title">Blank_Template.uvprojx</span></span></span><br><span class="line"><span class="function">│  <span class="title">main.c</span></span></span><br><span class="line"><span class="function">│  <span class="title">startup_stm32g431xx.s</span></span></span><br><span class="line"><span class="function">│  <span class="title">system_stm32g4xx.c</span></span></span><br><span class="line"><span class="function">│</span></span><br><span class="line"><span class="function">├─<span class="title">DebugConfig</span></span></span><br><span class="line"><span class="function">│      <span class="title">Target_1_STM32G431RBTx.dbgconf</span></span></span><br><span class="line"><span class="function">│</span></span><br><span class="line"><span class="function">├─<span class="title">Listings</span></span></span><br><span class="line"><span class="function">│      <span class="title">Blank_Template.map</span></span></span><br><span class="line"><span class="function">│</span></span><br><span class="line"><span class="function">└─<span class="title">Objects</span></span></span><br><span class="line"><span class="function">        <span class="title">Blank_Template.axf</span></span></span><br><span class="line"><span class="function">        <span class="title">Blank_Template.build_log.htm</span></span></span><br><span class="line"><span class="function">        <span class="title">Blank_Template.htm</span></span></span><br><span class="line"><span class="function">        <span class="title">Blank_Template.lnp</span></span></span><br><span class="line"><span class="function">        <span class="title">Blank_Template_Target</span> 1.<span class="title">dep</span></span></span><br><span class="line"><span class="function">        <span class="title">main.d</span></span></span><br><span class="line"><span class="function">        <span class="title">main.o</span></span></span><br><span class="line"><span class="function">        <span class="title">startup_stm32g431xx.o</span></span></span><br><span class="line"><span class="function">        <span class="title">system_stm32g4xx.d</span></span></span><br><span class="line"><span class="function">        <span class="title">system_stm32g4xx.o</span></span></span><br></pre></td></tr></table></figure>
+<p>其中keil中的project目录树为：</p>
+<p><img src="/2022/06/24/15-48-41/image-20220628171454899.png" alt="image-20220628171454899" style="zoom: 50%;"></p>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220628181017627.png" alt="image-20220628181017627"><figcaption aria-hidden="true">image-20220628181017627</figcaption>
+</figure>
+<figure>
+<img src="/2022/06/24/15-48-41/image-20220628181229406.png" alt="image-20220628181229406"><figcaption aria-hidden="true">image-20220628181229406</figcaption>
+</figure>
+<p>我们知道系统的时钟是通过系统复位和时钟控制(RCC)寄存器配置的。 在第6.3节中列举了25个RCC寄存器的位定义和偏移地址。参考CubeMX中生成的stm32g431xx.h文件，定义如下的结构体用于访问RCC的每个寄存器：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief Reset and Clock Control</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CR;          <span class="comment">/*!&lt; RCC clock control register,                                              Address offset: 0x00 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> ICSCR;       <span class="comment">/*!&lt; RCC internal clock sources calibration register,                         Address offset: 0x04 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CFGR;        <span class="comment">/*!&lt; RCC clock configuration register,                                        Address offset: 0x08 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> PLLCFGR;     <span class="comment">/*!&lt; RCC system PLL configuration register,                                   Address offset: 0x0C */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED0;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x10 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED1;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x14 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CIER;        <span class="comment">/*!&lt; RCC clock interrupt enable register,                                     Address offset: 0x18 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CIFR;        <span class="comment">/*!&lt; RCC clock interrupt flag register,                                       Address offset: 0x1C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CICR;        <span class="comment">/*!&lt; RCC clock interrupt clear register,                                      Address offset: 0x20 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED2;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x24 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB1RSTR;    <span class="comment">/*!&lt; RCC AHB1 peripheral reset register,                                      Address offset: 0x28 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB2RSTR;    <span class="comment">/*!&lt; RCC AHB2 peripheral reset register,                                      Address offset: 0x2C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB3RSTR;    <span class="comment">/*!&lt; RCC AHB3 peripheral reset register,                                      Address offset: 0x30 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED3;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x34 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1RSTR1;   <span class="comment">/*!&lt; RCC APB1 peripheral reset register 1,                                    Address offset: 0x38 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1RSTR2;   <span class="comment">/*!&lt; RCC APB1 peripheral reset register 2,                                    Address offset: 0x3C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB2RSTR;    <span class="comment">/*!&lt; RCC APB2 peripheral reset register,                                      Address offset: 0x40 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED4;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x44 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB1ENR;     <span class="comment">/*!&lt; RCC AHB1 peripheral clocks enable register,                              Address offset: 0x48 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB2ENR;     <span class="comment">/*!&lt; RCC AHB2 peripheral clocks enable register,                              Address offset: 0x4C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB3ENR;     <span class="comment">/*!&lt; RCC AHB3 peripheral clocks enable register,                              Address offset: 0x50 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED5;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x54 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1ENR1;    <span class="comment">/*!&lt; RCC APB1 peripheral clocks enable register 1,                            Address offset: 0x58 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1ENR2;    <span class="comment">/*!&lt; RCC APB1 peripheral clocks enable register 2,                            Address offset: 0x5C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB2ENR;     <span class="comment">/*!&lt; RCC APB2 peripheral clocks enable register,                              Address offset: 0x60 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED6;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x64 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB1SMENR;   <span class="comment">/*!&lt; RCC AHB1 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x68 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB2SMENR;   <span class="comment">/*!&lt; RCC AHB2 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x6C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> AHB3SMENR;   <span class="comment">/*!&lt; RCC AHB3 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x70 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED7;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x74 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1SMENR1;  <span class="comment">/*!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 1, Address offset: 0x78 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB1SMENR2;  <span class="comment">/*!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 2, Address offset: 0x7C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> APB2SMENR;   <span class="comment">/*!&lt; RCC APB2 peripheral clocks enable in sleep mode and stop modes register, Address offset: 0x80 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED8;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x84 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CCIPR;       <span class="comment">/*!&lt; RCC peripherals independent clock configuration register,                Address offset: 0x88 */</span></span><br><span class="line">  <span class="type">uint32_t</span>      RESERVED9;   <span class="comment">/*!&lt; Reserved,                                                                Address offset: 0x8C */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> BDCR;        <span class="comment">/*!&lt; RCC backup domain control register,                                      Address offset: 0x90 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CSR;         <span class="comment">/*!&lt; RCC clock control &amp; status register,                                     Address offset: 0x94 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CRRCR;       <span class="comment">/*!&lt; RCC clock recovery RC register,                                          Address offset: 0x98 */</span></span><br><span class="line">  __IO <span class="type">uint32_t</span> CCIPR2;      <span class="comment">/*!&lt; RCC peripherals independent clock configuration register 2,              Address offset: 0x9C */</span></span><br><span class="line">&#125; RCC_TypeDef;</span><br></pre></td></tr></table></figure>
+<p>RCC基地址宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> PERIPH_BASE           (0x40000000UL) <span class="comment">/*!&lt; Peripheral base address */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> AHB1PERIPH_BASE       (PERIPH_BASE + 0x00020000UL)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC_BASE              (AHB1PERIPH_BASE + 0x1000UL)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RCC ((rcc_regs_t *)RCC_BASE)</span></span><br></pre></td></tr></table></figure>
+<p>那么我们就可以通过如下的形式来访问RCC的寄存器了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RCC-&gt;CR</span><br><span class="line">RCC-&gt;CFGR</span><br></pre></td></tr></table></figure>
+<h2 id="cubemx小记">CubeMX小记</h2>
+<figure>
+<img src="/2022/06/24/15-48-41/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTM0NDQxMg==,size_16,color_FFFFFF,t_70-16566001142753.png" alt="SYS配置介绍"><figcaption aria-hidden="true">SYS配置介绍</figcaption>
+</figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/439705800">引用</a>：调试接口配置。讲道理SWD应该是首选，如图5所示。如果不设置的话，编译下载后，你就会发现下载不了程序了，有复位键还好，没<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=复位键&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22article%22%2C%22sourceId%22%3A%22439705800%22%7D">复位键</a>就有得愁了。</p>
+</blockquote>
+<p>选择Serial Wire是与下图中的SW相匹配</p>
+<p><img src="/2022/06/24/15-48-41/image-20220630224454477.png" alt="image-20220630224454477" style="zoom: 50%;"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41344412/article/details/114153416">引用</a>：如果在STM32CubeMX中选择SW协议，MDK 也必须 选择SW协议。JTAG协议配置也同理。否则会造成下载和调试失败。在实际项目中SW协议使用使用的比较多，SW与JTAG相比，速度更快，占用的引脚更少，推荐大家配置成SW协议。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/06/24/15-48-41/" title="STM32G431-Nucleo-64开发板使用小记">https://y006.github.io/2022/06/24/15-48-41/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%94%B5%E5%AD%90%E8%AE%BE%E8%AE%A1/" rel="tag"># 电子设计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/06/21-00-26/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/30/15-15-44/" rel="next" title="Spieed Maix Duino开发板使用小记">
+                  Spieed Maix Duino开发板使用小记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

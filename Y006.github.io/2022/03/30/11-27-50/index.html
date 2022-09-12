@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="OpenCV In Python 为什么学习 OpenCV？ 电子设计中使用OpenCV进行图像处理的仿真 使用工具： python 安装OpenCV： 1pip install opencv-python 例程展示 官网链接 Getting Started with Images 图片入门——读取和显示图片 12345678910111213141516#作为第一步，导入O">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OpenCv笔记">
+<meta property="og:url" content="https://y006.github.io/2022/03/30/11-27-50/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="OpenCV In Python 为什么学习 OpenCV？ 电子设计中使用OpenCV进行图像处理的仿真 使用工具： python 安装OpenCV： 1pip install opencv-python 例程展示 官网链接 Getting Started with Images 图片入门——读取和显示图片 12345678910111213141516#作为第一步，导入O">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/frame.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/threshold.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/ada_threshold.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/otsu.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/filter.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/blur.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/gaussian.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/median.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/bilateral.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/j-16487088974263.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/erosion-16487092156135.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/dilation-16487093069197.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/opening-16487093835949.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/closing-164870944983811.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/gradient.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/tophat-164870959228714.png">
+<meta property="og:image" content="https://y006.github.io/2022/03/30/11-27-50/blackhat.png">
+<meta property="article:published_time" content="2022-03-30T03:27:50.000Z">
+<meta property="article:modified_time" content="2022-04-24T06:46:27.161Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="电子设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://y006.github.io/2022/03/30/11-27-50/frame.jpg">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/03/30/11-27-50/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/03/30/11-27-50/","path":"2022/03/30/11-27-50/","title":"OpenCv笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenCv笔记 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#opencv-in-python"><span class="nav-number">1.</span> <span class="nav-text">OpenCV In Python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B%E5%B1%95%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">例程展示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getting-started-with-images"><span class="nav-number">1.1.1.</span> <span class="nav-text">Getting Started with Images</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#capture-video-from-camera"><span class="nav-number">1.2.</span> <span class="nav-text">Capture Video from Camera</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basic-operations-on-images"><span class="nav-number">1.2.1.</span> <span class="nav-text">Basic Operations on Images</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#opencv-python%E6%95%99%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">OpenCV-Python教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#opencv%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">OpenCV中的图像处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.1.1.</span> <span class="nav-text">色彩空间转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">改变颜色空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9F%E8%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">跟踪对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0hsv%E5%80%BC%E8%B7%9F%E8%B8%AA"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">如何找到HSV值跟踪？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E8%B5%84%E6%BA%90"><span class="nav-number">2.1.1.5.</span> <span class="nav-text">附加资源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%9A%84%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.2.</span> <span class="nav-text">图像的几何变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E9%98%88%E5%80%BC%E5%8C%96"><span class="nav-number">2.1.3.</span> <span class="nav-text">图像阈值化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-1"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E9%98%88%E5%80%BC"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">简单的阈值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E9%98%88%E5%80%BC"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">自适应阈值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#otsu-%E4%BA%8C%E5%80%BC%E6%B3%95"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">Otsu 二值法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#otsu-%E4%BA%8C%E5%80%BC%E5%8C%96%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="nav-number">2.1.4.</span> <span class="nav-text">Otsu 二值化是如何工作的？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E8%B5%84%E6%BA%90-1"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">附加资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exercises"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">Exercises</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E6%BB%91%E5%9B%BE%E5%83%8F"><span class="nav-number">2.1.5.</span> <span class="nav-text">平滑图像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-2"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E6%BB%A4%E6%B3%A2"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">二维卷积（图像滤波）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%A8%A1%E7%B3%8A%E5%9B%BE%E5%83%8F%E5%B9%B3%E6%BB%91"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">图像模糊（图像平滑）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E8%B5%84%E6%BA%90-2"><span class="nav-number">2.1.5.4.</span> <span class="nav-text">附加资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exercises-1"><span class="nav-number">2.1.5.5.</span> <span class="nav-text">Exercises</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%A2%E6%80%81%E5%AD%A6%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.6.</span> <span class="nav-text">形态学变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-3"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">2.1.6.2.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.1.6.3.</span> <span class="nav-text">结构元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">2.1.6.4.</span> <span class="nav-text">额外的资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">2.1.6.5.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%9A%84%E6%A2%AF%E5%BA%A6"><span class="nav-number">2.1.7.</span> <span class="nav-text">图像的梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canny-%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="nav-number">2.1.8.</span> <span class="nav-text">Canny 边缘检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E9%87%91%E5%AD%97%E5%A1%94"><span class="nav-number">2.1.9.</span> <span class="nav-text">图像金字塔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opencv-%E7%9A%84%E8%BD%AE%E5%BB%93"><span class="nav-number">2.1.10.</span> <span class="nav-text">OpenCV 的轮廓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opencv-%E7%9A%84%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="nav-number">2.1.11.</span> <span class="nav-text">OpenCV 的直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opencv-%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2"><span class="nav-number">2.1.12.</span> <span class="nav-text">OpenCV 中的图像变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">2.1.13.</span> <span class="nav-text">模板匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hough-%E7%9B%B4%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">2.1.14.</span> <span class="nav-text">Hough 直线检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%88%86%E6%B0%B4%E5%B2%AD%E7%AE%97%E6%B3%95%E7%9A%84%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2"><span class="nav-number">2.1.15.</span> <span class="nav-text">基于分水岭算法的图像分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-grabcut-%E7%AE%97%E6%B3%95%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%89%8D%E6%99%AF%E6%8F%90%E5%8F%96"><span class="nav-number">2.1.16.</span> <span class="nav-text">基于 GrabCut 算法的交互式前景提取</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/03/30/11-27-50/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenCv笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-30 11:27:50" itemprop="dateCreated datePublished" datetime="2022-03-30T11:27:50+08:00">2022-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-24 14:46:27" itemprop="dateModified" datetime="2022-04-24T14:46:27+08:00">2022-04-24</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/03/30/11-27-50/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/03/30/11-27-50/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="opencv-in-python">OpenCV In Python</h1>
+<p>为什么学习 OpenCV？</p>
+<p>电子设计中使用OpenCV进行图像处理的仿真</p>
+<p>使用工具：</p>
+<p>python</p>
+<p>安装OpenCV：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
+<h2 id="例程展示">例程展示</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">官网链接</a></p>
+<h3 id="getting-started-with-images">Getting Started with Images</h3>
+<p>图片入门——读取和显示图片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#作为第一步，导入OpenCV python库。正确的方法是给它附加赋一个名称cv，下面将使用它来引用这个库。</span></span><br><span class="line"><span class="comment">#（不知道为什么要加别称，但是实践是不加别称也可以使用）</span></span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="comment">#调用cv::imread()来读入图片（在官网的示例中使用了绝对路径，在我实践中我的电脑上需要使用绝对路径，具体原因不清楚。）</span></span><br><span class="line">img = cv.imread(cv.samples.findFile(<span class="string">r&#x27;C:\Users\qjy\Desktop\2.jpg&#x27;</span>))</span><br><span class="line"><span class="comment">#如果图像打开失败，退出并显示“不能读取图片。”</span></span><br><span class="line"><span class="keyword">if</span> img <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    sys.exit(<span class="string">&quot;不能读取图片。&quot;</span>)</span><br><span class="line"><span class="comment">#使用cv::imshow()显示图片，cv::waitkey()用于维持图片显示：cv::waitKey函数唯一的参数是等待用户输入的时间(以毫秒为单位)。零意味着永远等待。返回值是被按下的键。</span></span><br><span class="line">cv.imshow(<span class="string">&quot;显示窗口&quot;</span>, img)</span><br><span class="line">k = cv.waitKey(<span class="number">0</span>)</span><br><span class="line"><span class="comment">#如果按下的键是“s”键，图像将被写入一个文件。为此，cv::imwrite()函数被调用，该函数具有文件路径和cv::Mat对象作为参数。</span></span><br><span class="line"><span class="keyword">if</span> k == <span class="built_in">ord</span>(<span class="string">&quot;s&quot;</span>):</span><br><span class="line">    cv.imwrite(<span class="string">&quot;另存为图片名&quot;</span>, img)</span><br><span class="line">    k = cv.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li><p>读取图像函数：cv::imread</p>
+<p>第一个参数指定的文件路径来加载图像。第二个参数是可选的，它指定图像的格式:</p>
+<ul>
+<li><p>IMREAD_COLOR 以BGR 8位格式加载图像。这是这里使用的<strong>默认</strong>。</p></li>
+<li><p>IMREAD_UNCHANGED 按原样加载图像(包括alpha通道)。</p></li>
+<li><p>IMREAD_GRAYSCALE 以灰度值加载图像。</p></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#具体写法</span></span><br><span class="line">img = cv.imread(cv.samples.findFile(<span class="string">r&#x27;C:\Users\qjy\Desktop\2.jpg&#x27;</span>),cv.IMREAD_GRAYSCALE)</span><br></pre></td></tr></table></figure>
+<p>备注：</p>
+<ul>
+<li><p>对于彩色图像，解码后的图像将以B G R顺序存储通道。</p></li>
+<li><p>当使用IMREAD_GRAYSCALE时，如果可用，将使用编解码器的内部灰度转换。结果可能与cvtColor()的输出不同</p></li>
+</ul></li>
+</ol>
+<h2 id="capture-video-from-camera">Capture Video from Camera</h2>
+<p>视频入门——调用电脑摄像头并获取视频</p>
+<p>有时我们需要用摄像头捕获实时流，OpenCV提供了一个非常简单的接口来做到这一点。本次任务使用电脑内置的摄像头捕获视频并且显示。</p>
+<p>要捕获视频，您需要创建一个<strong>VideoCapture</strong>对象。它的参数可以是设备索引或视频文件的名称。设备索引只是指定哪个摄像机的数字。通常会连接一个摄像头。所以我只是传递0（或 -1）。你可以通过传递1来选择第二个摄像机，以此类推。之后，您可以逐帧捕捉。但在最后，不要忘记释放<strong>Capture</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line">cap = cv.VideoCapture(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> cap.isOpened():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Cannot open camera&quot;</span>)</span><br><span class="line">    exit()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># Capture frame-by-frame</span></span><br><span class="line">    ret, frame = cap.read()</span><br><span class="line">    <span class="comment"># if frame is read correctly ret is True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ret:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t receive frame (stream end?). Exiting ...&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># Our operations on the frame come here</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Display the resulting frame</span></span><br><span class="line">    cv.imshow(<span class="string">&#x27;frame&#x27;</span>, frame)</span><br><span class="line">    <span class="keyword">if</span> cv.waitKey(<span class="number">1</span>) == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="comment"># When everything done, release the capture</span></span><br><span class="line">cap.release()</span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line">cap = cv.VideoCapture(<span class="string">r&#x27;C:\Users\qjy\Desktop\a.mp4&#x27;</span>)</span><br><span class="line"><span class="keyword">while</span> cap.isOpened():</span><br><span class="line">    ret, frame = cap.read()</span><br><span class="line">    <span class="comment"># if frame is read correctly ret is True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> ret:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t receive frame (stream end?). Exiting ...&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)</span><br><span class="line">    cv.imshow(<span class="string">&#x27;frame&#x27;</span>, gray)</span><br><span class="line">    <span class="keyword">if</span> cv.waitKey(<span class="number">1</span>) == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">cap.release()</span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<h3 id="basic-operations-on-images">Basic Operations on Images</h3>
+<h1 id="opencv-python教程">OpenCV-Python教程</h1>
+<h2 id="opencv中的图像处理">OpenCV中的图像处理</h2>
+<h3 id="色彩空间转换">色彩空间转换</h3>
+<h4 id="目标">目标</h4>
+<ul>
+<li><p>在本教程中，您将学习如何将图像从一个颜色空间转换到另一个颜色空间，如 <span class="math inline">\(BGR↔Gray\)</span>，<span class="math inline">\(BGR↔HSV\)</span> 等。</p></li>
+<li><p>除此之外，我们将创建一个应用程序来提取视频中的彩色对象</p></li>
+<li><p>你将学习以下函数： <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab"><code>cv.cvtColor()</code></a></strong>， <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga48af0ab51e36436c5d04340e036ce981"><code>cv.inRange()</code></a></strong> 等。</p></li>
+</ul>
+<h4 id="改变颜色空间">改变颜色空间</h4>
+<p><span class="math inline">\(OpenCV\)</span> 中有超过150种颜色空间转换方法。但我们只看两种使用最广泛的一种： <span class="math inline">\(BGR↔Gray\)</span> 和 <span class="math inline">\(BGR↔HSV\)</span> 。</p>
+<p>对于颜色转换，我们使用函数 <code>cv.cvtColor(input_image, flag)</code>，其中 <span class="math inline">\(flag\)</span> 决定转换的类型。</p>
+<p>对于 <span class="math inline">\(BGR→Gray\)</span> 转换，我们使用标志<a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d8/d01/group__imgproc__color__conversions.html#gga4e0972be5de079fed4e3a10e24ef5ef0a353a4b8db9040165db4dacb5bcefb6ea"><code>cv.COLOR_BGR2GRAY</code></a>。类似地，对于 <span class="math inline">\(BGR→HSV\)</span>，我们使用标志<a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d8/d01/group__imgproc__color__conversions.html#gga4e0972be5de079fed4e3a10e24ef5ef0aa4a7f0ecf2e94150699e48c79139ee12"><code>cv.COLOR_BGR2HSV</code></a>。要获取其他标志，只需在 <span class="math inline">\(Python\)</span> 终端中运行以下命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>flags = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">dir</span>(cv) <span class="keyword">if</span> i.startswith(<span class="string">&#x27;COLOR_&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>( flags )</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>对于HSV，色相范围为[0,179]，饱和度范围为[0,255]，取值范围为[0,255]。不同的软件使用不同的尺度。所以如果你在比较 <span class="math inline">\(OpenCV\)</span> 值和它们，你需要标准化这些范围。</p>
+</blockquote>
+<h4 id="跟踪对象">跟踪对象</h4>
+<p>现在我们知道了如何将 <span class="math inline">\(BGR\)</span> 图像转换为 <span class="math inline">\(HSV\)</span>，我们可以使用它来提取有颜色的对象。在 $ HSV$ 中，比在 <span class="math inline">\(BGR\)</span> 颜色空间中更容易表示颜色。在我们的应用程序中，我们将尝试提取一个蓝色的对象。方法如下：</p>
+<ul>
+<li><p>取视频的每一帧。</p></li>
+<li><p>从 <span class="math inline">\(BGR\)</span> 转换到 <span class="math inline">\(HSV\)</span> 颜色空间。</p></li>
+<li><p>我们阈值的 <span class="math inline">\(HSV\)</span> 图像范围的蓝色。</p></li>
+<li><p>现在单独提取蓝色物体，我们可以对图像做任何我们想做的事情。</p></li>
+</ul>
+<p>下面是详细注释的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">cap = cv.VideoCapture(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    <span class="comment"># Take each frame</span></span><br><span class="line">    _, frame = cap.read()</span><br><span class="line">    <span class="comment"># Convert BGR to HSV</span></span><br><span class="line">    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)</span><br><span class="line">    <span class="comment"># define range of blue color in HSV</span></span><br><span class="line">    lower_blue = np.array([<span class="number">110</span>,<span class="number">50</span>,<span class="number">50</span>])</span><br><span class="line">    upper_blue = np.array([<span class="number">130</span>,<span class="number">255</span>,<span class="number">255</span>])</span><br><span class="line">    <span class="comment"># Threshold the HSV image to get only blue colors</span></span><br><span class="line">    mask = cv.inRange(hsv, lower_blue, upper_blue)</span><br><span class="line">    <span class="comment"># Bitwise-AND mask and original image</span></span><br><span class="line">    res = cv.bitwise_and(frame,frame, mask= mask)</span><br><span class="line">    cv.imshow(<span class="string">&#x27;frame&#x27;</span>,frame)</span><br><span class="line">    cv.imshow(<span class="string">&#x27;mask&#x27;</span>,mask)</span><br><span class="line">    cv.imshow(<span class="string">&#x27;res&#x27;</span>,res)</span><br><span class="line">    k = cv.waitKey(<span class="number">5</span>) &amp; <span class="number">0xFF</span></span><br><span class="line">    <span class="keyword">if</span> k == <span class="number">27</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p>下图显示了对蓝色物体的跟踪：</p>
+<p><img src="/2022/03/30/11-27-50/frame.jpg"></p>
+<blockquote>
+<p>Note</p>
+<p>图像中有一些噪声。我们将在后面的章节中看到如何删除它。</p>
+<p>这是目标跟踪中最简单的方法。一旦你学会了轮廓函数，你就可以做很多事情，比如找到物体的质心并使用它来跟踪物体，通过在摄像机前移动你的手来绘制图表，以及其他有趣的事情。</p>
+</blockquote>
+<h4 id="如何找到hsv值跟踪">如何找到HSV值跟踪？</h4>
+<p>这是在 <a target="_blank" rel="noopener" href="https://www.stackoverflow.com/">stackoverflow.com</a> 中发现的一个常见问题。它非常简单，你可以使用相同的函数<a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab"><code>cv.cvtColor()</code></a>。你只需传递你想要的 <span class="math inline">\(BGR\)</span> 值，而不是传递一个图像。例如，要找到绿色的 <span class="math inline">\(HSV\)</span> 值，请在 $ Python$ 终端中尝试以下命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>green = np.uint8([[[<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span> ]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hsv_green = cv.cvtColor(green,cv.COLOR_BGR2HSV)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>( hsv_green )</span><br><span class="line">[[[ <span class="number">60</span> <span class="number">255</span> <span class="number">255</span>]]]</span><br></pre></td></tr></table></figure>
+<p>现在分别取 <span class="math inline">\([H-10, 100,100]\)</span> 和 <span class="math inline">\([H+10, 255,255]\)</span> 为下界和上界。除了这种方法之外，您还可以使用任何图像编辑工具（如 <span class="math inline">\(GIMP\)</span>）或任何在线转换器来查找这些值，但不要忘记调整 <span class="math inline">\(HSV\)</span> 范围。</p>
+<h4 id="附加资源">附加资源</h4>
+<p>练习：</p>
+<p>试着找出一种方法来提取不止一种颜色的对象，例如，同时提取红色、蓝色和绿色的对象。</p>
+<h3 id="图像的几何变换">图像的几何变换</h3>
+<h3 id="图像阈值化">图像阈值化</h3>
+<h4 id="目标-1">目标</h4>
+<ul>
+<li>在本教程中，您将学习简单的阈值，自适应阈值和 <span class="math inline">\(Otsu\)</span> 的阈值。</li>
+<li>你们将学习函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57"><code>cv.threshold</code></a></strong> 和 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3"><code>cv.adaptiveThreshold</code></a></strong>。</li>
+</ul>
+<h4 id="简单的阈值">简单的阈值</h4>
+<p>在这里，事情很简单。对于每个像素，应用相同的阈值。如果像素值小于阈值，则设置为 <span class="math inline">\(0\)</span>，否则设置为最大值。函数的简历。<span class="math inline">\(Threshold\)</span> 用于应用阈值。第一个参数是源图像，它应该是一个灰度图像。第二个参数是用于对像素值进行分类的阈值。第三个参数是分配给超过阈值的像素值的最大值。<span class="math inline">\(OpenCV\)</span> 提供了由第四个参数给出的不同类型的阈值</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a147222a96556ebc1d948b372bcd7ac59"><code>cv.THRESH_BINARY</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a19120b1a11d8067576cc24f4d2f03754"><code>cv.THRESH_BINARY_INV</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8"><code>cv.THRESH_TRUNC</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a0e50a338a4b711a8c48f06a6b105dd98"><code>cv.THRESH_TOZERO</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a47518a30aae90d799035bdcf0bb39a50"><code>cv.THRESH_TOZERO_INV</code></a></li>
+</ul>
+<p>请参阅这些类型的文档以了解其区别。</p>
+<p>该方法返回两个输出。第一个是所使用的阈值，第二个输出是阈值图像。</p>
+<p>这段代码比较了不同的简单阈值类型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">img = cv.imread(<span class="string">&#x27;gradient.png&#x27;</span>,<span class="number">0</span>)</span><br><span class="line">ret,thresh1 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_BINARY)</span><br><span class="line">ret,thresh2 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_BINARY_INV)</span><br><span class="line">ret,thresh3 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_TRUNC)</span><br><span class="line">ret,thresh4 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_TOZERO)</span><br><span class="line">ret,thresh5 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_TOZERO_INV)</span><br><span class="line">titles = [<span class="string">&#x27;Original Image&#x27;</span>,<span class="string">&#x27;BINARY&#x27;</span>,<span class="string">&#x27;BINARY_INV&#x27;</span>,<span class="string">&#x27;TRUNC&#x27;</span>,<span class="string">&#x27;TOZERO&#x27;</span>,<span class="string">&#x27;TOZERO_INV&#x27;</span>]</span><br><span class="line">images = [img, thresh1, thresh2, thresh3, thresh4, thresh5]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">    plt.subplot(<span class="number">2</span>,<span class="number">3</span>,i+<span class="number">1</span>),plt.imshow(images[i],<span class="string">&#x27;gray&#x27;</span>,vmin=<span class="number">0</span>,vmax=<span class="number">255</span>)</span><br><span class="line">    plt.title(titles[i])</span><br><span class="line">    plt.xticks([]),plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>为了绘制多幅图像，我们使用了 <code>plt.subplot()</code> 函数。详情请查看 <span class="math inline">\(matplotlib\)</span> 文档。</p>
+</blockquote>
+<p>代码产生如下结果：</p>
+<p><img src="/2022/03/30/11-27-50/threshold.jpg"></p>
+<h4 id="自适应阈值">自适应阈值</h4>
+<p>在前一节中，我们使用一个全局值作为阈值。但这并不是在所有情况下都是好的，例如，如果一个图像在不同的区域有不同的光照条件。在这种情况下，自适应阈值可以有所帮助。在这里，算法根据像素周围的小区域确定阈值。因此，我们对同一幅图像的不同区域采用不同的阈值，对不同光照条件下的图像有较好的处理效果。</p>
+<p>除上述参数外，方法 <a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3"><code>cv.adaptiveThreshold</code></a> 接受三个输入参数：</p>
+<p><code>adaptivmethod</code>决定如何计算阈值:</p>
+<p><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa42a3e6ef26247da787bf34030ed772cad0c5199ae8637a6b195062fea4789fa9"><code>cv.ADAPTIVE_THRESH_MEAN_C</code></a>：阈值是邻近区域的平均值减去常数C。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa42a3e6ef26247da787bf34030ed772caf262a01e7a3f112bbab4e8d8e28182dd"><code>cv.ADAPTIVE_THRESH_GAUSSIAN_C</code></a>：阈值是邻域值减去常数C的高斯加权和。</p>
+<p><code>blockSize</code> 决定了邻域区域的大小，<span class="math inline">\(C\)</span> 是一个常数，从邻域像素的平均值或加权和中减去。</p>
+<p>下面的代码比较了全局阈值和自适应阈值对不同光照的图像的影响：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">img = cv.imread(<span class="string">r&#x27;C:\Users\qjy\Desktop\11.jpg&#x27;</span>,<span class="number">0</span>)</span><br><span class="line">img = cv.medianBlur(img,<span class="number">5</span>)</span><br><span class="line">ret,th1 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_BINARY)</span><br><span class="line">th2 = cv.adaptiveThreshold(img,<span class="number">255</span>,cv.ADAPTIVE_THRESH_MEAN_C,cv.THRESH_BINARY,<span class="number">11</span>,<span class="number">2</span>)</span><br><span class="line">th3 = cv.adaptiveThreshold(img,<span class="number">255</span>,cv.ADAPTIVE_THRESH_GAUSSIAN_C,cv.THRESH_BINARY,<span class="number">11</span>,<span class="number">2</span>)</span><br><span class="line">titles = [<span class="string">&#x27;Original Image&#x27;</span>, <span class="string">&#x27;Global Thresholding (v = 127)&#x27;</span>,<span class="string">&#x27;Adaptive Mean Thresholding&#x27;</span>, <span class="string">&#x27;Adaptive Gaussian Thresholding&#x27;</span>]</span><br><span class="line">images = [img, th1, th2, th3]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">    plt.subplot(<span class="number">2</span>,<span class="number">2</span>,i+<span class="number">1</span>),plt.imshow(images[i],<span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(titles[i])</span><br><span class="line">    plt.xticks([]),plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/ada_threshold.jpg"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import cv2 as cv</span><br><span class="line">import numpy as np</span><br><span class="line">img = cv.imread(r&#x27;C:\Users\qjy\Desktop\65ce8a75cfc0dc33feddd6d4632ab1a.jpg&#x27;,0)</span><br><span class="line">kernel = np.ones((2,1),np.uint8)</span><br><span class="line">closing = cv.morphologyEx(img, cv.MORPH_CLOSE, kernel)</span><br><span class="line">#erosion = cv.erode(img,kernel,iterations = 1)</span><br><span class="line">cv.imshow(&#x27;res&#x27;,closing)</span><br><span class="line">k = cv.waitKey(0)</span><br></pre></td></tr></table></figure>
+<h4 id="otsu-二值法">Otsu 二值法</h4>
+<p>在全局阈值中，我们使用任意选择的值作为阈值。相比之下，<span class="math inline">\(Otsu\)</span> 的方法避免了必须选择一个值，并自动确定它。</p>
+<p>考虑一个只有两个不同图像值的图像(双峰图像)，其中直方图只包含两个峰。一个合适的阈值应该在这两个值之间。类似地，<span class="math inline">\(Otsu\)</span> 的方法从图像直方图中确定一个最优的全局阈值。</p>
+<p>为此，我们使用了 <a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57"><code>cv.threshold()</code></a> 函数，其中 <a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57"><code>cv.threshold()</code></a> 是 <a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a95251923e8e22f368ffa86ba8bce87ff"><code>cv.THRESH_OTSU</code></a> 被作为一个额外的标志传递。阈值可以任意选择。</p>
+<p>看看下面的例子。输入图像是一个有噪声的图像。在第一种情况下，应用值为 <span class="math inline">\(127\)</span> 的全局阈值。在第二种情况下，直接应用 <span class="math inline">\(Otsu\)</span> 的阈值。在第三种情况下，首先用 <span class="math inline">\(5x5\)</span> 高斯核滤波去除噪声，然后应用 <span class="math inline">\(Otsu\)</span> 阈值。看看噪声滤波是如何改善结果的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">img = cv.imread(<span class="string">&#x27;noisy2.png&#x27;</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment"># global thresholding</span></span><br><span class="line">ret1,th1 = cv.threshold(img,<span class="number">127</span>,<span class="number">255</span>,cv.THRESH_BINARY)</span><br><span class="line"><span class="comment"># Otsu&#x27;s thresholding</span></span><br><span class="line">ret2,th2 = cv.threshold(img,<span class="number">0</span>,<span class="number">255</span>,cv.THRESH_BINARY+cv.THRESH_OTSU)</span><br><span class="line"><span class="comment"># Otsu&#x27;s thresholding after Gaussian filtering</span></span><br><span class="line">blur = cv.GaussianBlur(img,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>)</span><br><span class="line">ret3,th3 = cv.threshold(blur,<span class="number">0</span>,<span class="number">255</span>,cv.THRESH_BINARY+cv.THRESH_OTSU)</span><br><span class="line"><span class="comment"># plot all the images and their histograms</span></span><br><span class="line">images = [img, <span class="number">0</span>, th1,</span><br><span class="line">          img, <span class="number">0</span>, th2,</span><br><span class="line">          blur, <span class="number">0</span>, th3]</span><br><span class="line">titles = [<span class="string">&#x27;Original Noisy Image&#x27;</span>,<span class="string">&#x27;Histogram&#x27;</span>,<span class="string">&#x27;Global Thresholding (v=127)&#x27;</span>,</span><br><span class="line">          <span class="string">&#x27;Original Noisy Image&#x27;</span>,<span class="string">&#x27;Histogram&#x27;</span>,<span class="string">&quot;Otsu&#x27;s Thresholding&quot;</span>,</span><br><span class="line">          <span class="string">&#x27;Gaussian filtered Image&#x27;</span>,<span class="string">&#x27;Histogram&#x27;</span>,<span class="string">&quot;Otsu&#x27;s Thresholding&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    plt.subplot(<span class="number">3</span>,<span class="number">3</span>,i*<span class="number">3</span>+<span class="number">1</span>),plt.imshow(images[i*<span class="number">3</span>],<span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(titles[i*<span class="number">3</span>]), plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.subplot(<span class="number">3</span>,<span class="number">3</span>,i*<span class="number">3</span>+<span class="number">2</span>),plt.hist(images[i*<span class="number">3</span>].ravel(),<span class="number">256</span>)</span><br><span class="line">    plt.title(titles[i*<span class="number">3</span>+<span class="number">1</span>]), plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.subplot(<span class="number">3</span>,<span class="number">3</span>,i*<span class="number">3</span>+<span class="number">3</span>),plt.imshow(images[i*<span class="number">3</span>+<span class="number">2</span>],<span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(titles[i*<span class="number">3</span>+<span class="number">2</span>]), plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/otsu.jpg"></p>
+<h3 id="otsu-二值化是如何工作的">Otsu 二值化是如何工作的？</h3>
+<p>本节演示了 <span class="math inline">\(Otsu\)</span> 二值化的 <span class="math inline">\(Python\)</span> 实现，以展示它实际上是如何工作的。如果你不感兴趣，你可以跳过这个。</p>
+<p>由于我们使用的是双峰图像，<span class="math inline">\(Otsu\)</span> 的算法试图找到一个阈值<span class="math inline">\((t)\)</span>，使由关系给出的<strong>weighted within-class variance</strong>最小化： <span class="math display">\[
+\sigma_w^2(t) = q_1(t)\sigma_1^2(t)+q_2(t)\sigma_2^2(t)
+\]</span> 其中： <span class="math display">\[
+\begin{gather*}
+\mu_1(t) = \sum_{i=1}^{t} \frac{iP(i)}{q_1(t)} \quad \&amp; \quad \mu_2(t) = \sum_{i=t+1}^{I} \frac{iP(i)}{q_2(t)}\\
+\mu_1(t) = \sum_{i=1}^{t} \frac{iP(i)}{q_1(t)} \quad \&amp; \quad \mu_2(t) = \sum_{i=t+1}^{I} \frac{iP(i)}{q_2(t)}\\
+\sigma_1^2(t) = \sum_{i=1}^{t} [i-\mu_1(t)]^2 \frac{P(i)}{q_1(t)} \quad \&amp; \quad \sigma_2^2(t) = \sum_{i=t+1}^{I} [i-\mu_2(t)]^2 \frac{P(i)}{q_2(t)}
+\end{gather*}
+\]</span> 它实际上找到了一个 <span class="math inline">\(t\)</span> 的值，它位于两个峰值之间，使得这两个类的方差都是最小的。它可以简单地在 <span class="math inline">\(Python\)</span> 中实现如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">img = cv.imread(<span class="string">&#x27;noisy2.png&#x27;</span>,<span class="number">0</span>)</span><br><span class="line">blur = cv.GaussianBlur(img,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>)</span><br><span class="line"><span class="comment"># find normalized_histogram, and its cumulative distribution function</span></span><br><span class="line">hist = cv.calcHist([blur],[<span class="number">0</span>],<span class="literal">None</span>,[<span class="number">256</span>],[<span class="number">0</span>,<span class="number">256</span>])</span><br><span class="line">hist_norm = hist.ravel()/hist.<span class="built_in">sum</span>()</span><br><span class="line">Q = hist_norm.cumsum()</span><br><span class="line">bins = np.arange(<span class="number">256</span>)</span><br><span class="line">fn_min = np.inf</span><br><span class="line">thresh = -<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">256</span>):</span><br><span class="line">    p1,p2 = np.hsplit(hist_norm,[i]) <span class="comment"># probabilities</span></span><br><span class="line">    q1,q2 = Q[i],Q[<span class="number">255</span>]-Q[i] <span class="comment"># cum sum of classes</span></span><br><span class="line">    <span class="keyword">if</span> q1 &lt; <span class="number">1.e-6</span> <span class="keyword">or</span> q2 &lt; <span class="number">1.e-6</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    b1,b2 = np.hsplit(bins,[i]) <span class="comment"># weights</span></span><br><span class="line">    <span class="comment"># finding means and variances</span></span><br><span class="line">    m1,m2 = np.<span class="built_in">sum</span>(p1*b1)/q1, np.<span class="built_in">sum</span>(p2*b2)/q2</span><br><span class="line">    v1,v2 = np.<span class="built_in">sum</span>(((b1-m1)**<span class="number">2</span>)*p1)/q1,np.<span class="built_in">sum</span>(((b2-m2)**<span class="number">2</span>)*p2)/q2</span><br><span class="line">    <span class="comment"># calculates the minimization function</span></span><br><span class="line">    fn = v1*q1 + v2*q2</span><br><span class="line">    <span class="keyword">if</span> fn &lt; fn_min:</span><br><span class="line">        fn_min = fn</span><br><span class="line">        thresh = i</span><br><span class="line"><span class="comment"># find otsu&#x27;s threshold value with OpenCV function</span></span><br><span class="line">ret, otsu = cv.threshold(blur,<span class="number">0</span>,<span class="number">255</span>,cv.THRESH_BINARY+cv.THRESH_OTSU)</span><br><span class="line"><span class="built_in">print</span>( <span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>.<span class="built_in">format</span>(thresh,ret) )</span><br></pre></td></tr></table></figure>
+<h4 id="附加资源-1">附加资源</h4>
+<ol type="1">
+<li>Digital Image Processing, Rafael C. Gonzalez</li>
+</ol>
+<h4 id="exercises">Exercises</h4>
+<ol type="1">
+<li>There are some optimizations available for Otsu's binarization. You can search and implement it.</li>
+</ol>
+<h3 id="平滑图像">平滑图像</h3>
+<h4 id="目标-2">目标</h4>
+<p>学习：</p>
+<ul>
+<li><p>用各种低通滤波器模糊图像</p></li>
+<li><p>为图像应用定制滤镜(2D卷积)</p></li>
+</ul>
+<h4 id="二维卷积图像滤波">二维卷积（图像滤波）</h4>
+<p>和一维信号一样，图像也可以用各种低通滤波器（<span class="math inline">\(LPF\)</span>）、高通滤波器（<span class="math inline">\(HPF\)</span>）等进行滤波。<span class="math inline">\(LPF\)</span> 有助于去除噪声、模糊图像等。高频滤波器有助于在图像中找到边缘。</p>
+<p>$OpenCV $ 提供了一个函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga27c049795ce870216ddfb366086b5a04"><code>cv.filter2D()</code></a></strong> 来将内核与图像进行卷积。例如，我们将尝试在图像上使用平均滤镜。一个 <span class="math inline">\(5x5\)</span> 平均的过滤器内核看起来如下所示： <span class="math display">\[
+K = \frac{1}{25} \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{bmatrix}
+\]</span> 操作是这样的：将该内核保持在一个像素之上，将该内核之下的所有25个像素相加，取平均值，并用新的平均值替换中心像素。对图像中的所有像素继续执行此操作。尝试以下代码并检查结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">img = cv.imread(<span class="string">&#x27;opencv_logo.png&#x27;</span>)</span><br><span class="line">kernel = np.ones((<span class="number">5</span>,<span class="number">5</span>),np.float32)/<span class="number">25</span></span><br><span class="line">dst = cv.filter2D(img,-<span class="number">1</span>,kernel)</span><br><span class="line">plt.subplot(<span class="number">121</span>),plt.imshow(img),plt.title(<span class="string">&#x27;Original&#x27;</span>)</span><br><span class="line">plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="number">122</span>),plt.imshow(dst),plt.title(<span class="string">&#x27;Averaging&#x27;</span>)</span><br><span class="line">plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/filter.jpg"></p>
+<h4 id="图像模糊图像平滑">图像模糊（图像平滑）</h4>
+<p>图像模糊是通过卷积图像与低通滤波核。它对消除噪声很有用。它实际上从图像中去除高频内容（如噪声和边缘）。所以在这个操作中，边缘会模糊一些（也有一些模糊技术不会模糊边缘）<span class="math inline">\(OpenCV\)</span> 提供了四种主要的模糊技术。</p>
+<ol type="1">
+<li><p>平均值</p>
+<p>这是通过卷积图像与一个标准化的盒子过滤器。它只是取内核区域下所有像素的平均值，然后替换中心元素。这是由函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37"><code>cv.blur()</code></a></strong> 或 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3"><code>cv.boxFilter()</code></a></strong> 完成的。查看文档了解更多关于内核的细节。我们应该指定内核的宽度和高度。一个 <span class="math inline">\(3x3\)</span> 标准化的框状滤波器看起来如下所示： <span class="math display">\[
+K = \frac{1}{9} \begin{bmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}
+\]</span></p>
+<blockquote>
+<p>Note</p>
+<p>如果您不想使用规范化的框过滤器，请使用 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3"><code>cv.boxFilter()</code></a></strong>。传递一个参数 <code>normalize=False</code> 给函数。</p>
+</blockquote>
+<p>查看下面一个 <span class="math inline">\(5x5\)</span> 内核大小的示例演示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">img = cv.imread(<span class="string">&#x27;opencv-logo-white.png&#x27;</span>)</span><br><span class="line">blur = cv.blur(img,(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line">plt.subplot(<span class="number">121</span>),plt.imshow(img),plt.title(<span class="string">&#x27;Original&#x27;</span>)</span><br><span class="line">plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.subplot(<span class="number">122</span>),plt.imshow(blur),plt.title(<span class="string">&#x27;Blurred&#x27;</span>)</span><br><span class="line">plt.xticks([]), plt.yticks([])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/blur.jpg"></p></li>
+<li><p>高斯模糊</p>
+<p>在此方法中，使用高斯核代替盒形滤波器。这是通过函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1"><code>cv.GaussianBlur()</code></a></strong> 完成的。我们应该指定内核的宽度和高度，它们应该是正的和奇数的。我们还应该指定X和Y方向的标准差，分别是 $ sigmaX$ 和 <span class="math inline">\(sigmaY\)</span>。如果只指定了 <span class="math inline">\(sigmaX\)</span>，则 <span class="math inline">\(sigmaY\)</span> 与 $ sigmaX$ 取相同的值。如果两者都是 <span class="math inline">\(0\)</span>，则从内核大小计算。高斯模糊是去除图像高斯噪声的一种有效方法。</p>
+<p>如果你愿意，你可以用函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gac05a120c1ae92a6060dd0db190a61afa"><code>cv.getGaussianKernel()</code></a></strong> 创建一个高斯核。</p>
+<p>以上代码可以修改为高斯模糊：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blur = cv.GaussianBlur(img,(<span class="number">5</span>,<span class="number">5</span>),<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/gaussian.jpg"></p></li>
+<li><p>模糊中值</p>
+<p>在这里，函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9"><code>cv.medianBlur()</code></a></strong> 取内核区域下所有像素的中值，并将中心元素替换为这个中值。这对于图像中的椒盐噪声是非常有效的。有趣的是，在上面的过滤器中，中心元素是一个新计算的值，它可能是图像中的像素值，也可能是一个新值。但在中值模糊中，中心元素往往被图像中的某个像素值所替代。有效地降低了噪声。它的内核大小应该是一个正奇数。2</p>
+<p>在这个演示中，我给原始图像添加了 <span class="math inline">\(50%\)</span> 的噪声，并应用了中间值模糊。检查结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">median = cv.medianBlur(img,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/median.jpg"></p></li>
+<li><p>双边滤波</p>
+<p><strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga9d7064d478c95d60003cf839430737ed"><code>cv.bilateralFilter()</code></a></strong> 在去除噪声的同时保持边缘锋利是非常有效的。但与其他滤波器相比，其运算速度较慢。我们已经知道高斯滤波器取像素周围的邻域并求其高斯加权平均值。该高斯滤波器是一个单独的空间函数，即在滤波时考虑附近的像素。它不考虑像素是否有几乎相同的强度。它不考虑一个像素是否是边缘像素。它也会模糊边缘，这是我们不想做的。</p>
+<p>双边滤波也在空间中采用高斯滤波器，但多了一个高斯滤波器，它是像素差的函数。空间高斯函数保证了只考虑附近像素进行模糊处理，而强度差高斯函数保证了只考虑那些与中心像素强度相似的像素进行模糊处理。所以它保留了边缘，因为边缘上的像素会有很大的强度变化。</p>
+<p>下面的示例展示了双边过滤器的使用(关于参数的详细信息，请访问docs)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blur = cv.bilateralFilter(img,<span class="number">9</span>,<span class="number">75</span>,<span class="number">75</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/bilateral.jpg"></p>
+<p>看，表面的纹理消失了，但边缘还保留着。</p></li>
+</ol>
+<h4 id="附加资源-2">附加资源</h4>
+<ol type="1">
+<li>Details about the <a target="_blank" rel="noopener" href="https://people.csail.mit.edu/sparis/bf_course/">bilateral filtering</a></li>
+</ol>
+<h4 id="exercises-1">Exercises</h4>
+<h3 id="形态学变换">形态学变换</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">img = cv.imread(<span class="string">r&#x27;C:\Users\qjy\Desktop\65ce8a75cfc0dc33feddd6d4632ab1a.jpg&#x27;</span>,<span class="number">0</span>)</span><br><span class="line">kernel = np.ones((<span class="number">2</span>,<span class="number">2</span>),np.uint8)</span><br><span class="line"><span class="comment">#closing = cv.morphologyEx(img, cv.MORPH_CLOSE, kernel)</span></span><br><span class="line"><span class="comment">#erosion = cv.erode(img,kernel,iterations = 1)</span></span><br><span class="line"><span class="comment">#dilation = cv.dilate(img,kernel,iterations = 1)</span></span><br><span class="line">opening = cv.morphologyEx(img, cv.MORPH_OPEN, kernel)</span><br><span class="line">cv.imshow(<span class="string">&#x27;res&#x27;</span>,opening)</span><br><span class="line">k = cv.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="目标-3">目标</h4>
+<p>在这一章</p>
+<ul>
+<li><p>我们将学习不同的形态操作，如腐蚀，膨胀，开操作，闭操作等等。</p></li>
+<li><p>我们将看到不同的函数： <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb"><code>cv.erode()</code></a></strong>, <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c"><code>cv.dilate()</code></a></strong>, <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga67493776e3ad1a3df63883829375201f"><code>cv.morphologyEx()</code></a></strong> 等等。</p></li>
+</ul>
+<h4 id="理论">理论</h4>
+<p>形态变换是一种基于图像形状的简单操作。它通常在二值图像上执行。它需要两个输入，一个是原始图像，另一个是决定运算性质的结构元素或核。两个基本的形态运算符是腐蚀和膨胀。然后它的变体形式，如开操作，闭操作和梯度等也会发挥作用。我们将在下图的帮助下一个一个地看到它们：</p>
+<p><img src="/2022/03/30/11-27-50/j-16487088974263.png"></p>
+<ol type="1">
+<li><p><strong>腐蚀</strong></p>
+<p>腐蚀的基本概念就像土壤腐蚀一样，它腐蚀了前景对象的边界（尽量保持前景为白色）。那么它有什么作用呢？核在图像中滑动（就像在二维卷积中一样）。只有当核下的所有像素都是 <span class="math inline">\(1\)</span> 时，原始图像中的一个像素（<span class="math inline">\(1\)</span> 或 $ 0$）才会被认为是 <span class="math inline">\(1\)</span>，否则它会被腐蚀（变成 <span class="math inline">\(0\)</span>）。</p>
+<p>所以进行腐蚀操作时发生的是，边界附近的所有像素都会被丢弃，这取决于内核的大小。因此前景物体的厚度或尺寸减小，或者图像中的白色区域减小。它可以用来去除小的白色噪音（正如我们在色彩空间章节中看到的），分离两个连接的物体等等。</p>
+<p>在这里，作为一个例子，我将使用一个充满1的5x5内核。让我们看看它是如何工作的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">img = cv.imread(<span class="string">&#x27;j.png&#x27;</span>,<span class="number">0</span>)</span><br><span class="line">kernel = np.ones((<span class="number">5</span>,<span class="number">5</span>),np.uint8)</span><br><span class="line">erosion = cv.erode(img,kernel,iterations = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/erosion-16487092156135.png"></p></li>
+<li><p><strong>膨胀</strong></p>
+<p>膨胀与腐蚀正好相反，在膨胀操作中，如果核下至少有一个像素为“1”，则像素元素为“1”。因此，它增加了图像中的白色区域，或增加了前景对象的大小。通常情况下，在去除噪音的情况下，腐蚀之后是膨胀。因为侵蚀去除了白噪音，但也缩小了我们的目标。所以我们把它放大。因为噪音消失了，它们不会回来，但是我们的物体面积增加了。它在连接物体的破碎部分时也很有用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dilation = cv.dilate(img,kernel,iterations = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/dilation-16487093069197.png"></p></li>
+<li><p><strong>开操作</strong></p>
+<p>开操作只是腐蚀和膨胀的另一个名称。它在去除噪音方面很有用，正如我们上面解释的那样。这里我们使用函数<strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga67493776e3ad1a3df63883829375201f"><code>cv.morphologyEx()</code></a></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opening = cv.morphologyEx(img, cv.MORPH_OPEN, kernel)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure>
+<img src="/2022/03/30/11-27-50/opening-16487093835949.png" alt="image"><figcaption aria-hidden="true">image</figcaption>
+</figure></li>
+<li><p><strong>闭操作</strong></p>
+<p>闭操作是开操作的反向，即先膨胀后腐蚀。它在删除前景物体内部的小洞或物体上的小黑点时很有用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">closing = cv.morphologyEx(img, cv.MORPH_CLOSE, kernel)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/closing-164870944983811.png"></p></li>
+<li><p><strong>形态学梯度</strong></p>
+<p>它是图像膨胀和侵蚀的区别，梯度的结果将看起来像对象的轮廓。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradient = cv.morphologyEx(img, cv.MORPH_GRADIENT, kernel)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="/2022/03/30/11-27-50/gradient.png"></p></li>
+<li><p><strong>Top Hat</strong></p>
+<p>它是输入图像和开操作处理后的输出图像之间的区别。下面的例子是针对9x9内核的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tophat = cv.morphologyEx(img, cv.MORPH_TOPHAT, kernel)</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/03/30/11-27-50/tophat-164870959228714.png"></p></li>
+<li><p><strong>Black Hat</strong></p>
+<p>它是输入图像的闭操作与输入图像之间的区别。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blackhat = cv.morphologyEx(img, cv.MORPH_BLACKHAT, kernel)</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/03/30/11-27-50/blackhat.png"></p></li>
+</ol>
+<h4 id="结构元素">结构元素</h4>
+<p>在前面的例子中，我们在 <span class="math inline">\(Numpy\)</span> 的帮助下手工创建了一个结构化元素。它是长方形的。但在某些情况下，您可能需要椭圆形/圆形的核。为此，<span class="math inline">\(OpenCV\)</span> 有一个函数 <strong><a target="_blank" rel="noopener" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc"><code>cv.getStructuringElement()</code></a></strong>。你只需要传递内核的形状和大小，就可以得到想要的内核。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Rectangular Kernel</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv.getStructuringElement(cv.MORPH_RECT,(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]], dtype=uint8)</span><br><span class="line"><span class="comment"># Elliptical Kernel</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv.getStructuringElement(cv.MORPH_ELLIPSE,(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line">array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]], dtype=uint8)</span><br><span class="line"><span class="comment"># Cross-shaped Kernel</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv.getStructuringElement(cv.MORPH_CROSS,(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line">array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]], dtype=uint8)</span><br></pre></td></tr></table></figure>
+<h4 id="额外的资源">额外的资源</h4>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/morops.htm">Morphological Operations</a> at HIPR2</li>
+</ol>
+<h4 id="练习">练习</h4>
+<h3 id="图像的梯度">图像的梯度</h3>
+<h3 id="canny-边缘检测">Canny 边缘检测</h3>
+<h3 id="图像金字塔">图像金字塔</h3>
+<h3 id="opencv-的轮廓">OpenCV 的轮廓</h3>
+<h3 id="opencv-的直方图">OpenCV 的直方图</h3>
+<h3 id="opencv-中的图像变换">OpenCV 中的图像变换</h3>
+<h3 id="模板匹配">模板匹配</h3>
+<h3 id="hough-直线检测">Hough 直线检测</h3>
+<h3 id="基于分水岭算法的图像分割">基于分水岭算法的图像分割</h3>
+<h3 id="基于-grabcut-算法的交互式前景提取">基于 GrabCut 算法的交互式前景提取</h3>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/03/30/11-27-50/" title="OpenCv笔记">https://y006.github.io/2022/03/30/11-27-50/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%94%B5%E5%AD%90%E8%AE%BE%E8%AE%A1/" rel="tag"># 电子设计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/29/16-12-02/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/10/11-17-01/" rel="next" title="概率论">
+                  概率论 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

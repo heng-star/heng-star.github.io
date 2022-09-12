@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="C&#x2F;C++语言教程 递归 一般来讲，递归对于初学者来说是一个比较困难的内容，就我个人的学习经历来说，递归也是我在初学时比较头痛的一部分。对于这种情况，我想总结一下我学习中遇到的困难，然后在与大家分享递归思想的过程中，尽可能扫清那些影响我的障碍，让递归的学习梯度更缓一些，从而帮助大家更快地学习递归。 首先我想来说一下在我初学递归的过程中，我遇到了哪些困难：首先最重要的一条，我最早接触递归是通过">
+<meta property="og:type" content="website">
+<meta property="og:title" content="写给电子专业同学的C语言教程">
+<meta property="og:url" content="https://y006.github.io/2022/02/27/16-41-11/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="C&#x2F;C++语言教程 递归 一般来讲，递归对于初学者来说是一个比较困难的内容，就我个人的学习经历来说，递归也是我在初学时比较头痛的一部分。对于这种情况，我想总结一下我学习中遇到的困难，然后在与大家分享递归思想的过程中，尽可能扫清那些影响我的障碍，让递归的学习梯度更缓一些，从而帮助大家更快地学习递归。 首先我想来说一下在我初学递归的过程中，我遇到了哪些困难：首先最重要的一条，我最早接触递归是通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/image-20220423044903868-16506605454001-16506605484693-16506605497375.png">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/image-20220423050047145-16506612490237.png">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/cd940d4cbf859995dd8175f2c250e70-165066295755110.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/f5934171b9e47846656830e885174e3-165066362487913.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/69227befb2e0235c3a257acdcc450ad-165066408870616.jpg">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-41-11/5898a6106be97a5e17f672399758dd2-165066466531719.jpg">
+<meta property="article:published_time" content="2022-02-27T08:41:11.000Z">
+<meta property="article:modified_time" content="2022-06-30T17:39:17.895Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="Electrical Engineering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://y006.github.io/2022/02/27/16-41-11/image-20220423044903868-16506605454001-16506605484693-16506605497375.png">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/02/27/16-41-11/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/02/27/16-41-11/","path":"2022/02/27/16-41-11/","title":"写给电子专业同学的C语言教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>写给电子专业同学的C语言教程 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cc%E8%AF%AD%E8%A8%80%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">C&#x2F;C++语言教程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">函数指针</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">回调函数</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/02/27/16-41-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          写给电子专业同学的C语言教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-27 16:41:11" itemprop="dateCreated datePublished" datetime="2022-02-27T16:41:11+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-01 01:39:17" itemprop="dateModified" datetime="2022-07-01T01:39:17+08:00">2022-07-01</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/02/27/16-41-11/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/27/16-41-11/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="cc语言教程">C/C++语言教程</h1>
+<h4 id="递归">递归</h4>
+<p>一般来讲，递归对于初学者来说是一个比较困难的内容，就我个人的学习经历来说，递归也是我在初学时比较头痛的一部分。对于这种情况，我想总结一下我学习中遇到的困难，然后在与大家分享递归思想的过程中，尽可能扫清那些影响我的障碍，让递归的学习梯度更缓一些，从而帮助大家更快地学习递归。</p>
+<p>首先我想来说一下在我初学递归的过程中，我遇到了哪些困难：首先最重要的一条，我最早接触递归是通过一道习题接触的，就是大名鼎鼎的汉诺塔问题，算是个经典的递归问题了。但是经典归经典，我却不认为初学递归应该从汉诺塔开始，因为汉诺塔本身并不属于掷色子或者猜拳那种人尽皆知的游戏，想要去理解汉诺塔，首先要先看其规则并烂熟于心，然后就是汉诺塔使用了两个递归去完成，自然比单个递归要困难一些：以循环为例，通常的学法是先学明白单循环，再接触双层循环，接受起来才更容易些。因此，在接下来的讲解中，我将从一个非常非常简单的例子：打印1-5这五个数字为例，讲解递归操作的使用。</p>
+<p>在讲解例子之前，我们先整体描述一下递归，<strong>递归即函数自己调用自己</strong>。</p>
+<p>对于上述的定义，我们拆开来阐述一下：“函数自己调用自己”，这句话可以缩句为“函数调用”，调用谁先不管，要做的事情是函数调用，这件事要首先明确。在之前的课程中我们已经学习了函数的调用，尤其是我们将一段完整的，具有通用性的且需要多次使用的语句封装成一个函数，并在主函数中进行调用，这种操作我们已经非常熟悉，下面我们来看一个简单的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">A</span><span class="params">(<span class="type">int</span> n)</span></span>&#123; cout &lt;&lt; n;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">B</span><span class="params">(<span class="type">int</span> n)</span></span>&#123; cout &lt;&lt; n; <span class="built_in">A</span>(n + <span class="number">1</span>);&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">C</span><span class="params">(<span class="type">int</span> n)</span></span>&#123; cout &lt;&lt; n; <span class="built_in">B</span>(n + <span class="number">1</span>);&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">D</span><span class="params">(<span class="type">int</span> n)</span></span>&#123; cout &lt;&lt; n; <span class="built_in">C</span>(n + <span class="number">1</span>);&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">E</span><span class="params">(<span class="type">int</span> n)</span></span>&#123; cout &lt;&lt; n; <span class="built_in">D</span>(n + <span class="number">1</span>);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">E</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">12345</span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 11560)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>在这个例子中我们可以看到函数的多个函数依次调用：<code>main()</code> 调用 <code>E()</code>，<code>E()</code> 调用 <code>D()</code>，<code>D()</code> 调用 <code>C()</code>，<code>C()</code> 调用 <code>B()</code>，<code>B()</code> 调用 <code>A()</code>，当函数 <code>A()</code> 运行结束后，函数自动退出，然后就会返回 <code>B()</code>，返回到 <code>B()</code> 后 <code>B()</code> 也走到其函数体的最后了，因此 <code>B()</code> 也退出，然后就会返回 <code>C()</code>，就这样依次返回，最终回到 <code>main()</code>，执行 <code>return 0;</code> 。</p>
+<p>在循环中，我们将具有相似结构的语句进行简化，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*本段代码为伪代码。*/</span></span><br><span class="line">sum = <span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+...+<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以写为：</span></span><br><span class="line">sum = <span class="number">1</span>;</span><br><span class="line">sum = <span class="number">1</span>+<span class="number">2</span>;</span><br><span class="line">sum = <span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">sum = <span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+...+<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后可以抽象出：</span></span><br><span class="line">sum = sum+mid;</span><br><span class="line">mid++;</span><br><span class="line"></span><br><span class="line"><span class="comment">//于是可以使用循环解决问题：</span></span><br><span class="line"><span class="keyword">while</span>(mid&lt;=<span class="number">100</span>)</span><br><span class="line">&#123;</span><br><span class="line">    sum = sum+mid;</span><br><span class="line">	mid++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么同样的，对于有着相同形式的函数，就像最前面一段代码中那样，函数 <code>A()</code> 到函数 <code>E()</code> 的函数体具有高度的相似性，我们是否也可以通过类似于循环那样的方法来实现同样的功能呢？</p>
+<p>答案是可以的，我们可以只使用函数 <code>A()</code> ，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">A</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">6</span>) &#123;</span><br><span class="line">		cout &lt;&lt; n;</span><br><span class="line">		<span class="built_in">A</span>(n + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">A</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">12345</span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 5580)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>接下来我们画图来分析一下，这段代码是如何工作的。</p>
+<p>现在你应该对于递归的自调用有一定的概念了，那么现在我们来讨论一个问题，那就是，<strong>为什么是递归</strong>？毕竟我们以及有循环了，在刚才的示例中，我们递归能做的事情，循环可以做的更好，并且还好理解，我们何苦呢。</p>
+<p>为了解决目前我们的递归看起来还没啥用的情况，我们引入第二个问题：十进制正整数转二进制数。</p>
+<p>首先，解决这个问题，我们首先要知道十进制正整数转二进制数的算法。这个算法是非常简单的，这里我取我们数字电路课本中的例题来说明一下算法：</p>
+<figure>
+<img src="/2022/02/27/16-41-11/image-20220423044903868-16506605454001-16506605484693-16506605497375.png" alt="image-20220423044903868"><figcaption aria-hidden="true">image-20220423044903868</figcaption>
+</figure>
+<p>算法如下：</p>
+<ol type="1">
+<li>十进制正整数不断除以二，记录余数</li>
+<li>当除法运算结果为0时，保留这次运算的余数并停止运算</li>
+<li>将余数从下往上取出，在等号右侧从左往右依次列出</li>
+</ol>
+<p>这个算法，使用循环的话，我们会遇到一些麻烦的事情，让循环变得不那么好用了，因为，我们第一个得到的结果，需要在最后被打印出来。</p>
+<p>这时候就到了递归登场的时候了，因为递归是函数的自调用，当函数一层一层的调用后，还需要一层一层的退出，比较的话，可以这样看待循环和递归，循环只是前进，而递归要去一趟回一趟，也就是两趟。</p>
+<p><img src="/2022/02/27/16-41-11/image-20220423050047145-16506612490237.png" alt="image-20220423050047145" style="zoom:33%;"></p>
+<p>这种特性使得我们能够轻松使用递归实现先得到的结果最后展示，在最终公布“十进制正整数转二进制数”题目的答案前，我们插一个小实例，来看一下，递归如何实现先得到的结果最后展示的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">A</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="built_in">A</span>(n + <span class="number">1</span>);</span><br><span class="line">		cout &lt;&lt; n;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">A</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">54321</span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 8548)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>这段代码看着根前面的那段代码很想，唯一不同的是5、6两行的顺序颠倒了，这样导致的结果就是，程序将会先走到调用的最底层，然后在返回的时候在逐次打印，具体如下图展示。</p>
+<p>最后我们来看一下十进制正整数转二进制数的实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">A</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">A</span>(n / <span class="number">2</span>);</span><br><span class="line">		cout &lt;&lt; n % <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="built_in">A</span>(n);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">53</span><br><span class="line">110101</span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 10544)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>目前，我们已经使用递归来解决实际问题了，也算是从不懂到会用了。耶！</p>
+<p>但是，光看别人写是不够的，因为很多书写的细节对出初学者来说是难以注意到的。值得在你们自己开始写递归前就重点强调一下的书写细节是递归的停止条件。</p>
+<p>在循环中，尤其是最常用的 <code>for</code> 循环，具有很明确的开始和截至的标识，在递归中，我们没有一个循环变量小i来直到我们设置递归的层数，但是，无穷的递归是不被允许的，无穷递归很快就会使程序运行内存中一片叫栈的区域爆满（或者专业点，叫溢出）。在上面所有的递归程序中，我们都可以看到，自调用的函数，我们在开头都设置了条件判断，只有在一定条件内的输入才能往后进行迭代，否则就</p>
+<p>接下来，我将带领大家，在前面已经理解递归的基础上，从理解汉诺塔的规则开始，一点一点写出整个汉诺塔代码，一行一行的说明我在书写汉诺塔程序时是如何进行思考的。</p>
+<p>首先是汉诺塔问题描述，摘录自维基百科：</p>
+<blockquote>
+<p>有三根杆子A，B，C。A杆上有 N 个 (N&gt;1) 穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至 C 杆：</p>
+<ol type="1">
+<li>每次只能移动一个圆盘；</li>
+<li>大盘不能叠在小盘上面。</li>
+</ol>
+<p>提示：可将圆盘临时置于 B 杆，也可将从 A 杆移出的圆盘重新移回 A 杆，但都必须遵循上述两条规则。</p>
+<p>问：如何移？最少要移动多少次？</p>
+</blockquote>
+<p>然后是摘自维基百科的代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Towers</span><span class="params">(<span class="type">int</span> n,<span class="type">char</span> a,<span class="type">char</span> b,<span class="type">char</span> c)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;Move disk &quot;</span>&lt;&lt;n&lt;&lt;<span class="string">&quot; from&quot;</span>&lt;&lt;a&lt;&lt;<span class="string">&quot; to &quot;</span>&lt;&lt;c&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">Towers</span>(n<span class="number">-1</span>,a,c,b);</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;Move disk &quot;</span>&lt;&lt;n&lt;&lt;<span class="string">&quot; from&quot;</span>&lt;&lt;a&lt;&lt;<span class="string">&quot; to &quot;</span>&lt;&lt;c&lt;&lt;endl;</span><br><span class="line">		<span class="built_in">Towers</span>(n<span class="number">-1</span>,b,a,c);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">	<span class="built_in">Towers</span>(n,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">	cout&lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 2 from A to B</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 3 from A to C</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 2 from B to C</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 28576)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>根据运行结果，我们可以画出3个圆盘的汉诺塔是如何实现移动的：</p>
+<p><img src="/2022/02/27/16-41-11/cd940d4cbf859995dd8175f2c250e70-165066295755110.jpg" alt="cd940d4cbf859995dd8175f2c250e70" style="zoom: 33%;"></p>
+<p>然后问题就来了，因为我们会发现一个问题，那就是，根本找不到规律啊，递归要求一个函数，也就是说一种方法，只改变一下输入参数，不断调用这一个方法就能实现整个过程，但是看上面的图根本就无法找到规律啊。</p>
+<p>那么，我们该如何解决现在面临的问题呢？是不是可以考虑，可能是取的数量太少，我们可以试试圆盘数量为4个或者5个？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">Move disk 1 from A to B</span><br><span class="line">Move disk 2 from A to C</span><br><span class="line">Move disk 1 from B to C</span><br><span class="line">Move disk 3 from A to B</span><br><span class="line">Move disk 1 from C to A</span><br><span class="line">Move disk 2 from C to B</span><br><span class="line">Move disk 1 from A to B</span><br><span class="line">Move disk 4 from A to C</span><br><span class="line">Move disk 1 from B to C</span><br><span class="line">Move disk 2 from B to A</span><br><span class="line">Move disk 1 from C to A</span><br><span class="line">Move disk 3 from B to C</span><br><span class="line">Move disk 1 from A to B</span><br><span class="line">Move disk 2 from A to C</span><br><span class="line">Move disk 1 from B to C</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 25272)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br><span class="line"></span><br><span class="line">5</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 2 from A to B</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 3 from A to C</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 2 from B to C</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 4 from A to B</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 2 from C to A</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 3 from C to B</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 2 from A to B</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 5 from A to C</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 2 from B to C</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 3 from B to A</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 2 from C to A</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 4 from B to C</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line">Move disk 2 from A to B</span><br><span class="line">Move disk 1 from C to B</span><br><span class="line">Move disk 3 from A to C</span><br><span class="line">Move disk 1 from B to A</span><br><span class="line">Move disk 2 from B to C</span><br><span class="line">Move disk 1 from A to C</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\Users\qjy\Desktop\递归\递归演示\Debug\递归演示.exe (进程 28244)已退出，代码为 0。</span><br><span class="line">要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。</span><br><span class="line">按任意键关闭此窗口. . .</span><br></pre></td></tr></table></figure>
+<p>好家伙，我们会发现一个要命的问题——太多了，到五个的时候，就已经接近30次移动了。这要是画出来，可有点麻烦，那怎么办呢？</p>
+<p>答案很简单，查资料！因为这实在是一个很普遍的问题，还是来看看其他人是如何理解这个问题的吧。</p>
+<p>我们打开知乎直接搜汉诺塔+递归，很快，就出来了一个好回答，我们引用来给大家看一下：</p>
+<blockquote>
+<p>举例来说，如果要把一个N层<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=汉诺塔&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A%22258015386%22%7D">汉诺塔</a>从A搬到C，那么：</p>
+<p>如果前N-1层可以找别人搞定，咱只管搬第N层，会不会变得非常容易？</p>
+<p>你看，这一下就简单了：这时当它只有两层就好了，先把前N-1层看作一个整体，把它搬到B；然后把最下面的第N层搬到C；然后再把前N-1层从B搬到C。</p>
+</blockquote>
+<p>把上面的话变成图像，就是这样子的，我们以四圆盘汉诺塔为例子说明：</p>
+<p><img src="/2022/02/27/16-41-11/f5934171b9e47846656830e885174e3-165066362487913.jpg" alt="f5934171b9e47846656830e885174e3" style="zoom:33%;"></p>
+<p>好的，看到这个图不知道大家会不会有些疑问哈，可能会有同学觉得，这样搬会不会违反汉诺塔的游戏规则了？emmm，如果你最后的结果是这样搬动的确实是不行的，但是关键在于，我们按照搬动顺序去寻找递归方法是行不通的，我们需要寻找一种能解决问题的通用方法（这里的通用是指对每一层圆盘移动的通用方法），然后我们在解决完问题后，再去调整顺序输出，来实现满足游戏规则的搬动方法。</p>
+<p>因此，上述操作，确实可以帮助我们将4个圆盘，从A移动到C，并且我们可以注意到，从第3行到第4行，因为移动的圆盘都比C上的大圆盘小，故移动是随意的，即ABC三个底座都可以放圆盘。</p>
+<p><img src="/2022/02/27/16-41-11/69227befb2e0235c3a257acdcc450ad-165066408870616.jpg" alt="69227befb2e0235c3a257acdcc450ad" style="zoom: 50%;"></p>
+<p>观察上图，我们可以看到，第一列中有四个圆盘，从第一步到第二部和从第三步到第四步在规则的制约下都不是可以一步实现的，但是因为每一次变化都依旧有三个底座可用，故具有移动方法上的相似性，这使得函数的自调用成为可能。</p>
+<p>我们可以看到，随着列数往后数，我们处理的问题的规模在逐渐下降，最初是4个圆盘，第二列时，我们关注的就成了3个圆盘，这样依次下推，最终我们会得到一种情况，这种情况下只有一个圆盘，如图：</p>
+<figure>
+<img src="/2022/02/27/16-41-11/5898a6106be97a5e17f672399758dd2-165066466531719.jpg" alt="5898a6106be97a5e17f672399758dd2"><figcaption aria-hidden="true">5898a6106be97a5e17f672399758dd2</figcaption>
+</figure>
+<p>我们观察放大部分中的最后一列，可以看到，最后一列中所有的操作都是将圆盘从A移动到C，这种特性说明了每一次递归的终点都是“将圆盘从A移动到C”，如果你回到上面看代码，你会发现代码中真正打印的移动操作都是从a到c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">move_1</span><span class="params">(<span class="type">int</span> level, <span class="type">char</span> a, <span class="type">char</span> b, <span class="type">char</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;把 &quot;</span> &lt;&lt; level &lt;&lt; <span class="string">&quot; 号盘从 &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; 移动到 &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">move_2</span><span class="params">(<span class="type">int</span> level, <span class="type">char</span> a, <span class="type">char</span> b, <span class="type">char</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">	move_1(level - <span class="number">1</span>, a, c, b);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;把 &quot;</span> &lt;&lt; level &lt;&lt; <span class="string">&quot; 号盘从 &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; 移动到 &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	move_1(level - <span class="number">1</span>, b, a, c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">move_3</span><span class="params">(<span class="type">int</span> level, <span class="type">char</span> a, <span class="type">char</span> b, <span class="type">char</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">	move_2(level - <span class="number">1</span>, a, c, b);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;把 &quot;</span> &lt;&lt; level &lt;&lt; <span class="string">&quot; 号盘从 &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; 移动到 &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	move_2(level - <span class="number">1</span>, b, a, c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">move_4</span><span class="params">(<span class="type">int</span> level,<span class="type">char</span> a,<span class="type">char</span> b,<span class="type">char</span> c)</span> </span><br><span class="line">&#123;</span><br><span class="line">	move_3(level - <span class="number">1</span>, a, c, b);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;把 &quot;</span> &lt;&lt; level &lt;&lt; <span class="string">&quot; 号盘从 &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; 移动到 &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	move_3(level - <span class="number">1</span>, b, a, c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Towers</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> a, <span class="type">char</span> b, <span class="type">char</span> c)</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Move disk &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; from &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; to &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		Towers(n - <span class="number">1</span>, a, c, b);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Move disk &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; from &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; to &quot;</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		Towers(n - <span class="number">1</span>, b, a, c);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">int</span> level;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; level;</span><br><span class="line">	Towers(level, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-------------------------------------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	move_4(level, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="函数指针">函数指针</h4>
+<h5 id="回调函数">回调函数</h5>
+<blockquote>
+<p>维基百科：</p>
+<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/计算机程序设计">计算机程序设计</a>中，<strong>回调函数</strong>，或简称<strong>回调</strong>（Callback 即call then back 被主函数调用运算后会返回主函数），是指通过<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/參數_(程式設計)">参数</a>将<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/子程序">函数</a>传递到其它代码的，某一块<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/可执行文件">可执行代码</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/引用_(程序设计)">引用</a>。这一设计允许了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/抽象層">底层</a>代码调用在高层定义的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/子程序">子程序</a>。</p>
+</blockquote>
+<blockquote>
+<p>百度百科：</p>
+<p>回调函数就是一个被作为参数传递的函数。在C语言中，回调函数只能使用函数指针实现，在C++、Python、ECMAScript等更现代的编程语言中还可以使用仿函数或匿名函数。</p>
+<p>回调函数的使用可以大大提升编程的效率，这使得它在现代编程中被非常多地使用。同时，有一些需求必须要使用回调函数来实现。</p>
+<p>最著名的回调函数调用有C/C++标准库stdlib.h/cstdlib中的快速排序函数qsort和二分查找函数bsearch中都会要求的一个与strcmp类似的参数，用于设置数据的比较方法。</p>
+</blockquote>
+<p>回调函数的理解：</p>
+<ul>
+<li><p>回调函数是一个函数</p></li>
+<li><p>回调函数将会成为另一个函数的参数</p></li>
+<li><p>在C语言中回调函数需要使用函数指针来实现</p></li>
+<li><p>回调函数重要意义在于：底层的代码可以调用上层定义的子程序</p></li>
+<li><p>回调函数的形象化理解：</p>
+<ul>
+<li>如一酒店提供叫醒服务（对应位底层实现的库函数），那么
+<ul>
+<li>如果不使用回调函数的思想：你提供时间（参数），则叫醒服务将会在所设置的时间叫醒你（将参数传入函数）</li>
+<li>如果使用回调函数的思想：你提供时间（普通参数）和叫醒的方法（函数指针），则叫醒服务将会在所设置的时间按照你提供的方法叫醒你</li>
+</ul></li>
+</ul></li>
+<li><p>回调函数实例：</p>
+<ul>
+<li><p>如你编写了一个排序函数如下（冒泡排序，<a target="_blank" rel="noopener" href="https://codeantenna.com/a/sDZANVbjFJ">代码参考此处</a>）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> cmd[], <span class="type">int</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j, temp;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((cmd[j] &gt; cmd[j + <span class="number">1</span>])) </span><br><span class="line">            &#123;</span><br><span class="line">                temp = cmd[j];</span><br><span class="line">                cmd[j] = cmd[j + <span class="number">1</span>];</span><br><span class="line">                cmd[j + <span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此段代码中核心的判断逻辑是：</p>
+<p>如果 <code>(cmd[j] &gt; cmd[j + 1])</code> ，则交换 <code>(cmd[j] &gt; cmd[j + 1])</code> ，这种方式实现效果为，较小的数字排在前面，交大的数字排在后面——正序输出，即输出结果： <code>2 25 56 88 100</code></p>
+<p>这段代码存在的问题是，如果不去看 <code>sort()</code> 函数的实现，就不能去修改正序输出还是逆序输出。</p>
+<p>首先我们很明显能看到，我们有控制输出为正序or逆序的需求，但是不同于自己写的Demo，我们在实际工程中，可能会出现某些情况使得我们难以修改 <code>sort()</code> 函数内部的代码：比如有些库函数的实现不是开源的，你无法查看源码或修改源码；或者有些库函数的实现代码非常复杂，你不希望全部浏览而是希望能在外部直接调用。在这些情况下，我们需要使用回调函数来帮助我们去控制库函数代码的一部分实现细节，而我们自己在书写一些供其他人使用的代码时，也可以使用回调函数来让用户自己补充一些功能细节</p></li>
+<li><p>将上述代码改写为回调函数的版本：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> cmd[], <span class="type">int</span> len, <span class="type">int</span> (*p)(<span class="type">int</span>, <span class="type">int</span>))</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j, temp;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (p(cmd[j], cmd[j + <span class="number">1</span>])) </span><br><span class="line">            &#123;</span><br><span class="line">                temp = cmd[j];</span><br><span class="line">                cmd[j] = cmd[j + <span class="number">1</span>];</span><br><span class="line">                cmd[j + <span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里修改的方案为：</p>
+<ul>
+<li>在函数参数列表中加一个函数指针提供外部接口供用户实现</li>
+<li><code>if()</code> 判断中调用函数指针 <code>(*p)(cmd[j], cmd[j + 1])</code></li>
+</ul></li>
+<li><p>使用回调函数，实现了<strong>解耦合</strong>：</p>
+<p>没有回调函数的情况下，每一个函数其功能的实现是完全确定的，如果我们想修改其中的任意一部分功能，我们都必须重写此函数。也就是说，我们想要自己调整的功能与函数实现（通常指库函数）是紧密耦合在一起的。如果我们希望从外部可以选择函数实现中的一部分细节，或者在实现函数时希望未来一部分实现方式由用户来完善，那么我们就应该使用回调函数将那部分功能与（库）函数进行解耦合。</p></li>
+<li><p>验证代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">small_to_big</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &gt; y) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">big_to_small</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &lt; y) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> cmd[], <span class="type">int</span> len, <span class="type">int</span> (*p)(<span class="type">int</span>, <span class="type">int</span>))</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j, temp;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((*p)(cmd[j], cmd[j + <span class="number">1</span>])) &#123;</span><br><span class="line">                temp = cmd[j];</span><br><span class="line">                cmd[j] = cmd[j + <span class="number">1</span>];</span><br><span class="line">                cmd[j + <span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> cmd[], <span class="type">int</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j, temp;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; j++) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((cmd[j] &gt; cmd[j + <span class="number">1</span>])) </span><br><span class="line">            &#123;</span><br><span class="line">                temp = cmd[j];</span><br><span class="line">                cmd[j] = cmd[j + <span class="number">1</span>];</span><br><span class="line">                cmd[j + <span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> size;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> cmd[] = &#123; <span class="number">88</span>, <span class="number">56</span>, <span class="number">100</span>, <span class="number">2</span>, <span class="number">25</span> &#125;;</span><br><span class="line"></span><br><span class="line">    size = <span class="keyword">sizeof</span>(cmd) / <span class="keyword">sizeof</span>(cmd[<span class="number">0</span>]);</span><br><span class="line">    sort(cmd, size, small_to_big);</span><br><span class="line">    sort(cmd, size, big_to_small);</span><br><span class="line">    <span class="comment">//sort(cmd, size);</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; size; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, cmd[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b4cd9acd712a">回调函数一个有趣的用法</a></p>
+<hr>
+<p>分割线内为<a target="_blank" rel="noopener" href="https://ost.51cto.com/posts/1114">引用</a></p>
+<p><strong>回调函数实例（很有用）</strong></p>
+<p>一个GPRS模块联网的小项目，使用过的同学大概知道2G、4G、NB等模块要想实现无线联网功能都需要经历模块上电初始化、注册网络、查询网络信息质量、连接服务器等步骤，这里的的例子就是，利用一个状态机函数（根据不同状态依次调用不同实现方法的函数），通过回调函数的方式依次调用不同的函数，实现模块联网功能，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*********  工作状态处理  *********/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="type">uint8_t</span> mStatus;</span><br><span class="line"> <span class="type">uint8_t</span> (* Funtion)(<span class="type">void</span>); <span class="comment">//函数指针的形式</span></span><br><span class="line">&#125; M26_WorkStatus_TypeDef;  <span class="comment">//M26的工作状态集合调用函数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**********************************************</span></span><br><span class="line"><span class="comment">** &gt;M26工作状态集合函数</span></span><br><span class="line"><span class="comment">***********************************************/</span></span><br><span class="line">M26_WorkStatus_TypeDef M26_WorkStatus_Tab[] =</span><br><span class="line">&#123;    </span><br><span class="line">    &#123;GPRS_NETWORK_CLOSE,  M26_PWRKEY_Off  &#125;, <span class="comment">//模块关机</span></span><br><span class="line">    &#123;GPRS_NETWORK_OPEN,  M26_PWRKEY_On  &#125;, <span class="comment">//模块开机</span></span><br><span class="line">    &#123;GPRS_NETWORK_Start,   M26_Work_Init  &#125;, <span class="comment">//管脚初始化</span></span><br><span class="line">    &#123;GPRS_NETWORK_CONF,  M26_NET_Config  &#125;, /AT指令配置</span><br><span class="line">    &#123;GPRS_NETWORK_LINK_CTC,  M26_LINK_CTC  &#125;, <span class="comment">//连接调度中心  </span></span><br><span class="line">    &#123;GPRS_NETWORK_WAIT_CTC, M26_WAIT_CTC  &#125;,  <span class="comment">//等待调度中心回复 </span></span><br><span class="line">    &#123;GPRS_NETWORK_LINK_FEM, M26_LINK_FEM  &#125;, <span class="comment">//连接前置机</span></span><br><span class="line">    &#123;GPRS_NETWORK_WAIT_FEM, M26_WAIT_FEM  &#125;, <span class="comment">//等待前置机回复</span></span><br><span class="line">    &#123;GPRS_NETWORK_COMM,  M26_COMM   &#125;, <span class="comment">//正常工作    </span></span><br><span class="line">    &#123;GPRS_NETWORK_WAIT_Sig,  M26_WAIT_Sig  &#125;,  <span class="comment">//等待信号回复</span></span><br><span class="line">    &#123;GPRS_NETWORK_GetSignal,  M26_GetSignal  &#125;, <span class="comment">//获取信号值</span></span><br><span class="line">    &#123;GPRS_NETWORK_RESTART,  M26_RESET   &#125;, <span class="comment">//模块重启</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**********************************************</span></span><br><span class="line"><span class="comment">** &gt;M26模块工作状态机，依次调用里面的12个函数   </span></span><br><span class="line"><span class="comment">***********************************************/</span></span><br><span class="line"><span class="type">uint8_t</span> M26_WorkStatus_Call(<span class="type">uint8_t</span> Start)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">12</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(Start == M26_WorkStatus_Tab[i].mStatus)</span><br><span class="line">        &#123;          </span><br><span class="line">      <span class="keyword">return</span> M26_WorkStatus_Tab[i].Funtion();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;<span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span><span class="number">.5</span><span class="number">.6</span><span class="number">.7</span><span class="number">.8</span><span class="number">.9</span><span class="number">.10</span><span class="number">.11</span><span class="number">.12</span><span class="number">.13</span><span class="number">.14</span><span class="number">.15</span><span class="number">.16</span><span class="number">.17</span><span class="number">.18</span><span class="number">.19</span><span class="number">.20</span><span class="number">.21</span><span class="number">.22</span><span class="number">.23</span><span class="number">.24</span><span class="number">.25</span><span class="number">.26</span><span class="number">.27</span><span class="number">.28</span><span class="number">.29</span><span class="number">.30</span><span class="number">.31</span><span class="number">.32</span><span class="number">.33</span><span class="number">.34</span><span class="number">.35</span><span class="number">.36</span><span class="number">.37</span><span class="number">.38</span><span class="number">.39</span><span class="number">.40</span><span class="number">.41</span>.</span><br></pre></td></tr></table></figure>
+<p>复制</p>
+<p>所以，如果有人想做个NB模块联网项目，可以copy上面的框架，只需要修改回调函数内部的具体实现，或者增加、减少回调函数，就可以很简洁快速的实现模块联网。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/02/27/16-41-11/" title="写给电子专业同学的C语言教程">https://y006.github.io/2022/02/27/16-41-11/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Electrical-Engineering/" rel="tag"># Electrical Engineering</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/25/19-20-54/" rel="prev" title="双轮自平衡小车制作指南">
+                  <i class="fa fa-chevron-left"></i> 双轮自平衡小车制作指南
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/27/16-41-33/" rel="next" title="电子学">
+                  电子学 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y006.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":{"disqus":{"text":"Load Disqus","order":-1},"gitalk":{"order":-2}}},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="信号 常见的奇异信号 奇异信号：函数中包含不连续点或其微分与积分有不连续点的函数，统称为奇异函数，也就是奇异信号。        名称 函数表达式     \(f(t)\)：单位斜变信号 \(f(t) &#x3D; \begin{cases} 0 &amp; t&lt;0 \\\\ t &amp; t\ge0 \\ \end{cases}\)   $ u(t)$：单位">
+<meta property="og:type" content="website">
+<meta property="og:title" content="信号与系统">
+<meta property="og:url" content="https://y006.github.io/2022/02/27/16-42-18/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="信号 常见的奇异信号 奇异信号：函数中包含不连续点或其微分与积分有不连续点的函数，统称为奇异函数，也就是奇异信号。        名称 函数表达式     \(f(t)\)：单位斜变信号 \(f(t) &#x3D; \begin{cases} 0 &amp; t&lt;0 \\\\ t &amp; t\ge0 \\ \end{cases}\)   $ u(t)$：单位">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-42-18/image-20220326234840139-16483097818622.png">
+<meta property="og:image" content="https://y006.github.io/2022/02/27/16-42-18/image-20220326234918784-16483097790591.png">
+<meta property="article:published_time" content="2022-02-27T08:42:18.000Z">
+<meta property="article:modified_time" content="2022-04-18T16:11:16.919Z">
+<meta property="article:author" content="邱金羽">
+<meta property="article:tag" content="Electrical Engineering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://y006.github.io/2022/02/27/16-42-18/image-20220326234840139-16483097818622.png">
+
+
+<link rel="canonical" href="https://y006.github.io/2022/02/27/16-42-18/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://y006.github.io/2022/02/27/16-42-18/","path":"2022/02/27/16-42-18/","title":"信号与系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>信号与系统 | Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">邱金羽的技术博客！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">信号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A5%87%E5%BC%82%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">常见的奇异信号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ft%E5%8D%95%E4%BD%8D%E6%96%9C%E5%8F%98%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">\(f(t)\)：单位斜变信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ut%E5%8D%95%E4%BD%8D%E9%98%B6%E8%B7%83%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">$ u(t)$：单位阶跃信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deltat%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">\(\delta(t)\)：单位冲激函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deltat%E5%86%B2%E6%BF%80%E5%81%B6%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.4.</span> <span class="nav-text">\(\delta(t)&#39;\)：冲激偶函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%A5%87%E5%BC%82%E4%BF%A1%E5%8F%B7%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.5.</span> <span class="nav-text">常见奇异信号之间的关系：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%87%BD%E6%95%B0-deltat-%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.6.</span> <span class="nav-text">单位冲激函数 \(\delta(t)\) 的简单性质：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9Flti"><span class="nav-number">1.2.</span> <span class="nav-text">线性时不变系统——LTI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90lti"><span class="nav-number">1.3.</span> <span class="nav-text">分析LTI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E7%B3%BB%E7%BB%9F%E7%9A%84lti%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B%E5%BB%BA%E7%AB%8B"><span class="nav-number">1.4.</span> <span class="nav-text">电系统的LTI数学模型建立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">拉普拉斯变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E5%AD%90%E5%8F%98%E6%8D%A2"><span class="nav-number">1.5.1.</span> <span class="nav-text">算子变换：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B"><span class="nav-number">1.6.</span> <span class="nav-text">傅里叶分析简介</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%A8%E5%93%8D%E5%BA%94"><span class="nav-number">1.6.0.0.1.</span> <span class="nav-text">全响应：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9B%BA%E6%9C%89%E5%93%8D%E5%BA%94%E5%92%8C%E5%8F%97%E8%BF%AB%E5%93%8D%E5%BA%94"><span class="nav-number">1.6.0.0.2.</span> <span class="nav-text">固有响应和受迫响应：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%9B%B6%E8%BE%93%E5%85%A5%E5%93%8D%E5%BA%94%E5%92%8C%E9%9B%B6%E7%8A%B6%E6%80%81%E5%93%8D%E5%BA%94"><span class="nav-number">1.6.0.0.3.</span> <span class="nav-text">零输入响应和零状态响应：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BB%8E%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E4%B8%8A%E5%88%A4%E6%96%AD%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">如何从微分方程上判断线性系统</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="邱金羽"
+      src="/images/custom-logo.jpg">
+  <p class="site-author-name" itemprop="name">邱金羽</p>
+  <div class="site-description" itemprop="description">联系我：2420457716@qq.com</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/32844822/dynamic" title="Bilibili个人空间 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;32844822&#x2F;dynamic" rel="noopener" target="_blank">Bilibili个人空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/qiu-jin-yu-60" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;qiu-jin-yu-60" rel="noopener" target="_blank">知乎</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://uinika.github.io/" title="https:&#x2F;&#x2F;uinika.github.io&#x2F;" rel="noopener" target="_blank">UinIO</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fazzie-key.cool/" title="https:&#x2F;&#x2F;fazzie-key.cool&#x2F;" rel="noopener" target="_blank">摸黑干活</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://eater.net/" title="https:&#x2F;&#x2F;eater.net&#x2F;" rel="noopener" target="_blank">Ben Eater</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.52diy.com.cn/" title="https:&#x2F;&#x2F;blog.52diy.com.cn&#x2F;" rel="noopener" target="_blank">52diy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gaoyichao.com/Xiaotu/" title="https:&#x2F;&#x2F;gaoyichao.com&#x2F;Xiaotu&#x2F;" rel="noopener" target="_blank">小土的世界</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stm32f4-discovery.net/" title="https:&#x2F;&#x2F;stm32f4-discovery.net&#x2F;" rel="noopener" target="_blank">Tilen Majerle</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://mculover666.blog.csdn.net/" title="https:&#x2F;&#x2F;mculover666.blog.csdn.net&#x2F;" rel="noopener" target="_blank">Mculover666</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://y006.github.io/2022/02/27/16-42-18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/custom-logo.jpg">
+      <meta itemprop="name" content="邱金羽">
+      <meta itemprop="description" content="联系我：2420457716@qq.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          信号与系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-27 16:42:18" itemprop="dateCreated datePublished" datetime="2022-02-27T16:42:18+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-19 00:11:16" itemprop="dateModified" datetime="2022-04-19T00:11:16+08:00">2022-04-19</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/02/27/16-42-18/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/27/16-42-18/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="信号">信号</h2>
+<h3 id="常见的奇异信号">常见的奇异信号</h3>
+<p>奇异信号：函数中包含不连续点或其微分与积分有不连续点的函数，统称为奇异函数，也就是奇异信号。</p>
+<table>
+<colgroup>
+<col style="width: 29%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>名称</th>
+<th>函数表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f(t)\)</span>：单位斜变信号</td>
+<td><span class="math inline">\(f(t) = \begin{cases} 0 &amp; t&lt;0 \\\\ t &amp; t\ge0 \\ \end{cases}\)</span></td>
+</tr>
+<tr class="even">
+<td>$ u(t)$：单位阶跃信号</td>
+<td><span class="math inline">\(u(t) = \begin{cases} 0 &amp; t&lt;0 \\\\ 1 &amp; t&gt;0 \\ \end{cases}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\delta(t)\)</span>：单位冲激函数</td>
+<td><span class="math inline">\(\begin{cases} \begin{aligned} &amp;\int_{-\infty}^{\infty}\delta(t)dt = 1\\\\ &amp;\delta(t) = 0\quad while(t\not=0) \end{aligned} \end{cases}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\delta(t)&#39;\)</span>：冲激偶函数</td>
+<td><span class="math inline">\(\delta(t)&#39;=\frac{d\delta(t)}{dt}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="ft单位斜变信号"><span class="math inline">\(f(t)\)</span>：单位斜变信号</h4>
+<p>单位斜变信号的“单位”体现在其非零部分的斜率为 <span class="math inline">\(1\)</span> 。</p>
+<p>函数表达式： <span class="math display">\[
+f(t) = 
+\begin{cases}
+0 &amp;     t&lt;0     \\\\
+t &amp;     t\ge0   \\
+\end{cases}
+\]</span> 起始点移位 <span class="math inline">\(t\)</span> 后： <span class="math display">\[
+f(t-t_0) = 
+\begin{cases}
+0       &amp;       t&lt;t_0           \\\\
+t-t_0   &amp;       t\ge t_0        \\
+\end{cases}
+\]</span></p>
+<h4 id="ut单位阶跃信号">$ u(t)$：单位阶跃信号</h4>
+<p>函数表达式：</p>
+<p>由表达式可知 <span class="math inline">\(t=0\)</span> 处函数未定义，可以将 <span class="math inline">\(t=0\)</span> 处函数值定义为 <span class="math inline">\(u(0)=\frac{1}{2}\)</span>。 <span class="math display">\[
+u(t) = 
+\begin{cases}
+0   &amp;       t&lt;0     \\\\
+1   &amp;       t&gt;0     \\
+\end{cases}
+\]</span> 起始点移位 <span class="math inline">\(t\)</span> 后（或认为阶跃延时 <span class="math inline">\(t\)</span> 后），有： <span class="math display">\[
+u(t-t_0) = 
+\begin{cases}
+0   &amp;       t&lt;t_0       \\\\
+1   &amp;       t&gt;t_0       \\
+\end{cases}
+\]</span></p>
+<h4 id="deltat单位冲激函数"><span class="math inline">\(\delta(t)\)</span>：单位冲激函数</h4>
+<p>狄拉克（Dirac）定义方式： <span class="math display">\[
+\begin{cases}
+\begin{aligned}
+&amp;\int_{-\infty}^{\infty}\delta(t)dt = 1\\\\
+&amp;\delta(t) = 0\quad while(t\not=0)
+\end{aligned}
+\end{cases}
+\]</span> 狄拉克（Dirac）定义表明：</p>
+<ol type="1">
+<li>除了坐标轴零点处，其余位置单位冲激函数的函数值均为 <span class="math inline">\(0\)</span> 。</li>
+<li>单位冲激函数仅在一点处取值，而其面积（积分）为 <span class="math inline">\(1\)</span> ，由此可知单位冲激函数为长度为 <span class="math inline">\(1\)</span> 的线段：表示中我们使用长度为 <span class="math inline">\(1\)</span> 的向量来表示，方向与 <span class="math inline">\(y\)</span> 轴正半轴方向相同。</li>
+</ol>
+<h4 id="deltat冲激偶函数"><span class="math inline">\(\delta(t)&#39;\)</span>：冲激偶函数</h4>
+<p>由符号可知冲激偶函数为冲激函数的导数。</p>
+<h4 id="常见奇异信号之间的关系">常见奇异信号之间的关系：</h4>
+<p><span class="math display">\[
+\begin{cases}
+\begin{aligned}
+&amp;\frac{df(t)}{dt}=u(t)\\\\
+&amp;\frac{du(t)}{dt}=\delta(t)\\\\
+&amp;\delta(t)&#39;=\frac{d\delta(t)}{dt}
+\end{aligned}
+\end{cases}
+\]</span></p>
+<h4 id="单位冲激函数-deltat-的简单性质">单位冲激函数 <span class="math inline">\(\delta(t)\)</span> 的简单性质：</h4>
+<ol type="1">
+<li><p>单位冲激函数 <span class="math inline">\(\delta(t)\)</span> 具有<strong>抽样特性</strong>（也称“筛选”特性），<span class="math inline">\(\delta(t)\)</span> 可以用来筛选出信号中某一时刻的值（函数值），具体操作如下： <span class="math display">\[
+\int_{-\infty}^{\infty}\delta(t-t_0)f(t)dt=f(t_0)
+\]</span> 解释：对于任意一个信号 <span class="math inline">\(f(t)\)</span> ，我们使用 <span class="math inline">\(\delta(t)\)</span> 可以筛选出目标的函数值 <span class="math inline">\(f(t_0)\)</span> 。</p></li>
+<li><p>单位冲激函数 <span class="math inline">\(\delta(t)\)</span> 是一个偶函数，即 <span class="math inline">\(\delta(t)=\delta(-t)\)</span></p></li>
+</ol>
+<h3 id="线性时不变系统lti">线性时不变系统——LTI</h3>
+<ol type="1">
+<li><p>理解线性：</p>
+<ol type="1">
+<li>满足叠加性和均匀性</li>
+</ol></li>
+<li><p>理解时不变特性：即系统本身的参数不随时间发生改变</p></li>
+<li><p>线性时不变系统还具有的特性：</p>
+<ol type="1">
+<li><p>微分特性：微分特性由线性和时不变性共同得出，内容为：</p>
+<p>若激励信号 <span class="math inline">\(e(t)\)</span> 可使系统产生响应信号 <span class="math inline">\(r(t)\)</span>，则</p>
+<ul>
+<li>激励 <span class="math inline">\(\frac{de(t)}{dt}\)</span> 可产生响应 <span class="math inline">\(\frac{dr(t)}{dt}\)</span></li>
+<li>激励 <span class="math inline">\(\frac{d^2e(t)}{dt}\)</span> 可产生响应 <span class="math inline">\(\frac{d^2r(t)}{dt}\)</span>，其余高阶求导同理</li>
+<li>激励 <span class="math inline">\(\int^t_0e(\tau)d\tau\)</span> 可产生响应 <span class="math inline">\(\int^t_0r(\tau)d\tau\)</span></li>
+</ul></li>
+<li><p>因果特性：因果特性描述了激励信号与响应信号之间的联系，因果特性表明：<span class="math inline">\(t_0\)</span> 时刻的响应只与<span class="math inline">\(t=t_0\)</span> 和 <span class="math inline">\(t&lt;t_0\)</span> 时刻的输入有关，即激励和响应有着因果关系，只有有激励才会有响应。</p></li>
+</ol></li>
+</ol>
+<h3 id="分析lti">分析LTI</h3>
+<p>系统建模就是使用数学工具例如方程或者微分方程来建立模型。</p>
+<ol type="1">
+<li>系统的数学描述方法可以分为两大类：</li>
+</ol>
+<ul>
+<li>输入输出描述法——该方法注重系统激励和响应之间的关系，不关心系统内部变量情况
+<ul>
+<li>这种方法在数学上表现为一元<span class="math inline">\(n\)</span>阶微分方程</li>
+</ul></li>
+<li>状态变量描述法
+<ul>
+<li>可以给出系统响应</li>
+<li>提供系统内部各变量的情况</li>
+<li>可以用于多输入多输出系统的分析</li>
+<li>这种方法在数学上表现为<span class="math inline">\(n\)</span>元联立一阶微分方程</li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>使用数学方法描述了一个系统后，我们就需要一些求解方法来求解系统模型，求解方法大体上也可以分为两类：</li>
+</ol>
+<ul>
+<li>时域分析——时域分析是指在时间域上分析系统；前文可知系统可以简单理解为一个以时间为自变量的函数或函数族，时间域分析就是直接分析这个以时间变量作为自变量的函数。
+<ul>
+<li>时域分析分析输入输出法描述的系统模型时：
+<ul>
+<li>可以使用经典的常系数微分方程和差分方程</li>
+<li>也可以使用算子符号来简化上面的微分方程和差分方程</li>
+<li>卷积是分析线性系统时域的重要数学工具</li>
+</ul></li>
+<li>时域分析分析状态变量法描述的系统模型时：
+<ul>
+<li>需要求解矩阵方程</li>
+</ul></li>
+</ul></li>
+<li>变换域分析——变换域是指将时变函数中的自变量：时间变量变换成其他变量函数。变换域分析使得时域分析中复杂的微分积分运算变成了代数运算，将复杂的卷积运算变成了乘法运算</li>
+</ul>
+<h3 id="电系统的lti数学模型建立">电系统的LTI数学模型建立</h3>
+<p>构成电系统的LTI模型表现为微分方程式</p>
+<p>构成此类方程式的依据是电系统网络的两类约束特性：</p>
+<ul>
+<li>电元器件约束特性——电子元器件的伏安特性
+<ul>
+<li>欧姆定律：
+<ul>
+<li><span class="math inline">\(V_R(t)=Ri_R(t)\)</span></li>
+<li><span class="math inline">\(V_L(t)=L\frac{di(t)}{dt}\)</span></li>
+<li><span class="math inline">\(V_C(t)=\frac{1}{C}\int_{-\infty}^ti_C{(\tau)}d\tau\)</span></li>
+</ul></li>
+</ul></li>
+<li>网络拓扑结构——网络结构决定的电流电压关系
+<ul>
+<li>基尔霍夫定律：
+<ul>
+<li><span class="math inline">\(\sum i(t)=0\)</span></li>
+<li><span class="math inline">\(\sum v(t)=0\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>线性时不变系统的时域分析，微分方程的一般形式： <span class="math display">\[
+C_0\frac{d^nr(t)}{dt^n}+C_1\frac{d^{n-1}r(t)}{dt^{n-1}}+···+C_{n-1}\frac{dr(t)}{dt}+C_nr(t)=E_0\frac{d^me(t)}{dt^m}+E_1\frac{d^{m-1}e(t)}{dt^{m-1}}+···+E_{m-1}\frac{de(t)}{dt}+E_me(t)
+\]</span> 上式可以缩写为： <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}
+\]</span> 特殊形式，例如我们可以整理约束关系得到下式： <span class="math display">\[
+\frac{d^3r(t)}{dt^3}+7\frac{d^2r(t)}{dt^2}+16\frac{dr(t)}{dt}+12r(t)=e(t)
+\]</span> 微分方程的全解由齐次解 <span class="math inline">\(r_h(t)\)</span> 和特解 <span class="math inline">\(r_h(t)\)</span> )组成，即： <span class="math display">\[
+r(t)=r_h(t)+r_h(t)
+\]</span> 解法：</p>
+<ol type="1">
+<li>求齐次解 <span class="math inline">\(r_h(t)\)</span>：</li>
+</ol>
+<ul>
+<li><p>令 <span class="math inline">\(\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=0\)</span>，该式称为齐次方程</p></li>
+<li><p>将 <span class="math inline">\(r(t)=Ae^{\alpha t}\)</span> 代入齐次方程得 <span class="math inline">\(\sum_{i=0}^nC_{n-i}\alpha^{i}=0\)</span>，称为特征方程</p></li>
+<li><p>根据特征方程可以得齐次解 <span class="math inline">\(r_h(t)\)</span> 为</p>
+<ul>
+<li><p>特征方程没有重根：<img src="/2022/02/27/16-42-18/image-20220326234840139-16483097818622.png" alt="image-20220326234840139" style="zoom: 40%;"></p></li>
+<li><p>特征方程有重根：<img src="/2022/02/27/16-42-18/image-20220326234918784-16483097790591.png" alt="image-20220326234918784" style="zoom: 40%;"></p></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li><p>求特解 <span class="math inline">\(r_h(t)\)</span>：</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>激励函数 <span class="math inline">\(e(t)\)</span></th>
+<th>响应函数 <span class="math inline">\(r(t)\)</span> 的特解</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(E\)</span></td>
+<td><span class="math inline">\(B\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t^p\)</span></td>
+<td><span class="math inline">\(B_1t^p+B_2t^{p-1}+···+B_pt+B_{p+1}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e^{\alpha t}\)</span></td>
+<td><span class="math inline">\(Be^{\alpha t}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(cos(\omega t)\)</span></td>
+<td><span class="math inline">\(B_1cos(\omega t)+B_2sin(\omega t)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(sin(\omega t)\)</span></td>
+<td><span class="math inline">\(B_1cos(\omega t)+B_2sin(\omega t)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t^pe^{\alpha t}cos(\omega t)\)</span></td>
+<td><span class="math inline">\((B_1t^p+···+B_pt+B_{p+1})e^{\alpha t}cos(\omega t)+(D_1t^p+···+D_pt+D_{p+1})e^{\alpha t}sin(\omega t)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(t^pe^{\alpha t}sin(\omega t)\)</span></td>
+<td><span class="math inline">\((B_1t^p+···+B_pt+B_{p+1})e^{\alpha t}cos(\omega t)+(D_1t^p+···+D_pt+D_{p+1})e^{\alpha t}sin(\omega t)\)</span></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>求待定系数 <span class="math inline">\(A\)</span>：</p></li>
+</ol>
+<h3 id="拉普拉斯变换">拉普拉斯变换</h3>
+<p>形态上，拉普拉斯变换做了这样一件事： <span class="math display">\[
+f(t)\xrightarrow{\sf{拉普拉斯变换}}F(s)
+\]</span> 或者说： <span class="math display">\[
+f(t)\xrightarrow{\mathscr{L}\{f(t)\}}F(s)
+\]</span> 从形态上讲，拉普拉斯变换将一个以时间 <span class="math inline">\(t\)</span> 为自变量的函数变换成了一个以频率 <span class="math inline">\(s\)</span> 为自变量的函数。</p>
+<p>拉普拉斯变换将函数从时域变换到了频域，其实就是信号的自变量发生了变化。</p>
+<p>意义：拉普拉斯变换可以将时域内的微分方程变换成频域内的代数方程，降低计算难度并且从频域再次回到时域时保证解不变。</p>
+<p><span class="math inline">\(\mathscr{L}\{f(t)\}\)</span> 拉氏变换的定义为： <span class="math display">\[
+\mathscr{L}\{f(t)\}=\int_{0}^{\infty}f(t)\cdot e^{-st}dt
+\]</span> 注意事项：</p>
+<ol type="1">
+<li>进行拉氏变换的 <span class="math inline">\(f(t)\)</span> 是否存在的问题：
+<ul>
+<li>首先是初等函数都能进行拉氏变换</li>
+<li>默认在线性电路分析中均使用能够进行拉氏变换的电源进行系统的激励</li>
+</ul></li>
+<li>上述拉氏变换也可以称作单边拉氏变换，此变换忽略了 <span class="math inline">\(t&lt;0\)</span> 时的 <span class="math inline">\(f(t)\)</span></li>
+<li><span class="math inline">\(t&lt;0\)</span> 时的 <span class="math inline">\(f(t)\)</span> 可以通过初始条件来考虑</li>
+</ol>
+<p>分类：</p>
+<p>学习拉普拉斯变换将拉普拉斯变换分为函数变换和算子变换</p>
+<ul>
+<li>函数变换：研究初等函数的拉氏变换</li>
+<li>算子变换：研究一般函数的拉氏变换</li>
+</ul>
+<h4 id="算子变换">算子变换：</h4>
+<table>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>拉氏变换</th>
+<th><span class="math inline">\(\mathscr{L}\{f(t)\}=F(s)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>乘以常数</td>
+<td><span class="math inline">\(\mathscr{L}\{Kf(t)\}=KF(s)\)</span></td>
+</tr>
+<tr class="even">
+<td>加减运算</td>
+<td><span class="math inline">\(\mathscr{L}\{f(t_1)+f(t_2)-f(t_3)\}=F(s_1)+F(s_2)-F(s_3)\)</span></td>
+</tr>
+<tr class="odd">
+<td>微分运算</td>
+<td>一重微分：<span class="math inline">\(\mathscr{L}\{\frac{df(t)}{dt}\}=sF(s)-f(0^-)\)</span><br><span class="math inline">\(n\)</span> 重微分：<span class="math inline">\(\mathscr{L}\{\frac{d^nf(t)}{dt^n}\}=s^nF(s)-s^{n-1}f(0^-)-\sum_{i=2}^{n}s^{n-i}\frac{d^{i-1}f(0^-)}{dt^{i-1}}\)</span></td>
+</tr>
+<tr class="even">
+<td>积分运算</td>
+<td><span class="math inline">\(\mathscr{L}\{\int_{0^-}^{t}f(t)dt\}=F(s)/s\)</span></td>
+</tr>
+<tr class="odd">
+<td>时域平移特性</td>
+<td><span class="math inline">\(\mathscr{L}\{f(t-a)\cdot u(t-a)\}=e^{-as}\cdot F(s),\quad a&gt;0\)</span><br><span class="math inline">\(\mathscr{L}\{e^{-as}\cdot F(s)\}=F(s+a)\)</span></td>
+</tr>
+<tr class="even">
+<td>尺度变换特性</td>
+<td><span class="math inline">\(\mathscr{L}\{f(at)\}=\frac{1}{a}F\left(\frac{s}{a}\right),\quad a&gt;0\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="傅里叶分析简介">傅里叶分析简介</h3>
+<p>傅里叶定理表明，任何一个角频率为<span class="math inline">\(\omega_0\)</span>的周期函数都可以表示为无穷多个频率为<span class="math inline">\(\omega_0\)</span>整数倍的正弦函数与余弦函数之和。</p>
+<p>对于一个周期函数<span class="math inline">\(f(t)\)</span>，若满足Dirichlet条件，则该周期函数可以展开成傅里叶级数，即： <span class="math display">\[
+\begin{aligned}
+    &amp;if\quad f(t)=f(t+T)\\\\
+    &amp;then\quad f(t)=a_0 + \displaystyle\sum_{n=1}^{\infty}a_ncos(n\omega_0t) +  \displaystyle\sum_{n=1}^{\infty}b_nsin(n\omega_0t)\\
+    &amp;\boxed
+    {
+        \begin{aligned}
+        &amp;a_0=\frac{1}{T}\int^{T}_{0}f(t)\,dt\\
+        &amp;a_n=\frac{2}{T}\int^{T}_{0} f(t) cos(n\omega_0t) \,dt \\
+        &amp;b_n=\frac{2}{T}\int^{T}_{0} f(t) cos(n\omega_0t) \,dt \\
+        \end{aligned}
+    }
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;if \quad f(t)=f(-t)\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\;\,\\\\
+    &amp;\boxed
+    {
+        \begin{aligned}
+        &amp;a_0=\frac{2}{T}\int^{T/2}_{0}f(t)\,dt\\
+        &amp;a_n=\frac{4}{T}\int^{T/2}_{0} f(t) cos(n\omega_0t) \,dt \\
+        &amp;b_n=0 \\
+        \end{aligned}
+    }
+\end{aligned}
+\]</span></p>
+<p>展开式中<span class="math inline">\(a_0\)</span>称为直流分量，其值等于函数<span class="math inline">\(f(t)\)</span>的平均值；<span class="math inline">\(a_n\)</span>与<span class="math inline">\(b_n(n\not=0)\)</span>是交流分量的幅值 <span class="math display">\[
+f(t)=f(t+T)\Rightarrow
+f(t)=a_0 + \displaystyle\sum_{n=1}^{\infty}a_ncos(n\omega_0t) + \displaystyle\sum_{n=1}^{\infty}b_nsin(n\omega_0t)\\
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}{c|c|c}
+    \begin{aligned}
+    &amp;general\quad condition\\
+    &amp;\boxed
+    {
+        \begin{aligned}
+            &amp;a_0=\frac{1}{T}\int^{T}_{0}f(t)\,dt\\
+            &amp;a_n=\frac{2}{T}\int^{T}_{0} f(t) cos(n\omega_0t) \,dt \\
+            &amp;b_n=\frac{2}{T}\int^{T}_{0} f(t) sin(n\omega_0t) \,dt \\
+        \end{aligned}
+    }
+    \end{aligned}
+    &amp;
+    \begin{aligned}
+        &amp;if \quad f(t)=f(-t)\\
+        &amp;\boxed
+        {
+            \begin{aligned}
+                &amp;a_0=\frac{2}{T}\int^{T/2}_{0}f(t)\,dt\\
+                &amp;a_n=\frac{4}{T}\int^{T/2}_{0} f(t) cos(n\omega_0t) \,dt \\
+                &amp;b_n=0 \\
+            \end{aligned}
+}
+    \end{aligned}
+    &amp; 
+    \begin{aligned}
+    &amp;if \quad f(t)=-f(-t)\\
+    &amp;\boxed
+    {
+        \begin{aligned}
+            &amp;a_0=0\\
+            &amp;a_n=0\\
+            &amp;b_n=\frac{4}{T}\int^{T/2}_{0} f(t) sin(n\omega_0t) \,dt  \\
+        \end{aligned}
+}
+    \end{aligned}\\
+\end{array}\\
+\]</span></p>
+<p><span class="math display">\[
+P_{1\Omega}=F_{rms}^2=a_0^2+\frac{1}{2}\displaystyle\sum_{n=1}^{\infty}(a_n^2+b_n^2)
+\]</span></p>
+<p>线性系统：</p>
+<p>线性系统是指具有叠加性和均匀性的系统：</p>
+<ul>
+<li>叠加性：多个激励同时作用时产生的响应 = 多个激励分别作用时产生的响应的和</li>
+<li>均匀性：输入增益于输出增益相同</li>
+</ul>
+<p><span class="math display">\[
+v_R(t)=Ri_R(t)\\
+v_L(t)=L\frac{i_L(t)}{dt}\\
+v_C(t)=\frac{1}{C}\int_{-\infty}^{t}i_C(\tau)d\tau
+\]</span></p>
+<p><span class="math display">\[
+V_L(t)+V_R(t)+V_C(t)=e(t)\\
+L\frac{i_L(t)}{dt}+Ri_R(t)+\frac{1}{C}\int_{-\infty}^{t}i_C(\tau)d\tau=e(t)\\
+L\frac{d^2i_L(t)}{dt^2}+R\frac{di_R(t)}{dt}+\frac{1}{C}i_C(t)=\frac{de(t)}{dt}\\
+对于串联，有i_L=i_R=i_C\\
+L\frac{d^2i(t)}{dt^2}+R\frac{di(t)}{dt}+\frac{1}{C}i(t)=\frac{de(t)}{dt}\\
+\]</span></p>
+<p><span class="math display">\[
+i_R(t)=\frac{1}{R}v(t)\\
+i_L(t)=\frac{1}{L}\int_{-\infty}^{t}v(\tau)d\tau\\
+i_C(t)=C\frac{dv_C(t)}{dt}
+\]</span></p>
+<p><span class="math display">\[
+i_C(t)+i_R(t)+i_L(t)=i_S(t)\\
+C\frac{d^2v(t)}{dt^2}+\frac{1}{R}\frac{dv(t)}{dt}+\frac{1}{L}v(t)=\frac{di_S(t)}{dt}\\
+\]</span></p>
+<p>若组成系统的都是参数恒定的线性元件，则相应的数学模型是一个线性常系数常微分方程，若各器件初始无储能，则为一个线性时不变系统</p>
+<p>则对于一个线性时不变系统来说，其数学模型可以使用一个微分方程来描述： <span class="math display">\[
+C_0\frac{d^nr(t)}{dt^n}+C_1\frac{d^{n-1}r(t)}{dt^{n-1}}+···+C_{n-1}\frac{dr(t)}{dt}+C_nr(t)=E_0\frac{d^me(t)}{dt^m}+E_1\frac{d^{m-1}e(t)}{dt^{m-1}}+···+E_{m-1}\frac{de(t)}{dt}+E_me(t)
+\]</span> 方程的解可以记作： $$</p>
+<p>$$</p>
+<p>线性电路系统由线性电子元器件构成，描述此类系统需要借助电路网络的两类约束条件：</p>
+<ul>
+<li>元件约束特性</li>
+<li>网络拓扑约束</li>
+</ul>
+<p>两种约束的数学描述可以由<strong>微分方程组</strong>给出，这类方程组称为系统的<strong>状态方程</strong></p>
+<p>我们联立上述方程组可以得到<strong>一个高阶微分方程</strong>，这个高阶微分方程称作<strong>输入输出方程</strong>，其阶数为系统的阶数</p>
+<p>系统的输入称为激励，输出称为响应；若能给出系统的<strong>初始状态</strong>和<strong>激励</strong>，则可以获得<strong>响应</strong></p>
+<p>系统的初始状态由若干独立条件给出，独立条件的个数与系统的阶数相同</p>
+<p>线性时不变系统一般使用一个n阶线性微分方程来描述</p>
+<p>这个方程可以被整理为： <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}
+\]</span> 一般来说，对于响应，其有实际意义的定义域称为响应区间，即：<span class="math inline">\(0_+ \le t&lt; \infty\)</span></p>
+<p><span class="math inline">\(e(t)\)</span>加入前，系统为起始状态（<span class="math inline">\(0_-\)</span>状态） <span class="math display">\[
+r^k(0_-)=[r(0_-),\frac{d}{dt}r(0_-),...,\frac{d^n}{dt^n}r(0_-)]
+\]</span></p>
+<p><span class="math inline">\(e(t)\)</span>加入后，系统为初始状态（<span class="math inline">\(0_+\)</span>状态） <span class="math display">\[
+r^k(0_+)=[r(0_+),\frac{d}{dt}r(0_+),...,\frac{d^n}{dt^n}r(0_+)]
+\]</span> 因此，决定关系为：</p>
+<ul>
+<li>起始状态 <span class="math inline">\(+\)</span> <span class="math inline">\(e(t)\)</span> <span class="math inline">\(\rightarrow\)</span> 初始状态</li>
+<li>初始状态 <span class="math inline">\(\rightarrow\)</span> 响应齐次解的常系数 <span class="math inline">\(A\)</span></li>
+</ul>
+<p>响应可以拆解为三种形式：</p>
+<ul>
+<li>固有响应 <span class="math inline">\(+\)</span> 受迫响应</li>
+<li>零输入响应 <span class="math inline">\(+\)</span> 零状态响应</li>
+<li>暂态响应 <span class="math inline">\(+\)</span> 稳态响应</li>
+</ul>
+<h6 id="全响应">全响应：</h6>
+<p>对于使用<span class="math inline">\(n\)</span>阶微分方程描述的线性系统： <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}
+\]</span> 上述微分方程的解，即系统的响应，为：<span class="math inline">\(r(t)=r_h+r_p\)</span>，求解步骤为：</p>
+<ul>
+<li>使用特征根求解待定系数的齐次解</li>
+<li>使用待定系数法求解特解</li>
+<li>求解齐次解中的系数
+<ul>
+<li>使用 <span class="math inline">\(r^k(0_+)=[r(0_+),\frac{d}{dt}r(0_+),...,\frac{d^n}{dt^n}r(0_+)]\)</span> 来求解系数向量 <span class="math inline">\(A_n\)</span></li>
+<li>寻找 <span class="math inline">\(r^k(0_-)\)</span> 与 <span class="math inline">\(r^k(0_+)\)</span> 之间的关系
+<ul>
+<li>物理法：对于电路系统来说即换路定理：电容电感端性质的连续性</li>
+<li>数学法：冲激函数匹配法：微分方程两端保持各阶奇异函数的平衡</li>
+</ul></li>
+</ul></li>
+</ul>
+<h6 id="固有响应和受迫响应">固有响应和受迫响应：</h6>
+<p><span class="math inline">\(r(t)=r_h+r_p\)</span> <span class="math display">\[
+r(t)=\underbrace_{\sf{固有响应}}+\underbrace_{\sf{受迫响应}}
+\]</span></p>
+<h6 id="零输入响应和零状态响应">零输入响应和零状态响应：</h6>
+<p><strong>零输入响应：</strong> <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=0
+\]</span> 其中 <span class="math display">\[
+\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}=0
+\]</span> 说明 <span class="math display">\[
+[r(0_+),\frac{d}{dt}r(0_+),...,\frac{d^n}{dt^n}r(0_+)]=r^k(0_-)=[r(0_-),\frac{d}{dt}r(0_-),...,\frac{d^n}{dt^n}r(0_-)]
+\]</span> <strong>零状态响应：</strong> <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}
+\]</span> 但是与全响应不同的是，零状态响应中： <span class="math display">\[
+r^k(0_-)=[r(0_-),\frac{d}{dt}r(0_-),...,\frac{d^n}{dt^n}r(0_-)]=[0,0,...,0]
+\]</span> 其余求法依旧是：</p>
+<ul>
+<li>使用特征根求解待定系数的齐次解</li>
+<li>使用待定系数法求解特解</li>
+<li>求解齐次解中的系数</li>
+</ul>
+<p>注意：先求特解再求系数不要乱！</p>
+<p>对于使用<span class="math inline">\(n\)</span>阶微分方程描述的线性系统： <span class="math display">\[
+\sum_{i=0}^nC_{n-i}\frac{d^ir(t)}{dt^i}=\sum_{j=0}^mE_{m-j}\frac{d^je(t)}{dt^j}
+\]</span> 上述微分方程的解，即系统的响应，为：<span class="math inline">\(r(t)=r_h+r_p\)</span>，求解步骤为：</p>
+<ul>
+<li>使用特征根求解待定系数的齐次解</li>
+<li>使用待定系数法求解特解</li>
+<li>求解齐次解中的系数：使用 <span class="math inline">\(r^k(0_+)=[r(0_+),\frac{d}{dt}r(0_+),...,\frac{d^n}{dt^n}r(0_+)]\)</span> 来求解系数向量 <span class="math inline">\(A_n\)</span></li>
+</ul>
+<h2 id="如何从微分方程上判断线性系统">如何从微分方程上判断线性系统</h2>
+<ol type="1">
+<li>只能出现函数本身，以及函数的任何阶次的导函数；</li>
+<li>函数本身跟所有的导函数之间除了加减之外，不可以有任何运算；</li>
+<li>函数本身跟本身、各阶导函数本身跟本身，都不可以有任何加减之外的运算；</li>
+<li>若有积分项，被积函数应为输入变量，如 <span class="math inline">\(\int_{-\infty}^{t}r(\tau)d\tau\)</span>。其实积分就是微分的负次幂。</li>
+<li>不允许对函数本身、各阶导函数做任何形式的复合运算。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/40919950">线性微分方程与非线性微分方程的区别是什么？</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>如果有帮助请我喝杯咖啡吧(●'◡'●)</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="邱金羽 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="邱金羽 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>邱金羽
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://y006.github.io/2022/02/27/16-42-18/" title="信号与系统">https://y006.github.io/2022/02/27/16-42-18/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Electrical-Engineering/" rel="tag"># Electrical Engineering</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/27/16-42-00/" rel="prev" title="电路基础">
+                  <i class="fa fa-chevron-left"></i> 电路基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/05/16-32-26/" rel="next" title="微机原理与接口技术">
+                  微机原理与接口技术 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱金羽</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"Bolgqjy","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
